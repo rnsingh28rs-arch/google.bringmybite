@@ -29,6 +29,13 @@ interface NavbarProps {
   onOpenSearch: () => void;
 }
 
+/**
+ * Feature Flag: Top Information Strip
+ * When set to false, visually hides the top information strip (disclaimer, audit date, Admin & AdSense, India Offers)
+ * while preserving 100% of the underlying markup and functionality for easy future restoration.
+ */
+export const SHOW_TOP_INFORMATION_STRIP = false;
+
 export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenSearch }) => {
   const { user, openSignInModal, signOut } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -126,36 +133,38 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
       {/* Google 4-Color Ambient Top Ribbon */}
       <div className="h-1 w-full bg-gradient-to-r from-[#4285F4] via-[#EA4335] via-[#FBBC05] to-[#34A853]"></div>
 
-      {/* Top Compact Editorial Announcement Bar */}
-      <div className="bg-slate-900 text-slate-300 px-4 py-1.5 text-[11px] font-medium border-b border-slate-800 select-none">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2 truncate">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 flex-shrink-0 animate-pulse"></span>
-            <span className="text-slate-200 truncate">
-              <strong className="font-semibold text-white">Google Tool Finder:</strong> Independent Technology Discovery & Monetisation Guide by parent company Bring My Bite. Not affiliated with Google LLC.
-            </span>
-          </div>
+      {/* Top Compact Editorial Announcement Bar (Preserved for future restoration; visually hidden per specification) */}
+      {SHOW_TOP_INFORMATION_STRIP && (
+        <div className="bg-slate-900 text-slate-300 px-4 py-1.5 text-[11px] font-medium border-b border-slate-800 select-none">
+          <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2 truncate">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 flex-shrink-0 animate-pulse"></span>
+              <span className="text-slate-200 truncate">
+                <strong className="font-semibold text-white">Google Tool Finder:</strong> Independent Technology Discovery & Monetisation Guide by parent company Bring My Bite. Not affiliated with Google LLC.
+              </span>
+            </div>
 
-          <div className="flex items-center gap-3 text-slate-400 flex-shrink-0 text-[11px]">
-            <span className="hidden sm:inline">Audited: Oct 2026</span>
-            <span className="hidden sm:inline text-slate-700">•</span>
-            <button 
-              onClick={() => handleNavClick('admin')}
-              className="text-slate-300 hover:text-white transition-colors underline-offset-2 hover:underline cursor-pointer"
-            >
-              Admin & AdSense
-            </button>
-            <span className="text-slate-700">•</span>
-            <button 
-              onClick={() => handleNavClick('india-offers', 'india-offers-section')}
-              className="text-emerald-400 hover:text-emerald-300 font-semibold transition-colors flex items-center gap-1.5 group cursor-pointer"
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 group-hover:scale-125 transition-transform"></span>
-              <span>India Offers: Jio & Airtel Perks (₹)</span>
-            </button>
+            <div className="flex items-center gap-3 text-slate-400 flex-shrink-0 text-[11px]">
+              <span className="hidden sm:inline">Audited: Oct 2026</span>
+              <span className="hidden sm:inline text-slate-700">•</span>
+              <button 
+                onClick={() => handleNavClick('admin')}
+                className="text-slate-300 hover:text-white transition-colors underline-offset-2 hover:underline cursor-pointer"
+              >
+                Admin & AdSense
+              </button>
+              <span className="text-slate-700">•</span>
+              <button 
+                onClick={() => handleNavClick('india-offers', 'india-offers-section')}
+                className="text-emerald-400 hover:text-emerald-300 font-semibold transition-colors flex items-center gap-1.5 group cursor-pointer"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 group-hover:scale-125 transition-transform"></span>
+                <span>India Offers: Jio & Airtel Perks (₹)</span>
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Main Sticky Header with Liquid Glass Backdrop */}
       <header className="sticky top-0 z-40 liquid-glass-nav transition-all duration-200">

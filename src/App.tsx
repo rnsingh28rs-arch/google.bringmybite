@@ -10,6 +10,7 @@ import { GoogleSignInModal } from './components/GoogleSignInModal';
 import { PRODUCTS } from './data/products';
 import { TUTORIALS } from './data/tutorials';
 import { COMPARISONS } from './data/comparisons';
+import { setupSecurityDeterrent } from './utils/securityDeterrent';
 
 // Code-split route components to optimize initial bundle size below 500kB
 const ProductsPage = lazy(() => import('./pages/ProductsPage').then(m => ({ default: m.ProductsPage })));
@@ -123,6 +124,14 @@ export default function App() {
     return () => {
       window.removeEventListener('popstate', handlePopState);
       window.removeEventListener('hashchange', handlePopState);
+    };
+  }, []);
+
+  // Frontend security safeguards: modest deterrent against accidental right clicks and devtools hotkeys
+  useEffect(() => {
+    const cleanupDeterrent = setupSecurityDeterrent();
+    return () => {
+      cleanupDeterrent();
     };
   }, []);
 

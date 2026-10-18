@@ -631,6 +631,20 @@ async function runTests() {
       }
     }
     assert(!secretFound, 'Zero provider secrets or passwords leaked in production client bundle');
+
+    // Check Top Information Strip visual suppression and source preservation
+    const navbarContent = fs.readFileSync(path.join(process.cwd(), 'src', 'components', 'Navbar.tsx'), 'utf-8');
+    assert(navbarContent.includes('export const SHOW_TOP_INFORMATION_STRIP = false;'), 'Top Information Strip visually hidden by default via feature flag');
+    assert(navbarContent.includes('SHOW_TOP_INFORMATION_STRIP &&'), 'Top Information Strip source markup and logic fully preserved for restoration');
+    assert(navbarContent.includes('Admin & AdSense') && navbarContent.includes('India Offers: Jio & Airtel Perks'), 'Top Information Strip content and links preserved intact in codebase');
+
+    // Check Frontend Security Deterrent module
+    const deterrentPath = path.join(process.cwd(), 'src', 'utils', 'securityDeterrent.ts');
+    assert(fs.existsSync(deterrentPath), 'src/utils/securityDeterrent.ts exists');
+    const deterrentContent = fs.readFileSync(deterrentPath, 'utf-8');
+    assert(deterrentContent.includes('isEditableElement') && deterrentContent.includes("tagName === 'input'"), 'Security deterrent preserves form inputs and text selection');
+    assert(deterrentContent.includes("closest('a')"), 'Security deterrent preserves link context menus');
+    assert(deterrentContent.includes('Self-XSS'), 'Security deterrent outputs protective Self-XSS console advisory');
   }
 
   // TEST SUITE 8: USER PROFILE AND TOOL STACK PERSISTENCE (/api/user)
