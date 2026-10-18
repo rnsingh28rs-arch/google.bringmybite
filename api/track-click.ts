@@ -31,7 +31,13 @@ const ALLOWED_DOMAINS = [
   'forms.google.com',
   'sites.google.com',
   'appsheet.com',
-  'www.appsheet.com'
+  'www.appsheet.com',
+  'deepmind.google',
+  'blog.google',
+  'about.google',
+  'goo.gl',
+  'app.goo.gl',
+  'referworkspace.app.goo.gl'
 ];
 
 export function isAllowedDestination(urlString: string): boolean {
@@ -120,6 +126,7 @@ export default async function handler(req: IncomingMessage & { body?: any }, res
     const sourcePage = rawUrl.searchParams.get('source') || 'home';
     const sessionId = rawUrl.searchParams.get('session') || undefined;
     const userUid = rawUrl.searchParams.get('uid') || undefined;
+    const isAffiliate = rawUrl.searchParams.get('affiliate') === 'true' || rawUrl.searchParams.get('isAffiliate') === 'true';
 
     if (!targetUrl || !isAllowedDestination(targetUrl)) {
       return sendJson(res, 400, {
@@ -134,7 +141,7 @@ export default async function handler(req: IncomingMessage & { body?: any }, res
         sourcePage,
         productSlug,
         destination: targetUrl,
-        isAffiliate: false,
+        isAffiliate,
         sessionId,
         userUid,
         timestamp: new Date().toISOString(),

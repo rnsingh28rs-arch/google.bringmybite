@@ -23,6 +23,7 @@ import { IconHelper } from '../components/IconHelper';
 import { AffiliateLink } from '../components/AffiliateNotice';
 import { TutorialCard } from '../components/TutorialCard';
 import { trackOutboundClick } from '../utils/analyticsBroker';
+import { resolveProductActionUrl, getMonetizationSettings } from '../data/monetizationConfig';
 import { useAuth } from '../context/AuthContext';
 
 interface ProductDetailPageProps {
@@ -63,6 +64,8 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
   const relatedTutorials = TUTORIALS.filter(t => 
     t.relatedProductSlug === product.slug || product.relatedTutorialSlugs.includes(t.slug)
   );
+  const settings = getMonetizationSettings();
+  const actionLink = resolveProductActionUrl(product.officialUrl, product.affiliateUrl, product.slug);
 
   const getPricingBadge = (status: Product['pricingStatus']) => {
     switch (status) {
@@ -131,15 +134,21 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
         <div className="pt-6 flex flex-wrap items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-3">
             <a
-              href={product.officialUrl}
+              href={actionLink.url}
               target="_blank"
               rel="noopener noreferrer nofollow"
-              onClick={() => trackOutboundClick(product.officialUrl, { productSlug: product.slug, sourcePage: 'ProductDetailPage' })}
+              onClick={() => trackOutboundClick(actionLink.url, { productSlug: product.slug, isAffiliate: actionLink.isAffiliate, sourcePage: 'ProductDetailPage' })}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white shadow-xs transition-colors cursor-pointer"
             >
-              <span>Visit Official Website</span>
+              <span>{actionLink.isAffiliate ? 'Visit Partner Portal' : 'Visit Official Website'}</span>
               <ExternalLink className="w-3.5 h-3.5" />
             </a>
+
+            {actionLink.isAffiliate && (
+              <span className="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                Partner Link
+              </span>
+            )}
 
             {product.officialPricingUrl && (
               <a
@@ -314,9 +323,9 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
 
           {/* Commercial Partner Link Box */}
           <AffiliateLink
-            merchantName="Google"
-            destinationUrl={product.officialUrl}
-            trackingId={`gtf-${product.slug}-01`}
+            merchantName={product.name}
+            destinationUrl={actionLink.url}
+            trackingId={actionLink.isAffiliate ? (product.affiliateTrackingId || settings.affiliate.defaultTrackingTag || 'partner') : undefined}
             variant="card"
           />
 

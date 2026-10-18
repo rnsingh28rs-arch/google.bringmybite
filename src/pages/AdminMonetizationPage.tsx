@@ -420,6 +420,62 @@ const AdminMonetizationContent: React.FC<AdminMonetizationContentProps> = ({
                     When empty, standard official Google Workspace URL is used with zero tracking.
                   </span>
                 </div>
+
+                {/* Google Cloud Partner Link Override */}
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700 block">Google Cloud Partner Link Override</label>
+                  <input
+                    type="text"
+                    value={settings.affiliate.programs.googleCloud.customUrl}
+                    onChange={(e) => setSettings({
+                      ...settings,
+                      affiliate: {
+                        ...settings.affiliate,
+                        programs: {
+                          ...settings.affiliate.programs,
+                          googleCloud: {
+                            ...settings.affiliate.programs.googleCloud,
+                            customUrl: e.target.value,
+                            active: e.target.value.length > 0
+                          }
+                        }
+                      }
+                    })}
+                    placeholder="https://cloud.google.com/?partner=YOUR_PARTNER_ID"
+                    className="w-full px-3.5 py-2 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  />
+                  <span className="text-[10px] text-slate-400 block">
+                    When empty, standard official Google Cloud URL is used with zero tracking.
+                  </span>
+                </div>
+
+                {/* Google One Partner Link Override */}
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700 block">Google One Partner Link Override</label>
+                  <input
+                    type="text"
+                    value={settings.affiliate.programs.googleOne.customUrl}
+                    onChange={(e) => setSettings({
+                      ...settings,
+                      affiliate: {
+                        ...settings.affiliate,
+                        programs: {
+                          ...settings.affiliate.programs,
+                          googleOne: {
+                            ...settings.affiliate.programs.googleOne,
+                            customUrl: e.target.value,
+                            active: e.target.value.length > 0
+                          }
+                        }
+                      }
+                    })}
+                    placeholder="https://one.google.com/?ref=YOUR_CODE"
+                    className="w-full px-3.5 py-2 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  />
+                  <span className="text-[10px] text-slate-400 block">
+                    When empty, standard official Google One URL is used with zero tracking.
+                  </span>
+                </div>
               </div>
 
               <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] text-slate-500">

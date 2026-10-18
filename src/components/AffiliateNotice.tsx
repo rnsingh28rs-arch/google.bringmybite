@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ExternalLink, Info, ShieldCheck, Tag } from 'lucide-react';
 import { trackOutboundClick } from '../utils/analyticsBroker';
+import { getMonetizationSettings } from '../data/monetizationConfig';
 
 interface AffiliateLinkProps {
   merchantName: string;
@@ -21,10 +22,17 @@ export const AffiliateLink: React.FC<AffiliateLinkProps> = ({
   variant = 'button',
 }) => {
   const [showTooltip, setShowTooltip] = useState(false);
+  const settings = getMonetizationSettings();
 
-  // If real approved tracking exists, use it; otherwise, preserve pristine authentic destination
+  // Active approved affiliate only if affiliate mode is enabled and legitimate non-placeholder tracking exists
   const effectiveUrl = destinationUrl;
-  const isApprovedAffiliate = Boolean(trackingId && trackingId !== 'demo-gtf-tracker-01' && trackingId.trim());
+  const isApprovedAffiliate = Boolean(
+    settings.affiliate.enabled &&
+    trackingId &&
+    !trackingId.startsWith('gtf-') &&
+    !trackingId.includes('demo') &&
+    trackingId.trim().length > 0
+  );
 
   const handleClick = () => {
     trackOutboundClick(effectiveUrl, {
@@ -44,11 +52,13 @@ export const AffiliateLink: React.FC<AffiliateLinkProps> = ({
             </span>
           </div>
           <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-emerald-100 text-emerald-800 border border-emerald-200">
-            {isApprovedAffiliate ? 'Partner Link' : 'Verified Official Google URL'}
+            {isApprovedAffiliate ? (settings.affiliate.disclosure?.shortBadge || 'Partner Link') : 'Verified Official Google URL'}
           </span>
         </div>
         <p className="mt-2 text-xs text-slate-600 leading-relaxed">
-          Google Tool Finder maintains strict editorial independence. This button redirects directly to the authentic Google product or developer portal.
+          {isApprovedAffiliate
+            ? (settings.affiliate.disclosure?.fullNotice || 'Google Tool Finder may earn a referral fee from qualifying registrations through this link at no additional cost to you.')
+            : 'Google Tool Finder maintains strict editorial independence. This button redirects directly to the authentic Google product or developer portal.'}
         </p>
         <div className="mt-3 flex items-center gap-3">
           <a
@@ -58,7 +68,7 @@ export const AffiliateLink: React.FC<AffiliateLinkProps> = ({
             onClick={handleClick}
             className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white transition-colors"
           >
-            {label || `Visit Official ${merchantName}`}
+            {label || (isApprovedAffiliate ? `Visit ${merchantName} Partner Link` : `Visit Official ${merchantName}`)}
             <ExternalLink className="w-3.5 h-3.5" />
           </a>
         </div>
@@ -81,10 +91,10 @@ export const AffiliateLink: React.FC<AffiliateLinkProps> = ({
             : 'text-blue-600 hover:text-blue-800 underline'
         } ${className}`}
       >
-        <span>{label || `Official ${merchantName} Site`}</span>
+        <span>{label || (isApprovedAffiliate ? `${merchantName} Partner Link` : `Official ${merchantName} Site`)}</span>
         <ExternalLink className="w-3.5 h-3.5 opacity-70" />
         <span className="ml-1 px-1.5 py-0.2 rounded text-[10px] bg-slate-100 text-slate-600 border border-slate-200">
-          Official Site
+          {isApprovedAffiliate ? 'Partner Link' : 'Official Site'}
         </span>
       </a>
 
@@ -95,7 +105,9 @@ export const AffiliateLink: React.FC<AffiliateLinkProps> = ({
             <span>Outbound Link Transparency</span>
           </div>
           <p className="text-[11px] text-slate-300 leading-snug">
-            Direct navigation to the authentic Google ecosystem portal. Outbound click safely recorded in server telemetry.
+            {isApprovedAffiliate 
+              ? 'Approved affiliate referral link. Outbound click safely recorded in server telemetry.' 
+              : 'Direct navigation to the authentic Google ecosystem portal. Outbound click safely recorded in server telemetry.'}
           </p>
         </div>
       )}

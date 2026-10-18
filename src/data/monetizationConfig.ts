@@ -160,15 +160,41 @@ export const saveMonetizationSettings = (settings: MonetizationSettings): void =
  */
 export const resolveProductActionUrl = (
   productOfficialUrl: string, 
-  productAffiliateUrl?: string
+  productAffiliateUrl?: string,
+  productSlug?: string
 ): { url: string; isAffiliate: boolean } => {
   const settings = getMonetizationSettings();
-  if (settings.affiliate.enabled && productAffiliateUrl && productAffiliateUrl.trim().length > 0) {
-    return {
-      url: productAffiliateUrl,
-      isAffiliate: true
-    };
+  if (settings.affiliate.enabled) {
+    // 1. Direct per-product affiliate link override
+    if (productAffiliateUrl && productAffiliateUrl.trim().length > 0) {
+      return {
+        url: productAffiliateUrl.trim(),
+        isAffiliate: true
+      };
+    }
+
+    // 2. Program-level custom referral links if actively configured
+    const slug = (productSlug || '').toLowerCase();
+    if ((slug === 'google-workspace' || slug === 'workspace') && settings.affiliate.programs.googleWorkspace?.active && settings.affiliate.programs.googleWorkspace.customUrl) {
+      return {
+        url: settings.affiliate.programs.googleWorkspace.customUrl.trim(),
+        isAffiliate: true
+      };
+    }
+    if ((slug === 'google-cloud' || slug === 'gcp') && settings.affiliate.programs.googleCloud?.active && settings.affiliate.programs.googleCloud.customUrl) {
+      return {
+        url: settings.affiliate.programs.googleCloud.customUrl.trim(),
+        isAffiliate: true
+      };
+    }
+    if ((slug === 'google-drive' || slug === 'gemini') && settings.affiliate.programs.googleOne?.active && settings.affiliate.programs.googleOne.customUrl) {
+      return {
+        url: settings.affiliate.programs.googleOne.customUrl.trim(),
+        isAffiliate: true
+      };
+    }
   }
+
   return {
     url: productOfficialUrl,
     isAffiliate: false

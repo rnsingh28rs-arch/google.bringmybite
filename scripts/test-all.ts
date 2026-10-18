@@ -548,6 +548,9 @@ async function runTests() {
     // 6.1 Validates whitelist
     assert(isAllowedDestination('https://workspace.google.com/pricing') === true, 'Allows official domain workspace.google.com');
     assert(isAllowedDestination('https://cloud.google.com/run') === true, 'Allows official domain cloud.google.com');
+    assert(isAllowedDestination('https://deepmind.google/technologies/gemini') === true, 'Allows official domain deepmind.google');
+    assert(isAllowedDestination('https://referworkspace.app.goo.gl/promo') === true, 'Allows official referral domain referworkspace.app.goo.gl');
+    assert(isAllowedDestination('https://blog.google/technology/ai') === true, 'Allows official domain blog.google');
     assert(isAllowedDestination('https://evil-phishing-site.com') === false, 'Rejects untrusted external domain');
     assert(isAllowedDestination('javascript:alert(1)') === false, 'Rejects javascript URI');
 
@@ -574,13 +577,36 @@ async function runTests() {
     await trackClickHandler(okReq, okRes);
     assert(getOkRes().statusCode === 200 && getOkRes().body.tracked === true, 'POST records outbound click for official Google domain in telemetry');
 
-    // 6.4 GET redirector blocks malicious target
+    // 6.4 POST beacon records commercial affiliate click
+    const { req: affReq, res: affRes, getResponse: getAffRes } = createMockReqRes({
+      method: 'POST',
+      url: '/api/track-click',
+      body: {
+        destination: 'https://workspace.google.com/?ref=TEST_AFFILIATE',
+        productSlug: 'google-workspace',
+        sessionId: 'test_sess_aff',
+        isAffiliate: true
+      }
+    });
+    await trackClickHandler(affReq, affRes);
+    assert(getAffRes().statusCode === 200 && getAffRes().body.tracked === true, 'POST records commercial affiliate click in telemetry');
+
+    // 6.5 GET redirector blocks malicious target
     const { req: redReq, res: redRes, getResponse: getRedRes } = createMockReqRes({
       method: 'GET',
       url: '/api/track-click?url=https://malicious.org'
     });
     await trackClickHandler(redReq, redRes);
     assert(getRedRes().statusCode === 400 && getRedRes().body.error === 'INVALID_OR_UNTRUSTED_REDIRECT', 'GET redirector blocks open redirect attempt with 400');
+
+    // 6.6 GET redirector redirects to valid domain and tracks affiliate flag
+    const { req: validRedReq, res: validRedRes, getResponse: getValidRedRes } = createMockReqRes({
+      method: 'GET',
+      url: '/api/track-click?url=https://workspace.google.com&slug=google-workspace&affiliate=true'
+    });
+    await trackClickHandler(validRedReq, validRedRes);
+    const validRedResult = getValidRedRes();
+    assert(validRedResult.statusCode === 302 && (validRedResult.headers?.location === 'https://workspace.google.com' || validRedResult.headers?.Location === 'https://workspace.google.com'), 'GET redirector safely redirects to approved destination with 302');
   }
 
   // TEST SUITE 7: SEO ASSETS AND BUNDLE SECURITY

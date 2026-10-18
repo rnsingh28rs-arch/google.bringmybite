@@ -64,7 +64,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     }
   };
 
-  const actionLink = resolveProductActionUrl(product.officialUrl, product.affiliateUrl);
+  const actionLink = resolveProductActionUrl(product.officialUrl, product.affiliateUrl, product.slug);
 
   // 1. VISUAL DISCOVERY VARIANT (Hero, Homepage & Featured Sections - Reduced Text, Logo-First)
   if (variant === 'visual') {
