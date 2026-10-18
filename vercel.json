@@ -1,0 +1,28 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/admin/auth",
+      "destination": "/api/admin-auth"
+    },
+    {
+      "source": "/api/admin/monetization",
+      "destination": "/api/admin-monetization"
+    },
+    {
+      "source": "/api/admin/analytics",
+      "destination": "/api/admin-analytics"
+    },
+    {
+      "source": "/api/user/(.*)",
+      "destination": "/api/user"
+    },
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

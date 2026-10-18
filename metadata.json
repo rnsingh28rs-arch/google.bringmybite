@@ -1,0 +1,8 @@
+{
+  "name": "google tool finder",
+  "description": "Independent Google Tool Finder, Technology Discovery & Monetization Platform by Bring My Bite.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

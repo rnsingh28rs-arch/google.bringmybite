@@ -1,0 +1,8 @@
+# Google Tool Finder - Robots.txt
+# Bring My Bite Independent Google Technology Discovery & Monetisation
+
+User-agent: *
+Allow: /
+Disallow: /admin
+
+Sitemap: https://google-tool-finder.web.app/sitemap.xml
