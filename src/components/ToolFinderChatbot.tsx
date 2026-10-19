@@ -332,7 +332,7 @@ export const ToolFinderChatbot: React.FC<ToolFinderChatbotProps> = ({
           aria-label="Open Tool Finder AI Assistant"
           title="Open your assistant"
         >
-          <RobotCompanion state={robotState} size="md" showStage={false} className="w-16 h-16 sm:w-[76px] sm:h-[76px] robot-gentle-float flex-shrink-0" />
+          <img src="/assets/robot/robot-render.png" alt="3D assistant robot" className="h-20 w-20 sm:h-24 sm:w-24 object-contain robot-gentle-float flex-shrink-0" loading="eager" draggable={false} onError={(e) => { e.currentTarget.src = "/assets/robot/robot-idle.png"; }} />
         </button>
       </div>
     );
