@@ -129,7 +129,16 @@ async function runResponsiveTests() {
     stdio: 'ignore',
     cwd: process.cwd()
   });
-  await sleep(1500);
+
+  // Wait for preview server to accept HTTP connections
+  for (let i = 0; i < 30; i++) {
+    try {
+      const res = await fetch('http://127.0.0.1:3000');
+      if (res.ok) break;
+    } catch {
+      await sleep(300);
+    }
+  }
 
   // 2. Launch Headless Chrome
   const tempProfile = path.join(process.env.TEMP || 'C:\\Temp', `chrome_resp_${Date.now()}`);
@@ -182,14 +191,16 @@ async function runResponsiveTests() {
   await client.waitFor("Boolean(document.querySelector('header'))", 15000);
   console.log('React application hydrated successfully.\n');
 
-  // Verify Top Information Strip is preserved as hidden across all screens
-  const topStripHidden = await client.eval(`
+  // Verify Top Information Strip is preserved and displayed with Monetisation & AdSense and without Admin label
+  const topStripCheck = await client.eval(`
     (() => {
       const allText = document.body.innerText;
-      return !allText.includes('Independent Technology Discovery & Monetisation Guide by parent company Bring My Bite');
+      return allText.includes('Independent Technology Discovery & Monetisation Guide by parent company Bring My Bite') &&
+             allText.includes('Monetisation & AdSense') &&
+             !allText.includes('Admin & AdSense');
     })()
   `);
-  assert(topStripHidden === true, 'Top information strip remains visually suppressed and not restored');
+  assert(topStripCheck === true, 'Top information strip is rendered with Monetisation & AdSense and without Admin label');
 
   // Iterate through all 7 requested viewports
   for (const vp of VIEWPORTS) {

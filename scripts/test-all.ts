@@ -824,7 +824,7 @@ async function runTests() {
     const navbarContent = fs.readFileSync(path.join(process.cwd(), 'src', 'components', 'Navbar.tsx'), 'utf-8');
     assert(navbarContent.includes('export const SHOW_TOP_INFORMATION_STRIP = true;'), 'Top Information Strip restored and enabled');
     assert(navbarContent.includes('SHOW_TOP_INFORMATION_STRIP &&'), 'Top Information Strip source markup and logic active');
-    assert(navbarContent.includes('Admin & AdSense') && navbarContent.includes('India Offers: Jio & Airtel Perks'), 'Top Information Strip content and links preserved intact in codebase');
+    assert(navbarContent.includes('Monetisation & AdSense') && !navbarContent.includes('Admin & AdSense') && navbarContent.includes('India Offers: Jio & Airtel Perks'), 'Top Information Strip displays Monetisation & AdSense without Admin label');
     assert(!navbarContent.includes('Audited: Oct 2026'), 'Audit date strictly removed from Top Information Strip');
 
     // Check 3 Named Sections and Purpose

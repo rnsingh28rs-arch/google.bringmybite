@@ -110,7 +110,7 @@ export const AdPlacement: React.FC<AdPlacementProps> = ({
               onClick={onOpenAdmin}
               className="mt-3 inline-flex items-center gap-1 text-[11px] font-bold text-blue-600 hover:text-blue-800 underline underline-offset-2 cursor-pointer"
             >
-              <span>Configure in Admin Settings</span>
+              <span>Configure in Monetisation Settings</span>
               <ExternalLink className="w-3 h-3" />
             </button>
           )}

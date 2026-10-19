@@ -352,7 +352,7 @@ export const AffiliateDisclosurePage: React.FC<AffiliateDisclosurePageProps> = (
         <div className="flex items-center gap-2.5">
           <Settings className="w-4 h-4 text-slate-500 flex-shrink-0" />
           <span>
-            Authorized administrator? Configure approved affiliate identifiers, manage AdSense slot IDs, and view server click telemetry in the administrative console.
+            Authorized publisher? Configure approved affiliate identifiers, manage AdSense slot IDs, and view server click telemetry in the monetisation console.
           </span>
         </div>
         <button
@@ -366,7 +366,7 @@ export const AffiliateDisclosurePage: React.FC<AffiliateDisclosurePageProps> = (
           }}
           className="self-start sm:self-auto px-3.5 py-1.5 rounded-xl bg-white hover:bg-slate-100 text-slate-700 font-bold text-xs border border-slate-200 shadow-2xs transition-colors cursor-pointer whitespace-nowrap"
         >
-          Open Admin Console &rarr;
+          Open Monetisation Console &rarr;
         </button>
       </div>
 

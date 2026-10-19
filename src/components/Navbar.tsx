@@ -151,7 +151,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
 
       {/* Top Compact Editorial Announcement Bar (Fully responsive on desktop and mobile) */}
       {SHOW_TOP_INFORMATION_STRIP && (
-        <div className="bg-slate-900 text-slate-300 px-3 sm:px-4 py-1.5 sm:py-1.5 text-[10.5px] sm:text-[11px] font-medium border-b border-slate-800 select-none">
+        <div className="bg-slate-900 text-slate-300 px-2 sm:px-4 py-1.5 text-[10.5px] sm:text-[11px] font-medium border-b border-slate-800 select-none">
           <div className="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-3">
             <div className="flex items-center gap-2 min-w-0 max-w-full">
               <span className="w-2 h-2 rounded-full bg-emerald-400 flex-shrink-0 animate-pulse"></span>
@@ -160,12 +160,12 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
               </span>
             </div>
 
-            <div className="flex items-center gap-2.5 sm:gap-3 text-slate-400 flex-shrink-0 text-[10.5px] sm:text-[11px] self-end sm:self-auto">
+            <div className="flex items-center gap-2 sm:gap-3 text-slate-400 flex-shrink-0 text-[10.5px] sm:text-[11px] self-start sm:self-auto flex-wrap">
               <button
                 onClick={() => handleNavClick('admin')}
                 className="text-slate-300 hover:text-white transition-colors underline-offset-2 hover:underline cursor-pointer"
               >
-                Admin & AdSense
+                Monetisation & AdSense
               </button>
               <span className="text-slate-700">•</span>
               <button
@@ -181,18 +181,18 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
       )}
 
       {/* Main Sticky Header with Liquid Glass Backdrop */}
-      <header className="sticky top-0 z-40 liquid-glass-nav transition-all duration-200">
-        <div className="max-w-7xl mx-auto px-2.5 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 gap-1.5 sm:gap-3 lg:gap-4">
+      <header className="sticky top-0 z-50 liquid-glass-nav transition-all duration-200">
+        <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-3 xl:px-8">
+          <div className="flex items-center justify-between h-16 gap-1 sm:gap-2 lg:gap-1.5 xl:gap-4">
 
             {/* 1. Brand Identity with Water Light Glass Ripple Effect */}
             <WaterLightGlass
               onClick={() => handleNavClick('home', 'hero-section')}
-              className="rounded-2xl px-1.5 sm:px-2.5 py-1.5 -ml-1 cursor-pointer group select-none flex-shrink-0 transition-transform duration-200 hover:scale-[1.02]"
+              className="rounded-2xl px-1 sm:px-2 py-1.5 -ml-1 cursor-pointer group select-none flex-shrink-0 transition-transform duration-200 hover:scale-[1.02]"
               title="Google Tool Finder • by Bring My Bite"
               intensity="medium"
             >
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5 sm:gap-2">
                 <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-2xl liquid-logo-vessel shadow-md transition-all duration-300 group-hover:scale-110 flex items-center justify-center flex-shrink-0">
                   <Compass className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 transition-transform duration-300 group-hover:rotate-45" />
                 </div>
@@ -212,12 +212,12 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
             </WaterLightGlass>
 
             {/* 2. Desktop Navigation Links with Scroll-Spy & Animated Sliding Highlight */}
-            <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5 text-xs font-semibold text-slate-600 whitespace-nowrap">
+            <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1 text-[11px] xl:text-xs font-semibold text-slate-600 whitespace-nowrap">
 
               {/* Home */}
               <button
                 onClick={() => handleNavClick('home', 'hero-section')}
-                className={`relative px-3.5 py-2 rounded-xl whitespace-nowrap transition-all duration-300 cursor-pointer ${
+                className={`relative px-2 xl:px-3 py-1.5 xl:py-2 rounded-lg xl:rounded-xl whitespace-nowrap transition-all duration-300 cursor-pointer ${
                   activeTab === 'home'
                     ? 'text-blue-700 font-bold nav-active-pill'
                     : 'hover:text-slate-900 hover:bg-slate-100/80'
@@ -236,14 +236,14 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
                     handleNavClick('products', 'popular-section');
                   }
                 }}
-                className={`relative px-3.5 py-2 rounded-xl whitespace-nowrap flex items-center gap-1.5 transition-all duration-300 cursor-pointer ${
+                className={`relative px-2 xl:px-3 py-1.5 xl:py-2 rounded-lg xl:rounded-xl whitespace-nowrap flex items-center gap-1 transition-all duration-300 cursor-pointer ${
                   activeTab === 'products'
                     ? 'text-blue-700 font-bold nav-active-pill'
                     : 'hover:text-slate-900 hover:bg-slate-100/80'
                 }`}
                 title="Scroll to Directory on Home, or click to open full Catalog"
               >
-                <div className={`w-4 h-4 rounded-md flex items-center justify-center transition-transform ${
+                <div className={`w-3.5 h-3.5 rounded-md flex items-center justify-center transition-transform ${
                   activeTab === 'products' ? 'glass-icon-blue text-blue-600 scale-110' : 'text-slate-400'
                 }`}>
                   <Layers className="w-3 h-3" />
@@ -260,13 +260,13 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
                     handleNavClick('ai-tools', 'ai-tools-section');
                   }
                 }}
-                className={`relative px-3.5 py-2 rounded-xl whitespace-nowrap flex items-center gap-1.5 transition-all duration-300 cursor-pointer ${
+                className={`relative px-2 xl:px-3 py-1.5 xl:py-2 rounded-lg xl:rounded-xl whitespace-nowrap flex items-center gap-1 transition-all duration-300 cursor-pointer ${
                   activeTab === 'ai-tools'
                     ? 'text-violet-700 font-bold bg-violet-50/95 border border-violet-200/90 shadow-sm'
                     : 'hover:text-violet-700 hover:bg-violet-50/60'
                 }`}
               >
-                <div className={`w-4 h-4 rounded-md flex items-center justify-center transition-transform ${
+                <div className={`w-3.5 h-3.5 rounded-md flex items-center justify-center transition-transform ${
                   activeTab === 'ai-tools' ? 'glass-icon-violet text-violet-600 scale-110' : 'text-violet-500'
                 }`}>
                   <Sparkles className="w-3 h-3" />
@@ -277,13 +277,13 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
               {/* Free Tools (Dedicated page route) */}
               <button
                 onClick={() => onNavigate('free-tools')}
-                className={`relative px-3.5 py-2 rounded-xl whitespace-nowrap flex items-center gap-1.5 transition-all duration-300 cursor-pointer ${
+                className={`relative px-2 xl:px-3 py-1.5 xl:py-2 rounded-lg xl:rounded-xl whitespace-nowrap flex items-center gap-1 transition-all duration-300 cursor-pointer ${
                   currentView === 'free-tools'
                     ? 'text-emerald-700 font-bold bg-emerald-50/95 border border-emerald-200/90 shadow-sm'
                     : 'hover:text-emerald-700 hover:bg-emerald-50/60'
                 }`}
               >
-                <div className={`w-4 h-4 rounded-md flex items-center justify-center transition-transform ${
+                <div className={`w-3.5 h-3.5 rounded-md flex items-center justify-center transition-transform ${
                   currentView === 'free-tools' ? 'glass-icon-emerald text-emerald-600 scale-110' : 'text-emerald-500'
                 }`}>
                   <Gift className="w-3 h-3" />
@@ -300,13 +300,13 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
                     handleNavClick('pricing', 'our-software-section');
                   }
                 }}
-                className={`relative px-3.5 py-2 rounded-xl whitespace-nowrap flex items-center gap-1.5 transition-all duration-300 cursor-pointer ${
+                className={`relative px-2 xl:px-3 py-1.5 xl:py-2 rounded-lg xl:rounded-xl whitespace-nowrap flex items-center gap-1 transition-all duration-300 cursor-pointer ${
                   activeTab === 'pricing'
                     ? 'text-blue-700 font-bold nav-active-pill'
                     : 'hover:text-slate-900 hover:bg-slate-100/80'
                 }`}
               >
-                <div className={`w-4 h-4 rounded-md flex items-center justify-center transition-transform ${
+                <div className={`w-3.5 h-3.5 rounded-md flex items-center justify-center transition-transform ${
                   activeTab === 'pricing' ? 'glass-icon-blue text-blue-600 scale-110' : 'text-slate-400'
                 }`}>
                   <Briefcase className="w-3 h-3" />
@@ -323,13 +323,13 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
                     handleNavClick('india-offers', 'india-offers-section');
                   }
                 }}
-                className={`relative px-3.5 py-2 rounded-xl whitespace-nowrap flex items-center gap-1.5 transition-all duration-300 cursor-pointer ${
+                className={`relative px-2 xl:px-3 py-1.5 xl:py-2 rounded-lg xl:rounded-xl whitespace-nowrap flex items-center gap-1 transition-all duration-300 cursor-pointer ${
                   activeTab === 'india-offers'
                     ? 'text-emerald-800 font-bold bg-emerald-50/95 border border-emerald-300 shadow-sm'
                     : 'hover:text-emerald-800 hover:bg-emerald-50/60'
                 }`}
               >
-                <div className="w-4 h-4 rounded-full glass-icon-emerald flex items-center justify-center text-[10px] font-bold text-emerald-700">
+                <div className="w-3.5 h-3.5 rounded-full glass-icon-emerald flex items-center justify-center text-[9px] font-bold text-emerald-700">
                   ₹
                 </div>
                 <span>India Offers</span>
@@ -338,7 +338,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
               {/* Extra Wide Screens: Direct Access to Guides & Comparisons */}
               <button
                 onClick={() => handleNavClick('tutorials', 'tutorials-section')}
-                className={`hidden 2xl:inline-flex px-3.5 py-2 rounded-xl whitespace-nowrap transition-all duration-300 cursor-pointer ${
+                className={`hidden 2xl:inline-flex px-3 py-2 rounded-xl whitespace-nowrap transition-all duration-300 cursor-pointer ${
                   activeTab === 'tutorials' || currentView === 'tutorial-detail'
                     ? 'text-blue-700 font-bold nav-active-pill'
                     : 'hover:text-slate-900 hover:bg-slate-100/80'
@@ -349,7 +349,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
 
               <button
                 onClick={() => onNavigate('comparisons')}
-                className={`hidden 2xl:inline-flex px-3.5 py-2 rounded-xl whitespace-nowrap transition-all duration-300 cursor-pointer ${
+                className={`hidden 2xl:inline-flex px-3 py-2 rounded-xl whitespace-nowrap transition-all duration-300 cursor-pointer ${
                   currentView === 'comparisons' || currentView === 'comparison-detail'
                     ? 'text-blue-700 font-bold nav-active-pill'
                     : 'hover:text-slate-900 hover:bg-slate-100/80'
@@ -367,7 +367,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
                   onKeyDown={(e) => {
                     if (e.key === 'Escape') setMoreDropdownOpen(false);
                   }}
-                  className={`px-2.5 xl:px-3 py-1.5 xl:py-2 rounded-xl flex items-center gap-1.5 transition-all duration-200 cursor-pointer ${
+                  className={`px-2 xl:px-3 py-1.5 xl:py-2 rounded-lg xl:rounded-xl flex items-center gap-1 transition-all duration-200 cursor-pointer ${
                     isMoreActive
                       ? 'text-blue-700 nav-active-pill font-bold'
                       : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/80'
@@ -386,7 +386,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
                     role="menu"
                     aria-orientation="vertical"
                     aria-labelledby="desktop-more-dropdown-button"
-                    className="absolute right-0 mt-2 w-64 max-w-[calc(100vw-2rem)] glass-card rounded-2xl shadow-2xl py-2.5 z-50 animate-in fade-in zoom-in-95 duration-150 border border-white/90"
+                    className="absolute right-0 mt-2 w-64 max-w-[calc(100vw-2rem)] glass-card bg-white/98 backdrop-blur-2xl border border-slate-200/90 shadow-2xl rounded-2xl py-2.5 z-[70] animate-in fade-in zoom-in-95 duration-150 text-slate-800"
                   >
                     <div className="px-3 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                       Resources & Tools
@@ -529,7 +529,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
             </nav>
 
             {/* 3. Search Action, Google Auth & Mobile Actions */}
-            <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+            <div className="flex items-center gap-1 sm:gap-1.5 xl:gap-2 flex-shrink-0">
               {/* Mobile "More" pill button: direct touch access to More menu on tablet & mobile */}
               <button
                 type="button"
@@ -538,7 +538,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
                   setMobileMenuOpen(true);
                   setMobileMoreOpen(true);
                 }}
-                className={`lg:hidden flex items-center gap-1 px-2 sm:px-2.5 py-1.5 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${
+                className={`lg:hidden flex items-center gap-1 px-1.5 min-[360px]:px-2.5 py-1 sm:py-1.5 rounded-xl text-[11px] sm:text-xs font-semibold border transition-all cursor-pointer ${
                   isMoreActive
                     ? 'bg-blue-50 text-blue-700 border-blue-200 font-bold'
                     : 'bg-white/90 hover:bg-white text-slate-700 border-slate-200 hover:border-blue-400 shadow-2xs'
@@ -552,15 +552,15 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
 
               <button
                 onClick={onOpenSearch}
-                className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3.5 py-1.5 sm:py-2 bg-slate-100/90 hover:bg-white text-slate-600 rounded-xl text-xs font-medium border border-slate-200/80 hover:border-blue-400 transition-all shadow-2xs hover:shadow-sm group cursor-pointer"
+                className="flex items-center gap-1 sm:gap-1.5 px-1.5 min-[360px]:px-2.5 xl:px-3.5 py-1 sm:py-1.5 xl:py-2 bg-slate-100/90 hover:bg-white text-slate-600 rounded-xl text-xs font-medium border border-slate-200/80 hover:border-blue-400 transition-all shadow-2xs hover:shadow-sm group cursor-pointer"
                 title="Search directory (Ctrl+K or ⌘K)"
               >
-                <div className="w-5 h-5 rounded-lg glass-icon-blue flex items-center justify-center text-blue-600 flex-shrink-0">
+                <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-lg glass-icon-blue flex items-center justify-center text-blue-600 flex-shrink-0">
                   <Search className="w-3 h-3 transition-transform group-hover:scale-110" />
                 </div>
-                <span className="hidden sm:inline whitespace-nowrap">Search tools...</span>
-                <span className="hidden min-[360px]:inline sm:hidden text-xs">Search</span>
-                <kbd className="hidden md:inline-block px-1.5 py-0.5 text-[10px] font-mono text-slate-500 bg-white border border-slate-200 rounded shadow-2xs">
+                <span className="hidden xl:inline whitespace-nowrap">Search tools...</span>
+                <span className="hidden min-[360px]:inline xl:hidden text-xs">Search</span>
+                <kbd className="hidden 2xl:inline-block px-1.5 py-0.5 text-[10px] font-mono text-slate-500 bg-white border border-slate-200 rounded shadow-2xs">
                   ⌘K
                 </kbd>
               </button>
@@ -590,7 +590,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
               ) : (
                 <button
                   onClick={() => openSignInModal('Sign in with Google to save tools to your private stack.')}
-                  className="hidden sm:flex items-center gap-1.5 px-3 py-2 bg-white hover:bg-slate-50 text-slate-700 rounded-xl text-xs font-semibold border border-slate-200 shadow-2xs hover:border-blue-400 transition-all cursor-pointer group"
+                  className="hidden sm:flex items-center gap-1.5 px-2.5 xl:px-3 py-1.5 xl:py-2 bg-white hover:bg-slate-50 text-slate-700 rounded-xl text-xs font-semibold border border-slate-200 shadow-2xs hover:border-blue-400 transition-all cursor-pointer group"
                   title="Sign in with Google"
                 >
                   <svg className="w-3.5 h-3.5" viewBox="0 0 24 24">
@@ -607,11 +607,11 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
               <button
                 id="mobile-hamburger-button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-colors cursor-pointer"
+                className="lg:hidden p-1.5 sm:p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-colors cursor-pointer"
                 aria-label="Toggle navigation menu"
                 aria-expanded={mobileMenuOpen}
               >
-                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                {mobileMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
               </button>
             </div>
 
