@@ -5,4 +5,4 @@ User-agent: *
 Allow: /
 Disallow: /admin
 
-Sitemap: https://google-tool-finder.web.app/sitemap.xml
+Sitemap: https://google.bringmybite.com/sitemap.xml

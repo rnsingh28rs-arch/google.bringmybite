@@ -1198,6 +1198,9 @@ async function runTests() {
     assert(indexHtml.includes('"@type": "WebSite"') && indexHtml.includes('"@type": "Organization"'), 'index.html declares WebSite and Organization schema');
     assert(indexHtml.includes('property="og:url"') && indexHtml.includes('property="og:site_name"'), 'index.html includes canonical Open Graph og:url and og:site_name');
     assert(indexHtml.includes('name="robots" content="index, follow"'), 'index.html includes explicit robots index, follow directive');
+    assert(indexHtml.includes('https://www.googletagmanager.com/gtag/js?id=G-F67FKW5W6P'), 'index.html includes GA4 gtag.js script for G-F67FKW5W6P');
+    assert(indexHtml.includes("gtag('config', 'G-F67FKW5W6P')"), 'index.html initializes GA4 Measurement ID G-F67FKW5W6P');
+    assert(indexHtml.includes('https://google.bringmybite.com/'), 'index.html uses production canonical domain google.bringmybite.com');
   }
 
   // TEST SUITE 16: AFFILIATE PAGE END-TO-END VERIFICATION

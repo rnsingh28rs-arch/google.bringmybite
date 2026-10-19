@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense, lazy } from 'react';
+import React, { useState, useEffect, useRef, Suspense, lazy } from 'react';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { SearchModal } from './components/SearchModal';
@@ -69,6 +69,7 @@ export default function App() {
   const [currentView, setCurrentView] = useState<AppView>('home');
   const [currentSlug, setCurrentSlug] = useState<string>('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const isInitialMountRef = useRef(true);
 
   // Parse location hash or clean pathname on load & navigation
   const parseRoute = () => {
@@ -260,7 +261,7 @@ export default function App() {
     metaDesc.setAttribute('content', description);
 
     // Update Canonical
-    const fullCanonical = `https://google-tool-finder.web.app${canonicalPath}`;
+    const fullCanonical = `https://google.bringmybite.com${canonicalPath}`;
     let canonicalTag = document.querySelector('link[rel="canonical"]');
     if (!canonicalTag) {
       canonicalTag = document.createElement('link');
@@ -276,6 +277,17 @@ export default function App() {
     if (ogDesc) ogDesc.setAttribute('content', description);
     const ogUrl = document.querySelector('meta[property="og:url"]');
     if (ogUrl) ogUrl.setAttribute('content', fullCanonical);
+
+    // Track SPA route navigation in GA4 (skipping initial mount as gtag('config') fires initial page_view)
+    if (isInitialMountRef.current) {
+      isInitialMountRef.current = false;
+    } else if (typeof window !== 'undefined' && typeof (window as any).gtag === 'function') {
+      (window as any).gtag('event', 'page_view', {
+        page_title: title,
+        page_location: fullCanonical,
+        page_path: canonicalPath
+      });
+    }
   }, [currentView, currentSlug]);
 
   // Global cursor-tracking for liquid water-light glass refraction

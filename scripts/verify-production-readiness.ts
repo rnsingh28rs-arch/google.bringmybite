@@ -417,7 +417,7 @@ async function runProductionVerification() {
   // ------------------------------------------------------------------
   console.log('\n--- CHECK 6: Production APP_URL, Canonical URLs, Sitemap & Robots ---');
   try {
-    const defaultAppUrl = process.env.APP_URL || 'https://google-tool-finder.web.app';
+    const defaultAppUrl = process.env.APP_URL || 'https://google.bringmybite.com';
     console.log(`  [+] Production Canonical Domain: ${defaultAppUrl}`);
 
     // Robots.txt

@@ -2,119 +2,119 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Core Landing & Aggregator Pages -->
   <url>
-    <loc>https://google-tool-finder.web.app/</loc>
+    <loc>https://google.bringmybite.com/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://google-tool-finder.web.app/products</loc>
+    <loc>https://google.bringmybite.com/products</loc>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://google-tool-finder.web.app/ai-tools</loc>
+    <loc>https://google.bringmybite.com/ai-tools</loc>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://google-tool-finder.web.app/free-tools</loc>
+    <loc>https://google.bringmybite.com/free-tools</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://google-tool-finder.web.app/pricing</loc>
+    <loc>https://google.bringmybite.com/pricing</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://google-tool-finder.web.app/india-offers</loc>
+    <loc>https://google.bringmybite.com/india-offers</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://google-tool-finder.web.app/tutorials</loc>
+    <loc>https://google.bringmybite.com/tutorials</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://google-tool-finder.web.app/comparisons</loc>
+    <loc>https://google.bringmybite.com/comparisons</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://google-tool-finder.web.app/latest-updates</loc>
+    <loc>https://google.bringmybite.com/latest-updates</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://google-tool-finder.web.app/about</loc>
+    <loc>https://google.bringmybite.com/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://google-tool-finder.web.app/contact</loc>
+    <loc>https://google.bringmybite.com/contact</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://google-tool-finder.web.app/affiliate-disclosure</loc>
+    <loc>https://google.bringmybite.com/affiliate-disclosure</loc>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://google-tool-finder.web.app/privacy</loc>
+    <loc>https://google.bringmybite.com/privacy</loc>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://google-tool-finder.web.app/terms</loc>
+    <loc>https://google.bringmybite.com/terms</loc>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
 
   <!-- Product Detail Pages (29 Verified Tools) -->
-  <url><loc>https://google-tool-finder.web.app/products/gemini</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://google-tool-finder.web.app/products/notebooklm</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://google-tool-finder.web.app/products/google-ai-studio</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://google-tool-finder.web.app/products/google-antigravity</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://google-tool-finder.web.app/products/google-workspace</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://google-tool-finder.web.app/products/gmail</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://google-tool-finder.web.app/products/google-drive</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://google-tool-finder.web.app/products/google-docs</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://google-tool-finder.web.app/products/google-sheets</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://google-tool-finder.web.app/products/google-slides</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://google-tool-finder.web.app/products/google-meet</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://google-tool-finder.web.app/products/google-calendar</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://google-tool-finder.web.app/products/google-forms</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://google-tool-finder.web.app/products/google-cloud</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://google-tool-finder.web.app/products/firebase</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://google-tool-finder.web.app/products/google-analytics</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://google-tool-finder.web.app/products/google-search-console</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://google-tool-finder.web.app/products/google-maps</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://google-tool-finder.web.app/products/google-photos</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://google-tool-finder.web.app/products/google-ads</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://google-tool-finder.web.app/products/google-colab</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://google-tool-finder.web.app/products/looker-studio</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://google-tool-finder.web.app/products/bigquery</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://google-tool-finder.web.app/products/google-keep</loc><changefreq>weekly</changefreq><priority>0.75</priority></url>
-  <url><loc>https://google-tool-finder.web.app/products/google-search</loc><changefreq>weekly</changefreq><priority>0.75</priority></url>
-  <url><loc>https://google-tool-finder.web.app/products/google-admob</loc><changefreq>weekly</changefreq><priority>0.75</priority></url>
-  <url><loc>https://google-tool-finder.web.app/products/google-play-billing</loc><changefreq>weekly</changefreq><priority>0.75</priority></url>
-  <url><loc>https://google-tool-finder.web.app/products/google-ima</loc><changefreq>weekly</changefreq><priority>0.75</priority></url>
-  <url><loc>https://google-tool-finder.web.app/products/android-studio</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://google.bringmybite.com/products/gemini</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://google.bringmybite.com/products/notebooklm</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://google.bringmybite.com/products/google-ai-studio</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://google.bringmybite.com/products/google-antigravity</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://google.bringmybite.com/products/google-workspace</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://google.bringmybite.com/products/gmail</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://google.bringmybite.com/products/google-drive</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://google.bringmybite.com/products/google-docs</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://google.bringmybite.com/products/google-sheets</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://google.bringmybite.com/products/google-slides</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://google.bringmybite.com/products/google-meet</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://google.bringmybite.com/products/google-calendar</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://google.bringmybite.com/products/google-forms</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://google.bringmybite.com/products/google-cloud</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://google.bringmybite.com/products/firebase</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://google.bringmybite.com/products/google-analytics</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://google.bringmybite.com/products/google-search-console</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://google.bringmybite.com/products/google-maps</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://google.bringmybite.com/products/google-photos</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://google.bringmybite.com/products/google-ads</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://google.bringmybite.com/products/google-colab</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://google.bringmybite.com/products/looker-studio</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://google.bringmybite.com/products/bigquery</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://google.bringmybite.com/products/google-keep</loc><changefreq>weekly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://google.bringmybite.com/products/google-search</loc><changefreq>weekly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://google.bringmybite.com/products/google-admob</loc><changefreq>weekly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://google.bringmybite.com/products/google-play-billing</loc><changefreq>weekly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://google.bringmybite.com/products/google-ima</loc><changefreq>weekly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://google.bringmybite.com/products/android-studio</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
 
   <!-- Tutorial Detail Pages (7 Guides) -->
-  <url><loc>https://google-tool-finder.web.app/tutorials/getting-started-with-gemini</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://google-tool-finder.web.app/tutorials/using-notebooklm</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://google-tool-finder.web.app/tutorials/creating-business-email-workspace</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://google-tool-finder.web.app/tutorials/using-drive-to-share-files</loc><changefreq>weekly</changefreq><priority>0.75</priority></url>
-  <url><loc>https://google-tool-finder.web.app/tutorials/getting-started-with-google-ai-studio</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://google-tool-finder.web.app/tutorials/free-vs-paid-plans</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://google-tool-finder.web.app/tutorials/discovering-eligible-offers-india</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://google.bringmybite.com/tutorials/getting-started-with-gemini</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://google.bringmybite.com/tutorials/using-notebooklm</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://google.bringmybite.com/tutorials/creating-business-email-workspace</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://google.bringmybite.com/tutorials/using-drive-to-share-files</loc><changefreq>weekly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://google.bringmybite.com/tutorials/getting-started-with-google-ai-studio</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://google.bringmybite.com/tutorials/free-vs-paid-plans</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://google.bringmybite.com/tutorials/discovering-eligible-offers-india</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
 
   <!-- Comparison Detail Pages (4 Head-to-Head Comparisons) -->
-  <url><loc>https://google-tool-finder.web.app/comparisons/gemini-vs-notebooklm</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://google-tool-finder.web.app/comparisons/google-docs-vs-sheets-vs-slides</loc><changefreq>weekly</changefreq><priority>0.75</priority></url>
-  <url><loc>https://google-tool-finder.web.app/comparisons/google-drive-free-vs-one-vs-ai-premium</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://google-tool-finder.web.app/comparisons/personal-google-vs-google-workspace</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://google.bringmybite.com/comparisons/gemini-vs-notebooklm</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://google.bringmybite.com/comparisons/google-docs-vs-sheets-vs-slides</loc><changefreq>weekly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://google.bringmybite.com/comparisons/google-drive-free-vs-one-vs-ai-premium</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://google.bringmybite.com/comparisons/personal-google-vs-google-workspace</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
 </urlset>
