@@ -320,22 +320,19 @@ export const ToolFinderChatbot: React.FC<ToolFinderChatbotProps> = ({
     }
 
     return (
-      <div className="fixed bottom-5 right-5 z-40 flex items-center gap-2.5">
-        {/* Living mascot floating button */}
+      <div className="fixed bottom-4 right-3 sm:bottom-5 sm:right-5 z-40 flex flex-col items-end gap-2">
+        {/* Friendly greeting stays beside the same robot launcher. */}
+        <div className="max-w-[230px] rounded-2xl rounded-br-md border border-sky-200/80 bg-white/95 px-3.5 py-2.5 text-xs sm:text-sm font-semibold text-slate-800 shadow-xl backdrop-blur-md">
+          Hi, I’m your assistant. Ask me anything.
+        </div>
         <button
           id="tool-finder-chatbot-launcher"
           onClick={() => { setIsOpen(true); setIsMinimized(false); }}
-          className="flex items-center gap-2.5 px-3 py-1.5 sm:px-4 sm:py-2 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white rounded-full shadow-2xl hover:scale-105 active:scale-95 transition-all cursor-pointer border border-white/30 select-none group"
+          className="group flex items-center justify-center rounded-full border border-white/70 bg-transparent p-0 shadow-none transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2"
           aria-label="Open Tool Finder AI Assistant"
+          title="Open your assistant"
         >
-          <RobotCompanion state={robotState} size="sm" showStage={false} className="w-9 h-9 sm:w-10 sm:h-10 robot-gentle-float flex-shrink-0" />
-          <div className="text-left hidden sm:block">
-            <div className="text-xs font-bold leading-tight flex items-center gap-1.5">
-              <span>Tool Finder AI</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            </div>
-            <div className="text-[9.5px] text-blue-100 font-medium">Ask Anything</div>
-          </div>
+          <img src="/assets/robot/robot-render.png" alt="3D assistant robot" className="h-20 w-20 sm:h-24 sm:w-24 object-contain robot-gentle-float flex-shrink-0" loading="eager" draggable={false} onError={(e) => { e.currentTarget.src = "/assets/robot/robot-idle.png"; }} />
         </button>
       </div>
     );
