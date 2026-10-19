@@ -962,11 +962,11 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
 
       {/* 11. CLIENT SOFTWARE DEVELOPMENT ENQUIRY SECTION (3-COLUMN RESPONSIVE LAYOUT) */}
       <section id="enquiry-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-6 items-stretch">
 
           {/* LEFT COLUMN: WHAT WE DO */}
-          <div className="lg:col-span-3 space-y-6">
-            <div className="water-glass-panel p-6 sm:p-7 space-y-5">
+          <div className="lg:col-span-3 min-w-0 h-full">
+            <div className="water-glass-panel h-full p-5 sm:p-6 space-y-5 flex flex-col">
               <div className="space-y-2.5">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100/80 text-blue-800 text-xs font-bold shadow-2xs border border-blue-200/60">
                   <Code className="w-3.5 h-3.5 text-blue-600" />
@@ -1038,8 +1038,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
           </div>
 
           {/* CENTER COLUMN: PROJECT ENQUIRY FORM */}
-          <div className="lg:col-span-6 space-y-6">
-            <div className="water-glass-form-elevated p-6 sm:p-8 space-y-6">
+          <div className="lg:col-span-6 min-w-0 h-full">
+            <div className="water-glass-form-elevated h-full p-5 sm:p-7 lg:p-8 space-y-6 flex flex-col">
               <div className="space-y-2">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100/80 text-indigo-800 text-xs font-bold shadow-2xs border border-indigo-200/60">
                   <Briefcase className="w-3.5 h-3.5 text-indigo-600" />
@@ -1333,8 +1333,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
           </div>
 
           {/* RIGHT COLUMN: WHY WORK WITH US */}
-          <div className="lg:col-span-3 space-y-6">
-            <div className="water-glass-panel p-6 sm:p-7 space-y-5">
+          <div className="lg:col-span-3 min-w-0 h-full">
+            <div className="water-glass-panel h-full p-5 sm:p-6 space-y-5 flex flex-col">
               <div className="space-y-2.5">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100/80 text-emerald-800 text-xs font-bold shadow-2xs border border-emerald-200/60">
                   <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
