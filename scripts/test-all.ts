@@ -1246,24 +1246,30 @@ async function runTests() {
     assert(clickRes.statusCode === 200 && clickRes.body.success === true, 'Outbound click on affiliate page logs to /api/track-click successfully');
   }
 
-  // TEST SUITE 17: PROJECT INQUIRY REFERENCE DESIGN & FORM INTEGRITY AUDIT
-  console.log('\n--- TEST SUITE 17: Project Inquiry Reference Design & Form Integrity Audit ---');
+  // TEST SUITE 17: RESTORED ORIGINAL PROJECT INQUIRY FORM & LOWER-RIGHT ROBOT AUDIT
+  console.log('\n--- TEST SUITE 17: Restored Original Project Inquiry Form & Lower-Right Robot Audit ---');
   {
     const homePath = path.join(process.cwd(), 'src', 'pages', 'HomePage.tsx');
     const homeContent = fs.readFileSync(homePath, 'utf-8');
+    const chatbotPath = path.join(process.cwd(), 'src', 'components', 'ToolFinderChatbot.tsx');
+    const chatbotContent = fs.readFileSync(chatbotPath, 'utf-8');
 
-    // 17.1 Inquiry section & liquid glass backdrop
+    // 17.1 Inquiry section & original compact layout
     assert(homeContent.includes('id="enquiry-section"'), 'HomePage contains section id="enquiry-section"');
     assert(homeContent.includes('water-glass-panel'), 'HomePage contains water-glass-panel styling for side panels');
     assert(homeContent.includes('water-glass-form-elevated'), 'HomePage contains water-glass-form-elevated for center form');
 
-    // 17.2 Robot companion and "Tool Finder AI — Ask Anything" visual card
-    assert(homeContent.includes('/assets/robot-main.png'), 'Inquiry section renders robot companion image /assets/robot-main.png');
-    assert(homeContent.includes('Tool Finder AI — Ask Anything'), 'Inquiry section contains "Tool Finder AI — Ask Anything" badge');
-    assert(homeContent.includes("Hi! I'm your AI Assistant"), 'Inquiry section displays "Hi! I\'m your AI Assistant" header');
-    assert(homeContent.includes('Launch Assistant Chat'), 'Inquiry section contains interactive "Launch Assistant Chat" trigger');
+    // 17.2 Confirm oversized greeting card is removed from HomePage
+    assert(!homeContent.includes("Hi! I'm your AI Assistant"), 'Oversized "Hi! I\'m your AI Assistant" card is removed from inquiry section');
+    assert(!homeContent.includes('Tool Finder AI — Ask Anything'), 'Oversized "Tool Finder AI — Ask Anything" banner is removed from inquiry section');
 
-    // 17.3 All 9 Inquiry Form fields verified
+    // 17.3 Confirm small robot is positioned at lower-right of the website
+    assert(chatbotContent.includes('id="tool-finder-chatbot-launcher"'), 'Small robot chatbot launcher exists (tool-finder-chatbot-launcher)');
+    assert(chatbotContent.includes('fixed bottom-5 right-5'), 'Small robot launcher is positioned at lower-right (bottom-5 right-5)');
+    assert(chatbotContent.includes('RobotCompanion'), 'Launcher contains RobotCompanion mascot asset');
+    assert(chatbotContent.includes('robot-gentle-float'), 'Small robot maintains gentle floating animation');
+
+    // 17.4 All 9 Inquiry Form fields verified
     assert(homeContent.includes('id="enquiry-name"'), 'Form contains Field 1: Full Name (enquiry-name)');
     assert(homeContent.includes('id="enquiry-email"'), 'Form contains Field 2: Email Address (enquiry-email)');
     assert(homeContent.includes('id="enquiry-phone"'), 'Form contains Field 3: Phone / WhatsApp (enquiry-phone)');
@@ -1274,7 +1280,7 @@ async function runTests() {
     assert(homeContent.includes('id="enquiry-description"'), 'Form contains Field 8: Brief Project Description (enquiry-description)');
     assert(homeContent.includes('id="enquiry-requirements"'), 'Form contains Field 9: Required Features & Key Requirements (enquiry-requirements)');
 
-    // 17.4 Form options integrity
+    // 17.5 Form options integrity
     assert(homeContent.includes('value="Portal"'), 'Project Type includes Portal Development');
     assert(homeContent.includes('value="Web App"'), 'Project Type includes Web Application');
     assert(homeContent.includes('value="Mobile App"'), 'Project Type includes Mobile App');
@@ -1285,11 +1291,11 @@ async function runTests() {
     assert(homeContent.includes('Urgent (< 2 weeks)'), 'Timeframe preserves Urgent option');
     assert(homeContent.includes('Flexible / Ongoing'), 'Timeframe preserves Flexible option');
 
-    // 17.5 Honeypot & Submit button styling
+    // 17.6 Honeypot & Submit button styling
     assert(homeContent.includes('name="website"') && homeContent.includes('className="sr-only"'), 'Form contains honeypot spam protection');
-    assert(homeContent.includes('from-blue-600 via-indigo-600 to-purple-600'), 'Submit button features blue/purple gradient aesthetic');
+    assert(homeContent.includes('from-blue-600 via-indigo-600 to-cyan-600'), 'Submit button features original blue/indigo/cyan gradient styling');
 
-    // 17.6 /api/contact integration test for project enquiry
+    // 17.7 /api/contact integration test for project enquiry
     const prevTestMode = process.env.CONTACT_TEST_MODE;
     const prevResendKey = process.env.RESEND_API_KEY;
     delete process.env.RESEND_API_KEY;

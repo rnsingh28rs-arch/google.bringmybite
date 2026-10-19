@@ -962,519 +962,451 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
 
       {/* 11. CLIENT SOFTWARE DEVELOPMENT ENQUIRY SECTION (3-COLUMN RESPONSIVE LAYOUT) */}
       <section id="enquiry-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
-        <div className="relative rounded-3xl bg-gradient-to-b from-sky-50/70 via-blue-50/40 to-indigo-50/50 p-5 sm:p-8 lg:p-10 border border-sky-200/80 shadow-2xl overflow-hidden backdrop-blur-xl">
-          {/* Subtle ambient liquid water sheen and caustic glow elements */}
-          <div className="absolute -top-32 -left-32 w-80 h-80 rounded-full bg-cyan-300/25 blur-3xl pointer-events-none" />
-          <div className="absolute top-1/2 -right-36 w-96 h-96 rounded-full bg-blue-300/20 blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-32 left-1/3 w-80 h-80 rounded-full bg-indigo-200/25 blur-3xl pointer-events-none" />
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
-          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          {/* LEFT COLUMN: WHAT WE DO */}
+          <div className="lg:col-span-3 space-y-6">
+            <div className="water-glass-panel p-6 sm:p-7 space-y-5">
+              <div className="space-y-2.5">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100/80 text-blue-800 text-xs font-bold shadow-2xs border border-blue-200/60">
+                  <Code className="w-3.5 h-3.5 text-blue-600" />
+                  <span>Engineering</span>
+                </div>
+                <h3 className="text-xl sm:text-2xl font-extrabold crystal-heading tracking-tight">
+                  What We Do
+                </h3>
+                <p className="text-xs text-slate-700 leading-relaxed font-medium">
+                  We learn from giants. We work with giants’ products and tools. We develop solutions with Automation.
+                </p>
+              </div>
 
-            {/* LEFT COLUMN: WHAT WE DO */}
-            <div className="lg:col-span-3 space-y-6">
-              <div className="water-glass-panel p-6 sm:p-7 space-y-5 shadow-xl border border-white/95">
-                <div className="space-y-2.5">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100/80 text-blue-800 text-xs font-bold shadow-2xs border border-blue-200/60">
-                    <Code className="w-3.5 h-3.5 text-blue-600" />
-                    <span>Engineering</span>
+              <div className="space-y-2.5 pt-2 border-t border-slate-200/70">
+                {/* 1. Portal Development */}
+                <div className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-white/80 border border-slate-200/80 shadow-2xs hover:border-cyan-400 hover:bg-white transition-all">
+                  <div className="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0">
+                    <Layers className="w-3.5 h-3.5" />
                   </div>
-                  <h3 className="text-xl sm:text-2xl font-extrabold crystal-heading tracking-tight">
-                    What We Do
-                  </h3>
-                  <p className="text-xs text-slate-700 leading-relaxed font-medium">
-                    We learn from giants. We work with giants’ products and tools. We develop solutions with Automation.
-                  </p>
+                  <span className="text-xs font-bold text-slate-900 tracking-tight">Portal Development</span>
                 </div>
 
-                <div className="space-y-2.5 pt-2 border-t border-slate-200/70">
-                  {/* 1. Portal Development */}
-                  <div className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-white/85 border border-slate-200/80 shadow-2xs hover:border-cyan-400 hover:bg-white transition-all">
-                    <div className="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0">
-                      <Layers className="w-3.5 h-3.5" />
-                    </div>
-                    <span className="text-xs font-bold text-slate-900 tracking-tight">Portal Development</span>
+                {/* 2. Web Development */}
+                <div className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-white/80 border border-slate-200/80 shadow-2xs hover:border-cyan-400 hover:bg-white transition-all">
+                  <div className="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center flex-shrink-0">
+                    <Laptop className="w-3.5 h-3.5" />
                   </div>
+                  <span className="text-xs font-bold text-slate-900 tracking-tight">Web Development</span>
+                </div>
 
-                  {/* 2. Web Development */}
-                  <div className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-white/85 border border-slate-200/80 shadow-2xs hover:border-cyan-400 hover:bg-white transition-all">
-                    <div className="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center flex-shrink-0">
-                      <Laptop className="w-3.5 h-3.5" />
-                    </div>
-                    <span className="text-xs font-bold text-slate-900 tracking-tight">Web Development</span>
+                {/* 3. E-commerce Solutions */}
+                <div className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-white/80 border border-slate-200/80 shadow-2xs hover:border-cyan-400 hover:bg-white transition-all">
+                  <div className="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0">
+                    <ShoppingCart className="w-3.5 h-3.5" />
                   </div>
+                  <span className="text-xs font-bold text-slate-900 tracking-tight">E-commerce Solutions</span>
+                </div>
 
-                  {/* 3. E-commerce Solutions */}
-                  <div className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-white/85 border border-slate-200/80 shadow-2xs hover:border-cyan-400 hover:bg-white transition-all">
-                    <div className="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0">
-                      <ShoppingCart className="w-3.5 h-3.5" />
-                    </div>
-                    <span className="text-xs font-bold text-slate-900 tracking-tight">E-commerce Solutions</span>
+                {/* 4. Management Solutions */}
+                <div className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-white/80 border border-slate-200/80 shadow-2xs hover:border-cyan-400 hover:bg-white transition-all">
+                  <div className="w-7 h-7 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center flex-shrink-0">
+                    <Sliders className="w-3.5 h-3.5" />
                   </div>
+                  <span className="text-xs font-bold text-slate-900 tracking-tight">Management Solutions</span>
+                </div>
 
-                  {/* 4. Management Solutions */}
-                  <div className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-white/85 border border-slate-200/80 shadow-2xs hover:border-cyan-400 hover:bg-white transition-all">
-                    <div className="w-7 h-7 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center flex-shrink-0">
-                      <Sliders className="w-3.5 h-3.5" />
-                    </div>
-                    <span className="text-xs font-bold text-slate-900 tracking-tight">Management Solutions</span>
+                {/* 5. CRM Development */}
+                <div className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-white/80 border border-slate-200/80 shadow-2xs hover:border-cyan-400 hover:bg-white transition-all">
+                  <div className="w-7 h-7 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center flex-shrink-0">
+                    <Users className="w-3.5 h-3.5" />
                   </div>
+                  <span className="text-xs font-bold text-slate-900 tracking-tight">CRM Development</span>
+                </div>
 
-                  {/* 5. CRM Development */}
-                  <div className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-white/85 border border-slate-200/80 shadow-2xs hover:border-cyan-400 hover:bg-white transition-all">
-                    <div className="w-7 h-7 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center flex-shrink-0">
-                      <Users className="w-3.5 h-3.5" />
+                {/* 6. Entire Marketing System */}
+                <div className="p-2.5 sm:p-3 rounded-xl bg-cyan-50/50 border border-cyan-200/80 shadow-2xs hover:border-cyan-400 hover:bg-white transition-all space-y-1">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-7 h-7 rounded-lg bg-cyan-100 text-cyan-700 flex items-center justify-center flex-shrink-0">
+                      <TrendingUp className="w-3.5 h-3.5" />
                     </div>
-                    <span className="text-xs font-bold text-slate-900 tracking-tight">CRM Development</span>
+                    <span className="text-xs font-bold text-slate-900 tracking-tight">Entire Marketing System</span>
                   </div>
-
-                  {/* 6. Entire Marketing System */}
-                  <div className="p-2.5 sm:p-3 rounded-xl bg-cyan-50/70 border border-cyan-200/80 shadow-2xs hover:border-cyan-400 hover:bg-white transition-all space-y-1">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-7 h-7 rounded-lg bg-cyan-100 text-cyan-700 flex items-center justify-center flex-shrink-0">
-                        <TrendingUp className="w-3.5 h-3.5" />
-                      </div>
-                      <span className="text-xs font-bold text-slate-900 tracking-tight">Entire Marketing System</span>
-                    </div>
-                    <p className="text-[11px] text-cyan-800 font-medium pl-9 leading-snug">
-                      And it’s tailored to your requirements.
-                    </p>
-                  </div>
+                  <p className="text-[11px] text-cyan-800 font-medium pl-9 leading-snug">
+                    And it’s tailored to your requirements.
+                  </p>
                 </div>
               </div>
             </div>
+          </div>
 
-            {/* CENTER COLUMN: ROBOT COMPANION & PROJECT ENQUIRY FORM */}
-            <div className="lg:col-span-6 space-y-6">
-
-              {/* Robot Companion & "Tool Finder AI — Ask Anything" Visual Card (Matching Reference Target) */}
-              <div className="relative rounded-2xl bg-gradient-to-r from-slate-900 via-blue-950 to-indigo-950 text-white p-6 sm:p-7 border border-cyan-400/40 shadow-xl overflow-hidden backdrop-blur-xl group">
-                {/* Luminous cyan & indigo background highlights */}
-                <div className="absolute -top-12 -right-12 w-44 h-44 rounded-full bg-cyan-500/20 blur-2xl pointer-events-none" />
-                <div className="absolute -bottom-10 -left-10 w-40 h-40 rounded-full bg-blue-600/20 blur-2xl pointer-events-none" />
-
-                <div className="relative z-10 flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
-                  {/* Living 3D Mascot Character */}
-                  <div className="relative flex-shrink-0 flex items-center justify-center">
-                    <div className="absolute inset-0 rounded-full bg-cyan-400/25 blur-xl animate-pulse" />
-                    <img
-                      src="/assets/robot-main.png"
-                      alt="Tool Finder AI Robot Companion"
-                      className="relative w-24 h-24 sm:w-28 sm:h-28 object-contain robot-gentle-float drop-shadow-[0_12px_24px_rgba(6,182,212,0.45)]"
-                      loading="lazy"
-                      draggable={false}
-                    />
-                  </div>
-
-                  {/* AI Assistant Dialogue & Quick Capability Pills */}
-                  <div className="flex-1 text-center sm:text-left space-y-2">
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-500/20 border border-cyan-400/30 text-[10.5px] font-bold text-cyan-300 shadow-2xs">
-                      <Sparkles className="w-3 h-3 text-cyan-400" />
-                      <span>Tool Finder AI — Ask Anything</span>
-                    </div>
-
-                    <h4 className="text-base sm:text-lg font-black text-white tracking-tight flex items-center justify-center sm:justify-start gap-1.5">
-                      <span>Hi! I'm your AI Assistant</span>
-                      <span className="text-lg">👋</span>
-                    </h4>
-
-                    <p className="text-xs text-slate-300 leading-relaxed">
-                      Need quick guidance before submitting your project? Ask me anything about Google Cloud, Workspace licensing, or custom app architectures.
-                    </p>
-
-                    {/* Capability Tags matching reference */}
-                    <div className="flex flex-wrap gap-1.5 pt-1 justify-center sm:justify-start">
-                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-white/10 text-cyan-200 border border-white/10">💬 Ask anything</span>
-                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-white/10 text-cyan-200 border border-white/10">🚀 Build a website</span>
-                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-white/10 text-cyan-200 border border-white/10">⚡ Check updates</span>
-                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-white/10 text-cyan-200 border border-white/10">⚙️ Run automations</span>
-                    </div>
-
-                    {/* Interactive Chat Launcher Trigger */}
-                    <div className="pt-2">
-                      <button
-                        type="button"
-                        onClick={() => window.dispatchEvent(new CustomEvent('open-tool-finder-chatbot'))}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:via-blue-500 hover:to-indigo-500 text-white text-xs font-bold shadow-md hover:shadow-cyan-500/30 transition-all cursor-pointer group-hover:scale-[1.02] active:scale-[0.98]"
-                      >
-                        <Bot className="w-3.5 h-3.5" />
-                        <span>Launch Assistant Chat</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
-                  </div>
+          {/* CENTER COLUMN: PROJECT ENQUIRY FORM */}
+          <div className="lg:col-span-6 space-y-6">
+            <div className="water-glass-form-elevated p-6 sm:p-8 space-y-6">
+              <div className="space-y-2">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100/80 text-indigo-800 text-xs font-bold shadow-2xs border border-indigo-200/60">
+                  <Briefcase className="w-3.5 h-3.5 text-indigo-600" />
+                  <span>Client Intake</span>
                 </div>
+                <h3 className="text-xl sm:text-2xl font-extrabold crystal-heading tracking-tight">
+                  Project Inquiry Form
+                </h3>
+                <p className="text-xs text-slate-700 leading-relaxed font-medium">
+                  Tell us about your project requirements and expected timeframe. We review every enquiry and reply within 24 hours.
+                </p>
               </div>
 
-              {/* Prominent Glass-Style Project Inquiry Form */}
-              <div className="water-glass-form-elevated p-6 sm:p-8 space-y-6 shadow-2xl border border-white/95">
-                <div className="space-y-2">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100/80 text-indigo-800 text-xs font-bold shadow-2xs border border-indigo-200/60">
-                    <Briefcase className="w-3.5 h-3.5 text-indigo-600" />
-                    <span>Client Intake</span>
+              {enquirySuccess ? (
+                <div role="status" aria-live="polite" className="p-6 rounded-2xl bg-emerald-50/90 border border-emerald-200 text-emerald-900 space-y-4 shadow-sm animate-in fade-in">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-600 flex-shrink-0">
+                      <CheckCircle2 className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-bold text-emerald-950">Enquiry Submitted Successfully</h4>
+                      <p className="text-xs text-emerald-800">Reference Confirmation ID: <span className="font-mono font-bold">{enquirySuccess.confirmationId}</span></p>
+                    </div>
                   </div>
-                  <h3 className="text-xl sm:text-2xl font-extrabold crystal-heading tracking-tight">
-                    Project Inquiry Form
-                  </h3>
-                  <p className="text-xs text-slate-700 leading-relaxed font-medium">
-                    Tell us about your project requirements and expected timeframe. We review every enquiry and reply within 24 hours.
+                  <p className="text-xs text-emerald-800 leading-relaxed">
+                    {enquirySuccess.message}
                   </p>
-                </div>
-
-                {enquirySuccess ? (
-                  <div role="status" aria-live="polite" className="p-6 rounded-2xl bg-emerald-50/90 border border-emerald-200 text-emerald-900 space-y-4 shadow-sm animate-in fade-in">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-600 flex-shrink-0">
-                        <CheckCircle2 className="w-6 h-6" />
-                      </div>
-                      <div>
-                        <h4 className="text-sm font-bold text-emerald-950">Enquiry Submitted Successfully</h4>
-                        <p className="text-xs text-emerald-800">Reference Confirmation ID: <span className="font-mono font-bold">{enquirySuccess.confirmationId}</span></p>
-                      </div>
-                    </div>
-                    <p className="text-xs text-emerald-800 leading-relaxed">
-                      {enquirySuccess.message}
-                    </p>
-                    <div className="p-3 bg-white/90 rounded-xl border border-emerald-200 text-[11px] text-slate-600 space-y-1">
-                      <div><strong>Project Type:</strong> {enquiryForm.projectType || 'Custom Project'}</div>
-                      <div><strong>Status:</strong> Dispatched to engineering team</div>
-                      <div><strong>Response Guarantee:</strong> Within 24–48 hours</div>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={handleResetEnquiry}
-                      className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition-all cursor-pointer shadow-xs"
-                    >
-                      Submit Another Project Enquiry
-                    </button>
+                  <div className="p-3 bg-white/90 rounded-xl border border-emerald-200 text-[11px] text-slate-600 space-y-1">
+                    <div><strong>Project Type:</strong> {enquiryForm.projectType || 'Custom Project'}</div>
+                    <div><strong>Status:</strong> Dispatched to engineering team</div>
+                    <div><strong>Response Guarantee:</strong> Within 24–48 hours</div>
                   </div>
-                ) : (
-                  <form onSubmit={handleEnquirySubmit} className="space-y-4" noValidate aria-label="Software development project enquiry form">
-                    {enquiryServerError && (
-                      <div role="alert" aria-live="assertive" className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-800 text-xs flex items-start gap-2 animate-in fade-in">
-                        <AlertCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
-                        <div className="space-y-1">
-                          <div className="font-bold">Submission Notice</div>
-                          <div className="leading-relaxed">{enquiryServerError}</div>
-                          <div className="pt-1 text-[11px]">Direct Email: <a href="mailto:bringmybite@gmail.com" className="underline font-bold">bringmybite@gmail.com</a></div>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Honeypot field for spam bots */}
-                    <input
-                      type="text"
-                      name="website"
-                      value={honeypot}
-                      onChange={(e) => setHoneypot(e.target.value)}
-                      tabIndex={-1}
-                      autoComplete="off"
-                      className="sr-only"
-                      aria-hidden="true"
-                    />
-
-                    {/* Row 1: Name & Email */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                  <button
+                    type="button"
+                    onClick={handleResetEnquiry}
+                    className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition-all cursor-pointer shadow-xs"
+                  >
+                    Submit Another Project Enquiry
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleEnquirySubmit} className="space-y-4" noValidate aria-label="Software development project enquiry form">
+                  {enquiryServerError && (
+                    <div role="alert" aria-live="assertive" className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-800 text-xs flex items-start gap-2 animate-in fade-in">
+                      <AlertCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
                       <div className="space-y-1">
-                        <label htmlFor="enquiry-name" className="block text-[11px] font-bold text-slate-800 uppercase tracking-wider">
-                          Full Name <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          id="enquiry-name"
-                          type="text"
-                          required
-                          disabled={isSubmittingEnquiry}
-                          value={enquiryForm.name}
-                          onChange={(e) => setEnquiryForm({ ...enquiryForm, name: e.target.value })}
-                          placeholder="e.g. Rahul Sharma"
-                          className={`w-full px-3.5 py-2.5 bg-white border ${enquiryErrors.name ? 'border-red-400 focus:ring-red-400' : 'border-slate-300 focus:border-cyan-500 focus:ring-cyan-400/30'} rounded-xl text-xs font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60`}
-                        />
-                        {enquiryErrors.name && (
-                          <p className="text-[10.5px] text-red-600 font-medium">{enquiryErrors.name}</p>
-                        )}
-                      </div>
-
-                      <div className="space-y-1">
-                        <label htmlFor="enquiry-email" className="block text-[11px] font-bold text-slate-800 uppercase tracking-wider">
-                          Email Address <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          id="enquiry-email"
-                          type="email"
-                          required
-                          disabled={isSubmittingEnquiry}
-                          value={enquiryForm.email}
-                          onChange={(e) => setEnquiryForm({ ...enquiryForm, email: e.target.value })}
-                          placeholder="e.g. rahul@example.com"
-                          className={`w-full px-3.5 py-2.5 bg-white border ${enquiryErrors.email ? 'border-red-400 focus:ring-red-400' : 'border-slate-300 focus:border-cyan-500 focus:ring-cyan-400/30'} rounded-xl text-xs font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60`}
-                        />
-                        {enquiryErrors.email && (
-                          <p className="text-[10.5px] text-red-600 font-medium">{enquiryErrors.email}</p>
-                        )}
+                        <div className="font-bold">Submission Notice</div>
+                        <div className="leading-relaxed">{enquiryServerError}</div>
+                        <div className="pt-1 text-[11px]">Direct Email: <a href="mailto:bringmybite@gmail.com" className="underline font-bold">bringmybite@gmail.com</a></div>
                       </div>
                     </div>
+                  )}
 
-                    {/* Row 2: Phone/WhatsApp & Project Type */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                      <div className="space-y-1">
-                        <label htmlFor="enquiry-phone" className="block text-[11px] font-bold text-slate-800 uppercase tracking-wider">
-                          Phone / WhatsApp <span className="text-red-500">*</span>
-                        </label>
-                        <div className="relative">
-                          <Phone className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-3 pointer-events-none" />
-                          <input
-                            id="enquiry-phone"
-                            type="tel"
-                            required
-                            disabled={isSubmittingEnquiry}
-                            value={enquiryForm.phone}
-                            onChange={(e) => setEnquiryForm({ ...enquiryForm, phone: e.target.value })}
-                            placeholder="+91 98765 43210"
-                            className={`w-full pl-9 pr-3.5 py-2.5 bg-white border ${enquiryErrors.phone ? 'border-red-400 focus:ring-red-400' : 'border-slate-300 focus:border-cyan-500 focus:ring-cyan-400/30'} rounded-xl text-xs font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60`}
-                          />
-                        </div>
-                        {enquiryErrors.phone && (
-                          <p className="text-[10.5px] text-red-600 font-medium">{enquiryErrors.phone}</p>
-                        )}
-                      </div>
+                  {/* Honeypot field for spam bots */}
+                  <input
+                    type="text"
+                    name="website"
+                    value={honeypot}
+                    onChange={(e) => setHoneypot(e.target.value)}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    className="sr-only"
+                    aria-hidden="true"
+                  />
 
-                      <div className="space-y-1">
-                        <label htmlFor="enquiry-project-type" className="block text-[11px] font-bold text-slate-800 uppercase tracking-wider">
-                          Project Type <span className="text-red-500">*</span>
-                        </label>
-                        <select
-                          id="enquiry-project-type"
-                          required
-                          disabled={isSubmittingEnquiry}
-                          value={enquiryForm.projectType}
-                          onChange={(e) => setEnquiryForm({ ...enquiryForm, projectType: e.target.value })}
-                          className={`w-full px-3.5 py-2.5 bg-white border ${enquiryErrors.projectType ? 'border-red-400 focus:ring-red-400' : 'border-slate-300 focus:border-cyan-500 focus:ring-cyan-400/30'} rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60 cursor-pointer`}
-                        >
-                          <option value="Portal">Portal Development</option>
-                          <option value="Web App">Web Application</option>
-                          <option value="Mobile App">Mobile App</option>
-                          <option value="Custom Software">Custom Software Solutions</option>
-                          <option value="Other">Other Project</option>
-                        </select>
-                        {enquiryErrors.projectType && (
-                          <p className="text-[10.5px] text-red-600 font-medium">{enquiryErrors.projectType}</p>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Row 3: Budget Range & Preferred Delivery Timeframe */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                      <div className="space-y-1">
-                        <label htmlFor="enquiry-budget" className="block text-[11px] font-bold text-slate-800 uppercase tracking-wider">
-                          Budget Range <span className="text-red-500">*</span>
-                        </label>
-                        <select
-                          id="enquiry-budget"
-                          required
-                          disabled={isSubmittingEnquiry}
-                          value={enquiryForm.budgetRange}
-                          onChange={(e) => setEnquiryForm({ ...enquiryForm, budgetRange: e.target.value })}
-                          className={`w-full px-3.5 py-2.5 bg-white border ${enquiryErrors.budgetRange ? 'border-red-400 focus:ring-red-400' : 'border-slate-300 focus:border-cyan-500 focus:ring-cyan-400/30'} rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60 cursor-pointer`}
-                        >
-                          <option value="Under ₹50,000 / $600">Under ₹50,000 / $600 (Starter / MVP)</option>
-                          <option value="₹50,000 – ₹1,50,000 / $600 – $1,800">₹50,000 – ₹1,50,000 / $600 – $1,800</option>
-                          <option value="₹1,50,000 – ₹3,50,000 / $1,800 – $4,200">₹1,50,000 – ₹3,50,000 / $1,800 – $4,200</option>
-                          <option value="₹3,50,000 – ₹7,50,000 / $4,200 – $9,000">₹3,50,000 – ₹7,50,000 / $4,200 – $9,000</option>
-                          <option value="₹7,50,000+ / $9,000+ (Enterprise)">₹7,50,000+ / $9,000+ (Enterprise)</option>
-                          <option value="Flexible / Scope-dependent">Flexible / Scope-dependent</option>
-                        </select>
-                        {enquiryErrors.budgetRange && (
-                          <p className="text-[10.5px] text-red-600 font-medium">{enquiryErrors.budgetRange}</p>
-                        )}
-                      </div>
-
-                      <div className="space-y-1">
-                        <label htmlFor="enquiry-timeframe" className="block text-[11px] font-bold text-slate-800 uppercase tracking-wider">
-                          Preferred Delivery Timeframe <span className="text-red-500">*</span>
-                        </label>
-                        <select
-                          id="enquiry-timeframe"
-                          required
-                          disabled={isSubmittingEnquiry}
-                          value={enquiryForm.timeframe}
-                          onChange={(e) => setEnquiryForm({ ...enquiryForm, timeframe: e.target.value })}
-                          className={`w-full px-3.5 py-2.5 bg-white border ${enquiryErrors.timeframe ? 'border-red-400 focus:ring-red-400' : 'border-slate-300 focus:border-cyan-500 focus:ring-cyan-400/30'} rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60 cursor-pointer`}
-                        >
-                          <option value="Urgent (< 2 weeks)">Urgent (&lt; 2 weeks)</option>
-                          <option value="2 to 4 weeks">2 to 4 weeks</option>
-                          <option value="1 to 2 months">1 to 2 months</option>
-                          <option value="2 to 3 months">2 to 3 months</option>
-                          <option value="Flexible / Ongoing">Flexible / Ongoing</option>
-                        </select>
-                        {enquiryErrors.timeframe && (
-                          <p className="text-[10.5px] text-red-600 font-medium">{enquiryErrors.timeframe}</p>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Row 4: Existing Website / App URL (Optional) */}
+                  {/* Row 1: Name & Email */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                     <div className="space-y-1">
-                      <label htmlFor="enquiry-existing-url" className="block text-[11px] font-bold text-slate-800 uppercase tracking-wider">
-                        Existing Website / App URL <span className="text-slate-400 font-normal normal-case">(optional)</span>
+                      <label htmlFor="enquiry-name" className="block text-[11px] font-bold text-slate-800 uppercase tracking-wider">
+                        Full Name <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        id="enquiry-name"
+                        type="text"
+                        required
+                        disabled={isSubmittingEnquiry}
+                        value={enquiryForm.name}
+                        onChange={(e) => setEnquiryForm({ ...enquiryForm, name: e.target.value })}
+                        placeholder="e.g. Rahul Sharma"
+                        className={`w-full px-3.5 py-2.5 bg-white border ${enquiryErrors.name ? 'border-red-400 focus:ring-red-400' : 'border-slate-300 focus:border-cyan-500 focus:ring-cyan-400/30'} rounded-xl text-xs font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60`}
+                      />
+                      {enquiryErrors.name && (
+                        <p className="text-[10.5px] text-red-600 font-medium">{enquiryErrors.name}</p>
+                      )}
+                    </div>
+
+                    <div className="space-y-1">
+                      <label htmlFor="enquiry-email" className="block text-[11px] font-bold text-slate-800 uppercase tracking-wider">
+                        Email Address <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        id="enquiry-email"
+                        type="email"
+                        required
+                        disabled={isSubmittingEnquiry}
+                        value={enquiryForm.email}
+                        onChange={(e) => setEnquiryForm({ ...enquiryForm, email: e.target.value })}
+                        placeholder="e.g. rahul@example.com"
+                        className={`w-full px-3.5 py-2.5 bg-white border ${enquiryErrors.email ? 'border-red-400 focus:ring-red-400' : 'border-slate-300 focus:border-cyan-500 focus:ring-cyan-400/30'} rounded-xl text-xs font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60`}
+                      />
+                      {enquiryErrors.email && (
+                        <p className="text-[10.5px] text-red-600 font-medium">{enquiryErrors.email}</p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Row 2: Phone/WhatsApp & Project Type */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <div className="space-y-1">
+                      <label htmlFor="enquiry-phone" className="block text-[11px] font-bold text-slate-800 uppercase tracking-wider">
+                        Phone / WhatsApp <span className="text-red-500">*</span>
                       </label>
                       <div className="relative">
-                        <Globe className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-3 pointer-events-none" />
+                        <Phone className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-3 pointer-events-none" />
                         <input
-                          id="enquiry-existing-url"
-                          type="url"
+                          id="enquiry-phone"
+                          type="tel"
+                          required
                           disabled={isSubmittingEnquiry}
-                          value={enquiryForm.existingUrl}
-                          onChange={(e) => setEnquiryForm({ ...enquiryForm, existingUrl: e.target.value })}
-                          placeholder="https://yourcompany.com"
-                          className="w-full pl-9 pr-3.5 py-2.5 bg-white border border-slate-300 focus:border-cyan-500 focus:ring-cyan-400/30 rounded-xl text-xs font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60"
+                          value={enquiryForm.phone}
+                          onChange={(e) => setEnquiryForm({ ...enquiryForm, phone: e.target.value })}
+                          placeholder="+91 98765 43210"
+                          className={`w-full pl-9 pr-3.5 py-2.5 bg-white border ${enquiryErrors.phone ? 'border-red-400 focus:ring-red-400' : 'border-slate-300 focus:border-cyan-500 focus:ring-cyan-400/30'} rounded-xl text-xs font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60`}
                         />
                       </div>
-                    </div>
-
-                    {/* Row 5: Brief Project Description */}
-                    <div className="space-y-1">
-                      <label htmlFor="enquiry-description" className="block text-[11px] font-bold text-slate-800 uppercase tracking-wider">
-                        Brief Project Description <span className="text-red-500">*</span>
-                      </label>
-                      <textarea
-                        id="enquiry-description"
-                        rows={3}
-                        required
-                        disabled={isSubmittingEnquiry}
-                        value={enquiryForm.description}
-                        onChange={(e) => setEnquiryForm({ ...enquiryForm, description: e.target.value })}
-                        placeholder="Summarize your project goals, target audience, and primary problem to solve..."
-                        className={`w-full px-3.5 py-2.5 bg-white border ${enquiryErrors.description ? 'border-red-400 focus:ring-red-400' : 'border-slate-300 focus:border-cyan-500 focus:ring-cyan-400/30'} rounded-xl text-xs font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60 resize-y`}
-                      />
-                      {enquiryErrors.description && (
-                        <p className="text-[10.5px] text-red-600 font-medium">{enquiryErrors.description}</p>
+                      {enquiryErrors.phone && (
+                        <p className="text-[10.5px] text-red-600 font-medium">{enquiryErrors.phone}</p>
                       )}
                     </div>
 
-                    {/* Row 6: Required Features & Key Requirements */}
                     <div className="space-y-1">
-                      <label htmlFor="enquiry-requirements" className="block text-[11px] font-bold text-slate-800 uppercase tracking-wider">
-                        Required Features & Key Requirements <span className="text-red-500">*</span>
+                      <label htmlFor="enquiry-project-type" className="block text-[11px] font-bold text-slate-800 uppercase tracking-wider">
+                        Project Type <span className="text-red-500">*</span>
                       </label>
-                      <textarea
-                        id="enquiry-requirements"
-                        rows={3}
+                      <select
+                        id="enquiry-project-type"
                         required
                         disabled={isSubmittingEnquiry}
-                        value={enquiryForm.keyRequirements}
-                        onChange={(e) => setEnquiryForm({ ...enquiryForm, keyRequirements: e.target.value })}
-                        placeholder="List key modules (e.g. user authentication, payment gateway, admin portal, analytics API, mobile responsiveness)..."
-                        className={`w-full px-3.5 py-2.5 bg-white border ${enquiryErrors.keyRequirements ? 'border-red-400 focus:ring-red-400' : 'border-slate-300 focus:border-cyan-500 focus:ring-cyan-400/30'} rounded-xl text-xs font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60 resize-y`}
-                      />
-                      {enquiryErrors.keyRequirements && (
-                        <p className="text-[10.5px] text-red-600 font-medium">{enquiryErrors.keyRequirements}</p>
-                      )}
-                    </div>
-
-                    {/* Blue / Purple Gradient Submit Button */}
-                    <div className="pt-2">
-                      <button
-                        type="submit"
-                        disabled={isSubmittingEnquiry}
-                        className="w-full py-3.5 px-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700 disabled:opacity-60 text-white rounded-xl text-xs font-extrabold uppercase tracking-wider transition-all shadow-lg hover:shadow-indigo-500/25 border border-white/20 flex items-center justify-center gap-2 cursor-pointer active:scale-[0.99]"
+                        value={enquiryForm.projectType}
+                        onChange={(e) => setEnquiryForm({ ...enquiryForm, projectType: e.target.value })}
+                        className={`w-full px-3.5 py-2.5 bg-white border ${enquiryErrors.projectType ? 'border-red-400 focus:ring-red-400' : 'border-slate-300 focus:border-cyan-500 focus:ring-cyan-400/30'} rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60 cursor-pointer`}
                       >
-                        {isSubmittingEnquiry ? (
-                          <>
-                            <Loader2 className="w-4 h-4 animate-spin" />
-                            <span>Submitting Project Enquiry...</span>
-                          </>
-                        ) : (
-                          <>
-                            <Send className="w-4 h-4" />
-                            <span>Submit Project Enquiry</span>
-                          </>
-                        )}
-                      </button>
+                        <option value="Portal">Portal Development</option>
+                        <option value="Web App">Web Application</option>
+                        <option value="Mobile App">Mobile App</option>
+                        <option value="Custom Software">Custom Software Solutions</option>
+                        <option value="Other">Other Project</option>
+                      </select>
+                      {enquiryErrors.projectType && (
+                        <p className="text-[10.5px] text-red-600 font-medium">{enquiryErrors.projectType}</p>
+                      )}
                     </div>
-                  </form>
-                )}
+                  </div>
 
-                <div className="pt-2 text-[11px] text-slate-500 text-center font-medium">
-                  Bring My Bite Software Services &bull; All enquiries handled confidentially under NDA &bull; No spam guaranteed.
-                </div>
+                  {/* Row 3: Budget Range & Preferred Delivery Timeframe */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <div className="space-y-1">
+                      <label htmlFor="enquiry-budget" className="block text-[11px] font-bold text-slate-800 uppercase tracking-wider">
+                        Budget Range <span className="text-red-500">*</span>
+                      </label>
+                      <select
+                        id="enquiry-budget"
+                        required
+                        disabled={isSubmittingEnquiry}
+                        value={enquiryForm.budgetRange}
+                        onChange={(e) => setEnquiryForm({ ...enquiryForm, budgetRange: e.target.value })}
+                        className={`w-full px-3.5 py-2.5 bg-white border ${enquiryErrors.budgetRange ? 'border-red-400 focus:ring-red-400' : 'border-slate-300 focus:border-cyan-500 focus:ring-cyan-400/30'} rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60 cursor-pointer`}
+                      >
+                        <option value="Under ₹50,000 / $600">Under ₹50,000 / $600 (Starter / MVP)</option>
+                        <option value="₹50,000 – ₹1,50,000 / $600 – $1,800">₹50,000 – ₹1,50,000 / $600 – $1,800</option>
+                        <option value="₹1,50,000 – ₹3,50,000 / $1,800 – $4,200">₹1,50,000 – ₹3,50,000 / $1,800 – $4,200</option>
+                        <option value="₹3,50,000 – ₹7,50,000 / $4,200 – $9,000">₹3,50,000 – ₹7,50,000 / $4,200 – $9,000</option>
+                        <option value="₹7,50,000+ / $9,000+ (Enterprise)">₹7,50,000+ / $9,000+ (Enterprise)</option>
+                        <option value="Flexible / Scope-dependent">Flexible / Scope-dependent</option>
+                      </select>
+                      {enquiryErrors.budgetRange && (
+                        <p className="text-[10.5px] text-red-600 font-medium">{enquiryErrors.budgetRange}</p>
+                      )}
+                    </div>
+
+                    <div className="space-y-1">
+                      <label htmlFor="enquiry-timeframe" className="block text-[11px] font-bold text-slate-800 uppercase tracking-wider">
+                        Preferred Delivery Timeframe <span className="text-red-500">*</span>
+                      </label>
+                      <select
+                        id="enquiry-timeframe"
+                        required
+                        disabled={isSubmittingEnquiry}
+                        value={enquiryForm.timeframe}
+                        onChange={(e) => setEnquiryForm({ ...enquiryForm, timeframe: e.target.value })}
+                        className={`w-full px-3.5 py-2.5 bg-white border ${enquiryErrors.timeframe ? 'border-red-400 focus:ring-red-400' : 'border-slate-300 focus:border-cyan-500 focus:ring-cyan-400/30'} rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60 cursor-pointer`}
+                      >
+                        <option value="Urgent (< 2 weeks)">Urgent (&lt; 2 weeks)</option>
+                        <option value="2 to 4 weeks">2 to 4 weeks</option>
+                        <option value="1 to 2 months">1 to 2 months</option>
+                        <option value="2 to 3 months">2 to 3 months</option>
+                        <option value="Flexible / Ongoing">Flexible / Ongoing</option>
+                      </select>
+                      {enquiryErrors.timeframe && (
+                        <p className="text-[10.5px] text-red-600 font-medium">{enquiryErrors.timeframe}</p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Row 4: Existing Website / App URL (Optional) */}
+                  <div className="space-y-1">
+                    <label htmlFor="enquiry-existing-url" className="block text-[11px] font-bold text-slate-800 uppercase tracking-wider">
+                      Existing Website / App URL <span className="text-slate-400 font-normal normal-case">(optional)</span>
+                    </label>
+                    <div className="relative">
+                      <Globe className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-3 pointer-events-none" />
+                      <input
+                        id="enquiry-existing-url"
+                        type="url"
+                        disabled={isSubmittingEnquiry}
+                        value={enquiryForm.existingUrl}
+                        onChange={(e) => setEnquiryForm({ ...enquiryForm, existingUrl: e.target.value })}
+                        placeholder="https://yourcompany.com"
+                        className="w-full pl-9 pr-3.5 py-2.5 bg-white border border-slate-300 focus:border-cyan-500 focus:ring-cyan-400/30 rounded-xl text-xs font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Row 5: Brief Project Description */}
+                  <div className="space-y-1">
+                    <label htmlFor="enquiry-description" className="block text-[11px] font-bold text-slate-800 uppercase tracking-wider">
+                      Brief Project Description <span className="text-red-500">*</span>
+                    </label>
+                    <textarea
+                      id="enquiry-description"
+                      rows={3}
+                      required
+                      disabled={isSubmittingEnquiry}
+                      value={enquiryForm.description}
+                      onChange={(e) => setEnquiryForm({ ...enquiryForm, description: e.target.value })}
+                      placeholder="Summarize your project goals, target audience, and primary problem to solve..."
+                      className={`w-full px-3.5 py-2.5 bg-white border ${enquiryErrors.description ? 'border-red-400 focus:ring-red-400' : 'border-slate-300 focus:border-cyan-500 focus:ring-cyan-400/30'} rounded-xl text-xs font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60 resize-y`}
+                    />
+                    {enquiryErrors.description && (
+                      <p className="text-[10.5px] text-red-600 font-medium">{enquiryErrors.description}</p>
+                    )}
+                  </div>
+
+                  {/* Row 6: Required Features & Key Requirements */}
+                  <div className="space-y-1">
+                    <label htmlFor="enquiry-requirements" className="block text-[11px] font-bold text-slate-800 uppercase tracking-wider">
+                      Required Features & Key Requirements <span className="text-red-500">*</span>
+                    </label>
+                    <textarea
+                      id="enquiry-requirements"
+                      rows={3}
+                      required
+                      disabled={isSubmittingEnquiry}
+                      value={enquiryForm.keyRequirements}
+                      onChange={(e) => setEnquiryForm({ ...enquiryForm, keyRequirements: e.target.value })}
+                      placeholder="List key modules (e.g. user authentication, payment gateway, admin portal, analytics API, mobile responsiveness)..."
+                      className={`w-full px-3.5 py-2.5 bg-white border ${enquiryErrors.keyRequirements ? 'border-red-400 focus:ring-red-400' : 'border-slate-300 focus:border-cyan-500 focus:ring-cyan-400/30'} rounded-xl text-xs font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60 resize-y`}
+                    />
+                    {enquiryErrors.keyRequirements && (
+                      <p className="text-[10.5px] text-red-600 font-medium">{enquiryErrors.keyRequirements}</p>
+                    )}
+                  </div>
+
+                  {/* Submit Button */}
+                  <div className="pt-2">
+                    <button
+                      type="submit"
+                      disabled={isSubmittingEnquiry}
+                      className="w-full py-3 px-5 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-600 hover:from-blue-700 hover:via-indigo-700 hover:to-cyan-700 disabled:opacity-60 text-white rounded-xl text-xs font-bold transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 cursor-pointer"
+                    >
+                      {isSubmittingEnquiry ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          <span>Submitting Project Enquiry...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Send className="w-4 h-4" />
+                          <span>Submit Project Enquiry</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </form>
+              )}
+
+              <div className="pt-2 text-[11px] text-slate-500 text-center font-medium">
+                Bring My Bite Software Services &bull; All enquiries handled confidentially under NDA &bull; No spam guaranteed.
               </div>
             </div>
+          </div>
 
-            {/* RIGHT COLUMN: WHY WORK WITH US */}
-            <div className="lg:col-span-3 space-y-6">
-              <div className="water-glass-panel p-6 sm:p-7 space-y-5 shadow-xl border border-white/95">
-                <div className="space-y-2.5">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100/80 text-emerald-800 text-xs font-bold shadow-2xs border border-emerald-200/60">
-                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>Advantage</span>
+          {/* RIGHT COLUMN: WHY WORK WITH US */}
+          <div className="lg:col-span-3 space-y-6">
+            <div className="water-glass-panel p-6 sm:p-7 space-y-5">
+              <div className="space-y-2.5">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100/80 text-emerald-800 text-xs font-bold shadow-2xs border border-emerald-200/60">
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>Advantage</span>
+                </div>
+                <h3 className="text-xl sm:text-2xl font-extrabold crystal-heading tracking-tight">
+                  Why Work With Us
+                </h3>
+                <p className="text-xs text-slate-700 leading-relaxed font-medium">
+                  Direct engineering accountability, rapid turnaround, and lifecycle continuity from concept to production.
+                </p>
+              </div>
+
+              <div className="space-y-3.5 pt-1 border-t border-slate-200/70">
+                {/* Benefit Card 1: Your Portal. Your Language. */}
+                <div className="water-glass-benefit-card space-y-2">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 text-white flex items-center justify-center flex-shrink-0 shadow-xs">
+                      <Languages className="w-4 h-4" />
+                    </div>
+                    <h4 className="text-xs font-bold text-slate-900 tracking-tight leading-snug">
+                      Your Portal. Your Language.
+                    </h4>
                   </div>
-                  <h3 className="text-xl sm:text-2xl font-extrabold crystal-heading tracking-tight">
-                    Why Work With Us
-                  </h3>
-                  <p className="text-xs text-slate-700 leading-relaxed font-medium">
-                    Direct engineering accountability, rapid turnaround, and lifecycle continuity from concept to production.
+                  <p className="text-xs text-slate-600 leading-relaxed pl-0.5">
+                    We will make your portal talk in your language with your own friendly AI.
+                  </p>
+                  <p className="text-[10px] text-slate-400 italic pl-0.5 pt-0.5">
+                    *Terms and conditions apply.
                   </p>
                 </div>
 
-                <div className="space-y-3.5 pt-1 border-t border-slate-200/70">
-                  {/* Benefit Card 1: Your Portal. Your Language. */}
-                  <div className="water-glass-benefit-card space-y-2">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 text-white flex items-center justify-center flex-shrink-0 shadow-xs">
-                        <Languages className="w-4 h-4" />
-                      </div>
-                      <h4 className="text-xs font-bold text-slate-900 tracking-tight leading-snug">
-                        Your Portal. Your Language.
-                      </h4>
+                {/* Benefit Card 2: Be Truly Independent */}
+                <div className="water-glass-benefit-card space-y-2">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-600 text-white flex items-center justify-center flex-shrink-0 shadow-xs">
+                      <FileText className="w-4 h-4" />
                     </div>
-                    <p className="text-xs text-slate-600 leading-relaxed pl-0.5">
-                      We will make your portal talk in your language with your own friendly AI.
-                    </p>
-                    <p className="text-[10px] text-slate-400 italic pl-0.5 pt-0.5">
-                      *Terms and conditions apply.
-                    </p>
+                    <h4 className="text-xs font-bold text-slate-900 tracking-tight leading-snug">
+                      Be Truly Independent
+                    </h4>
                   </div>
-
-                  {/* Benefit Card 2: Be Truly Independent */}
-                  <div className="water-glass-benefit-card space-y-2">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-600 text-white flex items-center justify-center flex-shrink-0 shadow-xs">
-                        <FileText className="w-4 h-4" />
-                      </div>
-                      <h4 className="text-xs font-bold text-slate-900 tracking-tight leading-snug">
-                        Be Truly Independent
-                      </h4>
-                    </div>
-                    <p className="text-xs text-slate-600 leading-relaxed pl-0.5">
-                      We build solutions that give you greater control, so you can manage everyday changes without depending on a developer for every small update.
-                    </p>
-                    <div className="p-2.5 rounded-lg bg-indigo-50/70 border border-indigo-100 text-[11px] text-indigo-950 leading-relaxed font-normal">
-                      Every project includes a practical PDF guide covering how your software works, configuration, environment variables, API integrations, and step-by-step instructions for future changes.
-                    </div>
-                  </div>
-                </div>
-
-                {/* Direct Contact Card */}
-                <div className="pt-2 border-t border-slate-200/70">
-                  <div className="p-3 rounded-2xl bg-white/85 border border-slate-200/80 shadow-2xs space-y-1.5">
-                    <div className="text-[11px] font-bold text-slate-800 flex items-center gap-1.5">
-                      <Mail className="w-3.5 h-3.5 text-blue-600" />
-                      <span>Direct Inquiries</span>
-                    </div>
-                    <a
-                      href="mailto:bringmybite@gmail.com"
-                      className="text-xs font-bold text-blue-600 hover:text-blue-800 break-all block"
-                    >
-                      bringmybite@gmail.com
-                    </a>
-                    <p className="text-[10px] text-slate-500 leading-snug">
-                      Prefer direct email? Send your project brief directly to our team.
-                    </p>
+                  <p className="text-xs text-slate-600 leading-relaxed pl-0.5">
+                    We build solutions that give you greater control, so you can manage everyday changes without depending on a developer for every small update.
+                  </p>
+                  <div className="p-2.5 rounded-lg bg-indigo-50/70 border border-indigo-100 text-[11px] text-indigo-950 leading-relaxed font-normal">
+                    Every project includes a practical PDF guide covering how your software works, configuration, environment variables, API integrations, and step-by-step instructions for future changes.
                   </div>
                 </div>
               </div>
-            </div>
 
+              {/* Direct Contact Card */}
+              <div className="pt-2 border-t border-slate-200/70">
+                <div className="p-3 rounded-2xl bg-white/80 border border-slate-200/80 shadow-2xs space-y-1.5">
+                  <div className="text-[11px] font-bold text-slate-800 flex items-center gap-1.5">
+                    <Mail className="w-3.5 h-3.5 text-blue-600" />
+                    <span>Direct Inquiries</span>
+                  </div>
+                  <a
+                    href="mailto:bringmybite@gmail.com"
+                    className="text-xs font-bold text-blue-600 hover:text-blue-800 break-all block"
+                  >
+                    bringmybite@gmail.com
+                  </a>
+                  <p className="text-[10px] text-slate-500 leading-snug">
+                    Prefer direct email? Send your project brief directly to our team.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
+
         </div>
       </section>
 

@@ -421,11 +421,6 @@
   pointer-events: none;
 }
 
-.water-glass-panel > * {
-  position: relative;
-  z-index: 10;
-}
-
 /* 2. Elevated Project Inquiry Form (Most prominent glass depth, realistic refraction & cyan glow) */
 .water-glass-form-elevated {
   position: relative;
@@ -458,11 +453,6 @@
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
   border-radius: inherit;
   pointer-events: none;
-}
-
-.water-glass-form-elevated > * {
-  position: relative;
-  z-index: 10;
 }
 
 /* 3. Subtle Crystal-Like Heading Highlight (Crisp, highly readable deep slate with light refractive sheen) */
