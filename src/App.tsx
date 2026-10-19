@@ -136,6 +136,17 @@ export default function App() {
     };
   }, []);
 
+  // Scroll restoration control & ensure fresh initial page load starts strictly at the top
+  useEffect(() => {
+    if (typeof window !== 'undefined' && 'scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+    const hash = window.location.hash;
+    if (!hash || hash === '#/' || hash === '#home') {
+      window.scrollTo(0, 0);
+    }
+  }, []);
+
   // Frontend security safeguards: modest deterrent against accidental right clicks and devtools hotkeys
   useEffect(() => {
     const cleanupDeterrent = setupSecurityDeterrent();

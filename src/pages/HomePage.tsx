@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Search,
   Sparkles,
@@ -27,7 +27,15 @@ import {
   Code,
   Smartphone,
   Tv,
-  Calculator
+  Calculator,
+  Loader2,
+  Phone,
+  Briefcase,
+  Clock,
+  Wrench,
+  Headset,
+  Rocket,
+  Laptop
 } from 'lucide-react';
 import { PRODUCTS, CATEGORIES } from '../data/products';
 import { INDIA_OFFERS } from '../data/indiaOffers';
@@ -41,7 +49,6 @@ import { WorkspaceCalculator } from '../components/WorkspaceCalculator';
 import { HeroEcosystemVisual } from '../components/HeroEcosystemVisual';
 import { AdPlacement } from '../components/AdPlacement';
 import { FeaturedOwnerPromotion } from '../components/FeaturedOwnerPromotion';
-import { ToolFinderChatbot } from '../components/ToolFinderChatbot';
 import { ProductLogo } from '../components/ProductLogo';
 import { WaterLightGlass } from '../components/WaterLightGlass';
 
@@ -50,10 +57,186 @@ interface HomePageProps {
   onOpenSearch: () => void;
 }
 
+interface EnquiryFormData {
+  name: string;
+  email: string;
+  phone: string;
+  projectType: string;
+  description: string;
+  keyRequirements: string;
+  budgetRange: string;
+  timeframe: string;
+  existingUrl: string;
+}
+
 export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) => {
-  const [newsletterEmail, setNewsletterEmail] = useState('');
-  const [newsletterStatus, setNewsletterStatus] = useState<'idle' | 'loading' | 'success' | 'already_subscribed' | 'error'>('idle');
-  const [newsletterMsg, setNewsletterMsg] = useState('');
+  // Ensure fresh page load on homepage strictly starts at top (0,0)
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (!hash || hash === '#/' || hash === '#home') {
+      window.scrollTo(0, 0);
+    }
+  }, []);
+
+  // Professional Software Development Project Enquiry Form State
+  const [enquiryForm, setEnquiryForm] = useState<EnquiryFormData>({
+    name: '',
+    email: '',
+    phone: '',
+    projectType: 'Portal',
+    description: '',
+    keyRequirements: '',
+    budgetRange: '₹50,000 – ₹1,50,000 / $600 – $1,800',
+    timeframe: '2 to 4 weeks',
+    existingUrl: ''
+  });
+  const [honeypot, setHoneypot] = useState('');
+  const [enquiryErrors, setEnquiryErrors] = useState<Record<string, string>>({});
+  const [isSubmittingEnquiry, setIsSubmittingEnquiry] = useState(false);
+  const [enquiryServerError, setEnquiryServerError] = useState<string | null>(null);
+  const [enquirySuccess, setEnquirySuccess] = useState<{
+    confirmationId: string;
+    timestamp: string;
+    message: string;
+  } | null>(null);
+
+  const enquiryStartTimeRef = useRef<number>(Date.now());
+
+  const validateEnquiry = (): Record<string, string> => {
+    const errors: Record<string, string> = {};
+    const name = enquiryForm.name.trim();
+    if (!name || name.length < 2) {
+      errors.name = 'Full name is required (minimum 2 characters).';
+    }
+
+    const email = enquiryForm.email.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailRegex.test(email)) {
+      errors.email = 'A valid email address is required.';
+    }
+
+    const phone = enquiryForm.phone.trim();
+    if (!phone || phone.length < 7) {
+      errors.phone = 'A valid Phone / WhatsApp number is required.';
+    }
+
+    if (!enquiryForm.projectType) {
+      errors.projectType = 'Please select a project type.';
+    }
+
+    const desc = enquiryForm.description.trim();
+    if (!desc || desc.length < 10) {
+      errors.description = 'Please provide a brief project description (minimum 10 characters).';
+    }
+
+    const reqs = enquiryForm.keyRequirements.trim();
+    if (!reqs || reqs.length < 10) {
+      errors.keyRequirements = 'Please specify key features and requirements (minimum 10 characters).';
+    }
+
+    if (!enquiryForm.budgetRange) {
+      errors.budgetRange = 'Please select your estimated budget range.';
+    }
+
+    if (!enquiryForm.timeframe) {
+      errors.timeframe = 'Please select your preferred delivery timeframe.';
+    }
+
+    return errors;
+  };
+
+  const handleEnquirySubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const errors = validateEnquiry();
+    if (Object.keys(errors).length > 0) {
+      setEnquiryErrors(errors);
+      return;
+    }
+
+    setEnquiryErrors({});
+    setEnquiryServerError(null);
+    setIsSubmittingEnquiry(true);
+
+    // Bot detection check: enforce 1200ms minimum user interaction
+    const elapsed = Date.now() - enquiryStartTimeRef.current;
+    if (elapsed < 1200) {
+      await new Promise(r => setTimeout(r, 1200 - elapsed));
+    }
+
+    const formattedMessage = [
+      `Project Type: ${enquiryForm.projectType}`,
+      `Phone / WhatsApp: ${enquiryForm.phone.trim()}`,
+      enquiryForm.existingUrl.trim() ? `Existing Website/App URL: ${enquiryForm.existingUrl.trim()}` : null,
+      `Budget Range: ${enquiryForm.budgetRange}`,
+      `Preferred Delivery Timeframe: ${enquiryForm.timeframe}`,
+      '',
+      '--- BRIEF PROJECT DESCRIPTION ---',
+      enquiryForm.description.trim(),
+      '',
+      '--- REQUIRED FEATURES & KEY REQUIREMENTS ---',
+      enquiryForm.keyRequirements.trim()
+    ].filter(line => line !== null).join('\n');
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: enquiryForm.name.trim(),
+          email: enquiryForm.email.trim().toLowerCase(),
+          subject: 'project_enquiry',
+          message: formattedMessage,
+          website: honeypot,
+          formStartTime: enquiryStartTimeRef.current
+        })
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (res.ok && data.success) {
+        setEnquirySuccess({
+          confirmationId: data.confirmationId || `GTF-PRJ-${Date.now().toString(36).toUpperCase()}`,
+          timestamp: data.timestamp || new Date().toISOString(),
+          message: data.message || 'Your project enquiry has been successfully delivered to our development team.'
+        });
+        setEnquiryForm({
+          name: '',
+          email: '',
+          phone: '',
+          projectType: 'Portal',
+          description: '',
+          keyRequirements: '',
+          budgetRange: '₹50,000 – ₹1,50,000 / $600 – $1,800',
+          timeframe: '2 to 4 weeks',
+          existingUrl: ''
+        });
+        setHoneypot('');
+      } else {
+        if (data.details) {
+          setEnquiryErrors(data.details);
+        }
+        setEnquiryServerError(
+          data.error || 'Unable to submit your enquiry at this time. Please contact us directly at bringmybite@gmail.com.'
+        );
+      }
+    } catch (err) {
+      console.error('[Client Enquiry Submission Error]', err);
+      setEnquiryServerError(
+        'Network error connecting to the submission service. Please check your connection or contact bringmybite@gmail.com directly.'
+      );
+    } finally {
+      setIsSubmittingEnquiry(false);
+    }
+  };
+
+  const handleResetEnquiry = () => {
+    setEnquirySuccess(null);
+    setEnquiryServerError(null);
+    setEnquiryErrors({});
+    enquiryStartTimeRef.current = Date.now();
+  };
 
   // Curated 3-4 featured products per homepage section for low-text, visual discovery
   const popularProducts = PRODUCTS.filter(p => ['gmail', 'google-drive', 'google-search', 'google-photos'].includes(p.slug));
@@ -67,47 +250,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
   const topIndiaOffers = INDIA_OFFERS.slice(0, 3);
   // Tutorials
   const topTutorials = TUTORIALS.slice(0, 3);
-
-  const handleNewsletterSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const email = newsletterEmail.trim().toLowerCase();
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email || !emailRegex.test(email)) {
-      setNewsletterStatus('error');
-      setNewsletterMsg('Please enter a valid email address.');
-      return;
-    }
-
-    setNewsletterStatus('loading');
-    setNewsletterMsg('');
-
-    try {
-      const res = await fetch('/api/newsletter', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email })
-      });
-
-      const data = await res.json().catch(() => ({}));
-
-      if (res.ok && data.success) {
-        if (data.status === 'already_subscribed') {
-          setNewsletterStatus('already_subscribed');
-          setNewsletterMsg(data.message || 'You are already subscribed to the Google Tool Finder updates.');
-        } else {
-          setNewsletterStatus('success');
-          setNewsletterMsg(data.message || 'Thank you for subscribing! Your email has been registered for Google ecosystem updates.');
-          setNewsletterEmail('');
-        }
-      } else {
-        setNewsletterStatus('error');
-        setNewsletterMsg(data.message || 'Unable to register subscription at this time. Please try again.');
-      }
-    } catch {
-      setNewsletterStatus('error');
-      setNewsletterMsg('Network error. Unable to reach newsletter service.');
-    }
-  };
 
   return (
     <div className="space-y-16 sm:space-y-24 pb-16">
@@ -224,8 +366,9 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
                   </button>
                   <button
                     onClick={() => {
-                      const el = document.getElementById('chatbot-section');
-                      if (el) el.scrollIntoView({ behavior: 'smooth' });
+                      window.dispatchEvent(new CustomEvent('open-tool-finder-chatbot'));
+                      const launcher = document.getElementById('tool-finder-chatbot-launcher');
+                      if (launcher) launcher.click();
                     }}
                     className="liquid-glass-pill px-3 py-1 text-xs text-indigo-700 hover:text-indigo-900 inline-flex items-center gap-1.5 cursor-pointer"
                   >
@@ -808,98 +951,467 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
         </div>
       </section>
 
-      {/* 11. TOOL FINDER AI — INTERACTIVE LIQUID GLASS AI CHATBOT PANEL */}
-      <section id="chatbot-section" className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
-        <div className="space-y-4">
-          <div className="text-center space-y-2 max-w-xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100 text-indigo-800 text-xs font-bold shadow-2xs">
-              <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
-              <span>Live Assistant</span>
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
-              Tool Finder AI Assistant
-            </h2>
-            <p className="text-xs sm:text-sm text-slate-500">
-              Ask anything about Google products, pricing in India, student research tools, or cloud credits.
-            </p>
-          </div>
-
-          <ToolFinderChatbot
-            onNavigateProduct={(slug) => onNavigate('product-detail', slug)}
-            onNavigateTutorial={(slug) => onNavigate('tutorial-detail', slug)}
-            onNavigateOffer={() => onNavigate('india-offers')}
-            isFloatingWidget={false}
-          />
-        </div>
-      </section>
-
       {/* Bottom AdSense Billboard Placement */}
       <AdPlacement slot="footer_banner" onOpenAdmin={() => onNavigate('admin' as any)} />
 
-      {/* Newsletter Signup & Editorial Independence Disclaimer */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="liquid-glass rounded-3xl p-8 sm:p-10 border border-white/90 shadow-xl text-center space-y-6">
-          <div className="w-12 h-12 rounded-2xl glass-icon-blue flex items-center justify-center text-blue-600 mx-auto shadow-sm">
-            <Mail className="w-6 h-6" />
-          </div>
+      {/* 11. CLIENT SOFTWARE DEVELOPMENT ENQUIRY SECTION (3-COLUMN RESPONSIVE LAYOUT) */}
+      <section id="enquiry-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
-          <div className="space-y-2 max-w-lg mx-auto">
-            <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900">
-              Stay Informed on Google Updates & Indian Perks
-            </h3>
-            <p className="text-xs text-slate-600 leading-relaxed">
-              Get monthly audits of newly released Google AI capabilities, price modifications, and carrier storage bundles. No spam, ever.
-            </p>
-          </div>
-
-          {newsletterStatus === 'success' ? (
-            <div role="status" aria-live="polite" className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold inline-flex items-center gap-2 shadow-2xs">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-              <span>{newsletterMsg}</span>
-            </div>
-          ) : newsletterStatus === 'already_subscribed' ? (
-            <div role="status" aria-live="polite" className="p-4 rounded-2xl bg-blue-50 border border-blue-200 text-blue-800 text-xs font-bold inline-flex items-center gap-2 shadow-2xs">
-              <CheckCircle2 className="w-4 h-4 text-blue-600 flex-shrink-0" />
-              <span>{newsletterMsg}</span>
-            </div>
-          ) : (
-            <div className="space-y-3 max-w-md mx-auto">
-              <form onSubmit={handleNewsletterSubmit} className="flex gap-2" aria-label="Newsletter subscription form">
-                <label htmlFor="homepage-newsletter-email" className="sr-only">
-                  Email address for Google updates newsletter
-                </label>
-                <input
-                  id="homepage-newsletter-email"
-                  type="email"
-                  required
-                  disabled={newsletterStatus === 'loading'}
-                  value={newsletterEmail}
-                  onChange={(e) => setNewsletterEmail(e.target.value)}
-                  placeholder="Enter your email address..."
-                  className="flex-1 px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-2xs disabled:opacity-60"
-                />
-                <button
-                  type="submit"
-                  disabled={newsletterStatus === 'loading'}
-                  aria-label="Subscribe to newsletter"
-                  className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex-shrink-0 cursor-pointer"
-                >
-                  {newsletterStatus === 'loading' ? 'Saving...' : 'Subscribe'}
-                </button>
-              </form>
-
-              {newsletterStatus === 'error' && (
-                <div role="alert" aria-live="assertive" className="p-3 rounded-xl bg-red-50 border border-red-200 text-red-800 text-xs flex items-center justify-center gap-1.5 animate-in fade-in">
-                  <AlertCircle className="w-4 h-4 text-red-600 flex-shrink-0" />
-                  <span>{newsletterMsg}</span>
+          {/* LEFT COLUMN: WHAT WE DO */}
+          <div className="lg:col-span-3 space-y-6">
+            <div className="liquid-glass rounded-3xl p-6 sm:p-7 border border-white/90 shadow-xl space-y-5">
+              <div className="space-y-2">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-xs font-bold shadow-2xs">
+                  <Code className="w-3.5 h-3.5 text-blue-600" />
+                  <span>Engineering</span>
                 </div>
-              )}
-            </div>
-          )}
+                <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
+                  What We Do
+                </h3>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  We build robust web systems, client portals, and bespoke business tools tailored to your operational workflows.
+                </p>
+              </div>
 
-          <div className="pt-2 text-[11px] text-slate-400 max-w-xl mx-auto">
-            Bring My Bite is strictly independent. Trademarks and brand names are referenced solely for identification and educational review under fair use.
+              <div className="space-y-4 pt-1 border-t border-slate-200/60">
+                <div className="space-y-1">
+                  <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                    <Layers className="w-3.5 h-3.5 text-blue-600 flex-shrink-0" />
+                    <span>Portal Development</span>
+                  </div>
+                  <p className="text-[11px] text-slate-500 leading-relaxed pl-5">
+                    Role-based client & enterprise portals, secure membership dashboards, and self-service workspaces.
+                  </p>
+                </div>
+
+                <div className="space-y-1">
+                  <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                    <Laptop className="w-3.5 h-3.5 text-indigo-600 flex-shrink-0" />
+                    <span>Web Application Development</span>
+                  </div>
+                  <p className="text-[11px] text-slate-500 leading-relaxed pl-5">
+                    Modern single-page applications, responsive web tools, and full-stack architectures built for high performance.
+                  </p>
+                </div>
+
+                <div className="space-y-1">
+                  <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                    <Cpu className="w-3.5 h-3.5 text-purple-600 flex-shrink-0" />
+                    <span>Custom Software Solutions</span>
+                  </div>
+                  <p className="text-[11px] text-slate-500 leading-relaxed pl-5">
+                    Bespoke internal calculators, workflow automation, secure database design, and API integrations.
+                  </p>
+                </div>
+
+                <div className="space-y-1">
+                  <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                    <Rocket className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
+                    <span>Deployment</span>
+                  </div>
+                  <p className="text-[11px] text-slate-500 leading-relaxed pl-5">
+                    Automated CI/CD pipelines, SSL certificates, custom domain routing, and reliable cloud deployments.
+                  </p>
+                </div>
+
+                <div className="space-y-1">
+                  <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                    <Wrench className="w-3.5 h-3.5 text-amber-600 flex-shrink-0" />
+                    <span>Maintenance</span>
+                  </div>
+                  <p className="text-[11px] text-slate-500 leading-relaxed pl-5">
+                    Continuous monitoring, dependency updates, speed optimization, and regular security audits.
+                  </p>
+                </div>
+
+                <div className="space-y-1">
+                  <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                    <Headset className="w-3.5 h-3.5 text-teal-600 flex-shrink-0" />
+                    <span>Ongoing Technical Support</span>
+                  </div>
+                  <p className="text-[11px] text-slate-500 leading-relaxed pl-5">
+                    Direct technical assistance, troubleshooting, feature enhancements, and dependable ongoing SLAs.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
+
+          {/* CENTER COLUMN: PROJECT ENQUIRY FORM */}
+          <div className="lg:col-span-6 space-y-6">
+            <div className="liquid-glass rounded-3xl p-6 sm:p-8 border border-white/90 shadow-xl space-y-6">
+              <div className="space-y-2">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100 text-indigo-800 text-xs font-bold shadow-2xs">
+                  <Briefcase className="w-3.5 h-3.5 text-indigo-600" />
+                  <span>Client Intake</span>
+                </div>
+                <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
+                  Project Enquiry Form
+                </h3>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Tell us about your project requirements and expected timeframe. We review every enquiry and reply within 24 hours.
+                </p>
+              </div>
+
+              {enquirySuccess ? (
+                <div role="status" aria-live="polite" className="p-6 rounded-2xl bg-emerald-50/90 border border-emerald-200 text-emerald-900 space-y-4 shadow-sm animate-in fade-in">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-600 flex-shrink-0">
+                      <CheckCircle2 className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-bold text-emerald-950">Enquiry Submitted Successfully</h4>
+                      <p className="text-xs text-emerald-800">Reference Confirmation ID: <span className="font-mono font-bold">{enquirySuccess.confirmationId}</span></p>
+                    </div>
+                  </div>
+                  <p className="text-xs text-emerald-800 leading-relaxed">
+                    {enquirySuccess.message}
+                  </p>
+                  <div className="p-3 bg-white/80 rounded-xl border border-emerald-200 text-[11px] text-slate-600 space-y-1">
+                    <div><strong>Project Type:</strong> {enquiryForm.projectType || 'Custom Project'}</div>
+                    <div><strong>Status:</strong> Dispatched to engineering team</div>
+                    <div><strong>Response Guarantee:</strong> Within 24–48 hours</div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleResetEnquiry}
+                    className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition-all cursor-pointer shadow-xs"
+                  >
+                    Submit Another Project Enquiry
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleEnquirySubmit} className="space-y-4" noValidate aria-label="Software development project enquiry form">
+                  {enquiryServerError && (
+                    <div role="alert" aria-live="assertive" className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-800 text-xs flex items-start gap-2 animate-in fade-in">
+                      <AlertCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
+                      <div className="space-y-1">
+                        <div className="font-bold">Submission Notice</div>
+                        <div className="leading-relaxed">{enquiryServerError}</div>
+                        <div className="pt-1 text-[11px]">Direct Email: <a href="mailto:bringmybite@gmail.com" className="underline font-bold">bringmybite@gmail.com</a></div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Honeypot field for spam bots */}
+                  <input
+                    type="text"
+                    name="website"
+                    value={honeypot}
+                    onChange={(e) => setHoneypot(e.target.value)}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    className="sr-only"
+                    aria-hidden="true"
+                  />
+
+                  {/* Row 1: Name & Email */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <div className="space-y-1">
+                      <label htmlFor="enquiry-name" className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">
+                        Full Name <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        id="enquiry-name"
+                        type="text"
+                        required
+                        disabled={isSubmittingEnquiry}
+                        value={enquiryForm.name}
+                        onChange={(e) => setEnquiryForm({ ...enquiryForm, name: e.target.value })}
+                        placeholder="e.g. Rahul Sharma"
+                        className={`w-full px-3.5 py-2.5 bg-white border ${enquiryErrors.name ? 'border-red-400 focus:ring-red-400' : 'border-slate-200 focus:ring-blue-500'} rounded-xl text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60`}
+                      />
+                      {enquiryErrors.name && (
+                        <p className="text-[10.5px] text-red-600 font-medium">{enquiryErrors.name}</p>
+                      )}
+                    </div>
+
+                    <div className="space-y-1">
+                      <label htmlFor="enquiry-email" className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">
+                        Email Address <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        id="enquiry-email"
+                        type="email"
+                        required
+                        disabled={isSubmittingEnquiry}
+                        value={enquiryForm.email}
+                        onChange={(e) => setEnquiryForm({ ...enquiryForm, email: e.target.value })}
+                        placeholder="e.g. rahul@example.com"
+                        className={`w-full px-3.5 py-2.5 bg-white border ${enquiryErrors.email ? 'border-red-400 focus:ring-red-400' : 'border-slate-200 focus:ring-blue-500'} rounded-xl text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60`}
+                      />
+                      {enquiryErrors.email && (
+                        <p className="text-[10.5px] text-red-600 font-medium">{enquiryErrors.email}</p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Row 2: Phone/WhatsApp & Project Type */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <div className="space-y-1">
+                      <label htmlFor="enquiry-phone" className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">
+                        Phone / WhatsApp <span className="text-red-500">*</span>
+                      </label>
+                      <div className="relative">
+                        <Phone className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-3 pointer-events-none" />
+                        <input
+                          id="enquiry-phone"
+                          type="tel"
+                          required
+                          disabled={isSubmittingEnquiry}
+                          value={enquiryForm.phone}
+                          onChange={(e) => setEnquiryForm({ ...enquiryForm, phone: e.target.value })}
+                          placeholder="+91 98765 43210"
+                          className={`w-full pl-9 pr-3.5 py-2.5 bg-white border ${enquiryErrors.phone ? 'border-red-400 focus:ring-red-400' : 'border-slate-200 focus:ring-blue-500'} rounded-xl text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60`}
+                        />
+                      </div>
+                      {enquiryErrors.phone && (
+                        <p className="text-[10.5px] text-red-600 font-medium">{enquiryErrors.phone}</p>
+                      )}
+                    </div>
+
+                    <div className="space-y-1">
+                      <label htmlFor="enquiry-project-type" className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">
+                        Project Type <span className="text-red-500">*</span>
+                      </label>
+                      <select
+                        id="enquiry-project-type"
+                        required
+                        disabled={isSubmittingEnquiry}
+                        value={enquiryForm.projectType}
+                        onChange={(e) => setEnquiryForm({ ...enquiryForm, projectType: e.target.value })}
+                        className={`w-full px-3.5 py-2.5 bg-white border ${enquiryErrors.projectType ? 'border-red-400 focus:ring-red-400' : 'border-slate-200 focus:ring-blue-500'} rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60 cursor-pointer`}
+                      >
+                        <option value="Portal">Portal Development</option>
+                        <option value="Web App">Web Application</option>
+                        <option value="Mobile App">Mobile App</option>
+                        <option value="Custom Software">Custom Software Solutions</option>
+                        <option value="Other">Other Project</option>
+                      </select>
+                      {enquiryErrors.projectType && (
+                        <p className="text-[10.5px] text-red-600 font-medium">{enquiryErrors.projectType}</p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Row 3: Budget Range & Preferred Delivery Timeframe */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <div className="space-y-1">
+                      <label htmlFor="enquiry-budget" className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">
+                        Budget Range <span className="text-red-500">*</span>
+                      </label>
+                      <select
+                        id="enquiry-budget"
+                        required
+                        disabled={isSubmittingEnquiry}
+                        value={enquiryForm.budgetRange}
+                        onChange={(e) => setEnquiryForm({ ...enquiryForm, budgetRange: e.target.value })}
+                        className={`w-full px-3.5 py-2.5 bg-white border ${enquiryErrors.budgetRange ? 'border-red-400 focus:ring-red-400' : 'border-slate-200 focus:ring-blue-500'} rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60 cursor-pointer`}
+                      >
+                        <option value="Under ₹50,000 / $600">Under ₹50,000 / $600 (Starter / MVP)</option>
+                        <option value="₹50,000 – ₹1,50,000 / $600 – $1,800">₹50,000 – ₹1,50,000 / $600 – $1,800</option>
+                        <option value="₹1,50,000 – ₹3,50,000 / $1,800 – $4,200">₹1,50,000 – ₹3,50,000 / $1,800 – $4,200</option>
+                        <option value="₹3,50,000 – ₹7,50,000 / $4,200 – $9,000">₹3,50,000 – ₹7,50,000 / $4,200 – $9,000</option>
+                        <option value="₹7,50,000+ / $9,000+ (Enterprise)">₹7,50,000+ / $9,000+ (Enterprise)</option>
+                        <option value="Flexible / Scope-dependent">Flexible / Scope-dependent</option>
+                      </select>
+                      {enquiryErrors.budgetRange && (
+                        <p className="text-[10.5px] text-red-600 font-medium">{enquiryErrors.budgetRange}</p>
+                      )}
+                    </div>
+
+                    <div className="space-y-1">
+                      <label htmlFor="enquiry-timeframe" className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">
+                        Preferred Delivery Timeframe <span className="text-red-500">*</span>
+                      </label>
+                      <select
+                        id="enquiry-timeframe"
+                        required
+                        disabled={isSubmittingEnquiry}
+                        value={enquiryForm.timeframe}
+                        onChange={(e) => setEnquiryForm({ ...enquiryForm, timeframe: e.target.value })}
+                        className={`w-full px-3.5 py-2.5 bg-white border ${enquiryErrors.timeframe ? 'border-red-400 focus:ring-red-400' : 'border-slate-200 focus:ring-blue-500'} rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60 cursor-pointer`}
+                      >
+                        <option value="Urgent (< 2 weeks)">Urgent (&lt; 2 weeks)</option>
+                        <option value="2 to 4 weeks">2 to 4 weeks</option>
+                        <option value="1 to 2 months">1 to 2 months</option>
+                        <option value="2 to 3 months">2 to 3 months</option>
+                        <option value="Flexible / Ongoing">Flexible / Ongoing</option>
+                      </select>
+                      {enquiryErrors.timeframe && (
+                        <p className="text-[10.5px] text-red-600 font-medium">{enquiryErrors.timeframe}</p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Row 4: Existing Website / App URL (Optional) */}
+                  <div className="space-y-1">
+                    <label htmlFor="enquiry-existing-url" className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">
+                      Existing Website / App URL <span className="text-slate-400 font-normal normal-case">(optional)</span>
+                    </label>
+                    <div className="relative">
+                      <Globe className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-3 pointer-events-none" />
+                      <input
+                        id="enquiry-existing-url"
+                        type="url"
+                        disabled={isSubmittingEnquiry}
+                        value={enquiryForm.existingUrl}
+                        onChange={(e) => setEnquiryForm({ ...enquiryForm, existingUrl: e.target.value })}
+                        placeholder="https://yourcompany.com"
+                        className="w-full pl-9 pr-3.5 py-2.5 bg-white border border-slate-200 focus:ring-blue-500 rounded-xl text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Row 5: Brief Project Description */}
+                  <div className="space-y-1">
+                    <label htmlFor="enquiry-description" className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">
+                      Brief Project Description <span className="text-red-500">*</span>
+                    </label>
+                    <textarea
+                      id="enquiry-description"
+                      rows={3}
+                      required
+                      disabled={isSubmittingEnquiry}
+                      value={enquiryForm.description}
+                      onChange={(e) => setEnquiryForm({ ...enquiryForm, description: e.target.value })}
+                      placeholder="Summarize your project goals, target audience, and primary problem to solve..."
+                      className={`w-full px-3.5 py-2.5 bg-white border ${enquiryErrors.description ? 'border-red-400 focus:ring-red-400' : 'border-slate-200 focus:ring-blue-500'} rounded-xl text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60 resize-y`}
+                    />
+                    {enquiryErrors.description && (
+                      <p className="text-[10.5px] text-red-600 font-medium">{enquiryErrors.description}</p>
+                    )}
+                  </div>
+
+                  {/* Row 6: Required Features & Key Requirements */}
+                  <div className="space-y-1">
+                    <label htmlFor="enquiry-requirements" className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">
+                      Required Features & Key Requirements <span className="text-red-500">*</span>
+                    </label>
+                    <textarea
+                      id="enquiry-requirements"
+                      rows={3}
+                      required
+                      disabled={isSubmittingEnquiry}
+                      value={enquiryForm.keyRequirements}
+                      onChange={(e) => setEnquiryForm({ ...enquiryForm, keyRequirements: e.target.value })}
+                      placeholder="List key modules (e.g. user authentication, payment gateway, admin portal, analytics API, mobile responsiveness)..."
+                      className={`w-full px-3.5 py-2.5 bg-white border ${enquiryErrors.keyRequirements ? 'border-red-400 focus:ring-red-400' : 'border-slate-200 focus:ring-blue-500'} rounded-xl text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60 resize-y`}
+                    />
+                    {enquiryErrors.keyRequirements && (
+                      <p className="text-[10.5px] text-red-600 font-medium">{enquiryErrors.keyRequirements}</p>
+                    )}
+                  </div>
+
+                  {/* Submit Button */}
+                  <div className="pt-2">
+                    <button
+                      type="submit"
+                      disabled={isSubmittingEnquiry}
+                      className="w-full py-3 px-5 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-700 hover:to-indigo-700 disabled:opacity-60 text-white rounded-xl text-xs font-bold transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 cursor-pointer"
+                    >
+                      {isSubmittingEnquiry ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          <span>Submitting Project Enquiry...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Send className="w-4 h-4" />
+                          <span>Submit Project Enquiry</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </form>
+              )}
+
+              <div className="pt-2 text-[11px] text-slate-400 text-center">
+                Bring My Bite Software Services &bull; All enquiries handled confidentially under NDA &bull; No spam guaranteed.
+              </div>
+            </div>
+          </div>
+
+          {/* RIGHT COLUMN: WHY WORK WITH US */}
+          <div className="lg:col-span-3 space-y-6">
+            <div className="liquid-glass rounded-3xl p-6 sm:p-7 border border-white/90 shadow-xl space-y-5">
+              <div className="space-y-2">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold shadow-2xs">
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>Advantage</span>
+                </div>
+                <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
+                  Why Work With Us
+                </h3>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Direct engineering accountability, rapid turnaround, and lifecycle continuity from concept to production.
+                </p>
+              </div>
+
+              <div className="space-y-4 pt-1 border-t border-slate-200/60">
+                <div className="space-y-1">
+                  <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
+                    <span>End-to-End Support</span>
+                  </div>
+                  <p className="text-[11px] text-slate-500 leading-relaxed pl-5">
+                    From early wireframes and system architecture to live cloud deployment and ongoing performance tuning.
+                  </p>
+                </div>
+
+                <div className="space-y-1">
+                  <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-blue-600 flex-shrink-0" />
+                    <span>Remote Collaboration from Home</span>
+                  </div>
+                  <p className="text-[11px] text-slate-500 leading-relaxed pl-5">
+                    Direct access via Google Meet, Slack, and WhatsApp. Zero bureaucratic bloat, maximum developer focus.
+                  </p>
+                </div>
+
+                <div className="space-y-1">
+                  <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-indigo-600 flex-shrink-0" />
+                    <span>Faster Execution</span>
+                  </div>
+                  <p className="text-[11px] text-slate-500 leading-relaxed pl-5">
+                    Sprint-based agile delivery, modular TypeScript codebases, and working preview demos delivered weekly.
+                  </p>
+                </div>
+
+                <div className="space-y-1">
+                  <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-purple-600 flex-shrink-0" />
+                    <span>Ongoing Maintenance</span>
+                  </div>
+                  <p className="text-[11px] text-slate-500 leading-relaxed pl-5">
+                    We stand by our software post-launch with SLA bug fixing, infrastructure monitoring, and security updates.
+                  </p>
+                </div>
+              </div>
+
+              {/* Direct Contact Card */}
+              <div className="pt-3 border-t border-slate-200/60">
+                <div className="p-3.5 rounded-2xl bg-white/70 border border-slate-200/80 space-y-2">
+                  <div className="text-[11px] font-bold text-slate-700 flex items-center gap-1.5">
+                    <Mail className="w-3.5 h-3.5 text-blue-600" />
+                    <span>Direct Inquiries</span>
+                  </div>
+                  <a
+                    href="mailto:bringmybite@gmail.com"
+                    className="text-xs font-bold text-blue-600 hover:text-blue-800 break-all block"
+                  >
+                    bringmybite@gmail.com
+                  </a>
+                  <p className="text-[10px] text-slate-500 leading-snug">
+                    Prefer direct email? Send your project brief directly to our team.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 

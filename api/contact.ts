@@ -2,6 +2,7 @@ import type { IncomingMessage, ServerResponse } from 'http';
 import { recordContactEnquiry, getContactEnquiries } from './_storage.js';
 
 export const VALID_SUBJECTS = {
+  project_enquiry: 'Custom Software & Development Project Enquiry',
   product_suggestion: 'Suggest a Google Product to Add',
   offer_correction: 'Report Pricing or Offer Correction',
   scam_report: 'Report a Suspicious / Fake Promo Link',

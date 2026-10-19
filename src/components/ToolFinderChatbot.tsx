@@ -62,10 +62,15 @@ export const ToolFinderChatbot: React.FC<ToolFinderChatbotProps> = ({
     }
   ]);
 
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTo({
+        top: messagesContainerRef.current.scrollHeight,
+        behavior: 'smooth'
+      });
+    }
   };
 
   useEffect(() => {
@@ -73,6 +78,16 @@ export const ToolFinderChatbot: React.FC<ToolFinderChatbotProps> = ({
       scrollToBottom();
     }
   }, [messages, isOpen, isMinimized, isTyping]);
+
+  // Support global open event
+  useEffect(() => {
+    const handleGlobalOpen = () => {
+      setIsOpen(true);
+      setIsMinimized(false);
+    };
+    window.addEventListener('open-tool-finder-chatbot', handleGlobalOpen);
+    return () => window.removeEventListener('open-tool-finder-chatbot', handleGlobalOpen);
+  }, []);
 
   const quickPrompts = [
     { label: '🚀 Free tools to launch a startup', query: 'What are the best 100% free or generous trial Google tools to build and launch a web startup?' },
@@ -433,7 +448,7 @@ export const ToolFinderChatbot: React.FC<ToolFinderChatbotProps> = ({
       </div>
 
       {/* Message List */}
-      <div className="flex-1 p-2.5 overflow-y-auto max-h-[180px] space-y-2 text-[11px] text-slate-700 leading-snug">
+      <div ref={messagesContainerRef} className="flex-1 p-2.5 overflow-y-auto max-h-[180px] space-y-2 text-[11px] text-slate-700 leading-snug">
         {messages.map((msg) => (
           <div 
             key={msg.id}
@@ -527,7 +542,6 @@ export const ToolFinderChatbot: React.FC<ToolFinderChatbotProps> = ({
             <span className="text-[10px] font-medium text-slate-500 ml-1">Analyzing catalog...</span>
           </div>
         )}
-        <div ref={messagesEndRef} />
       </div>
 
       {/* Suggested Quick Prompts (shown when only welcome message exists) */}
