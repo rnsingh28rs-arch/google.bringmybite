@@ -1246,6 +1246,78 @@ async function runTests() {
     assert(clickRes.statusCode === 200 && clickRes.body.success === true, 'Outbound click on affiliate page logs to /api/track-click successfully');
   }
 
+  // TEST SUITE 17: PROJECT INQUIRY REFERENCE DESIGN & FORM INTEGRITY AUDIT
+  console.log('\n--- TEST SUITE 17: Project Inquiry Reference Design & Form Integrity Audit ---');
+  {
+    const homePath = path.join(process.cwd(), 'src', 'pages', 'HomePage.tsx');
+    const homeContent = fs.readFileSync(homePath, 'utf-8');
+
+    // 17.1 Inquiry section & liquid glass backdrop
+    assert(homeContent.includes('id="enquiry-section"'), 'HomePage contains section id="enquiry-section"');
+    assert(homeContent.includes('water-glass-panel'), 'HomePage contains water-glass-panel styling for side panels');
+    assert(homeContent.includes('water-glass-form-elevated'), 'HomePage contains water-glass-form-elevated for center form');
+
+    // 17.2 Robot companion and "Tool Finder AI — Ask Anything" visual card
+    assert(homeContent.includes('/assets/robot-main.png'), 'Inquiry section renders robot companion image /assets/robot-main.png');
+    assert(homeContent.includes('Tool Finder AI — Ask Anything'), 'Inquiry section contains "Tool Finder AI — Ask Anything" badge');
+    assert(homeContent.includes("Hi! I'm your AI Assistant"), 'Inquiry section displays "Hi! I\'m your AI Assistant" header');
+    assert(homeContent.includes('Launch Assistant Chat'), 'Inquiry section contains interactive "Launch Assistant Chat" trigger');
+
+    // 17.3 All 9 Inquiry Form fields verified
+    assert(homeContent.includes('id="enquiry-name"'), 'Form contains Field 1: Full Name (enquiry-name)');
+    assert(homeContent.includes('id="enquiry-email"'), 'Form contains Field 2: Email Address (enquiry-email)');
+    assert(homeContent.includes('id="enquiry-phone"'), 'Form contains Field 3: Phone / WhatsApp (enquiry-phone)');
+    assert(homeContent.includes('id="enquiry-project-type"'), 'Form contains Field 4: Project Type (enquiry-project-type)');
+    assert(homeContent.includes('id="enquiry-budget"'), 'Form contains Field 5: Budget Range (enquiry-budget)');
+    assert(homeContent.includes('id="enquiry-timeframe"'), 'Form contains Field 6: Preferred Delivery Timeframe (enquiry-timeframe)');
+    assert(homeContent.includes('id="enquiry-existing-url"'), 'Form contains Field 7: Existing Website / App URL (enquiry-existing-url)');
+    assert(homeContent.includes('id="enquiry-description"'), 'Form contains Field 8: Brief Project Description (enquiry-description)');
+    assert(homeContent.includes('id="enquiry-requirements"'), 'Form contains Field 9: Required Features & Key Requirements (enquiry-requirements)');
+
+    // 17.4 Form options integrity
+    assert(homeContent.includes('value="Portal"'), 'Project Type includes Portal Development');
+    assert(homeContent.includes('value="Web App"'), 'Project Type includes Web Application');
+    assert(homeContent.includes('value="Mobile App"'), 'Project Type includes Mobile App');
+    assert(homeContent.includes('value="Custom Software"'), 'Project Type includes Custom Software Solutions');
+    assert(homeContent.includes('value="Other"'), 'Project Type includes Other Project');
+    assert(homeContent.includes('Under ₹50,000 / $600'), 'Budget Range preserves Starter/MVP tier');
+    assert(homeContent.includes('Flexible / Scope-dependent'), 'Budget Range preserves Flexible tier');
+    assert(homeContent.includes('Urgent (< 2 weeks)'), 'Timeframe preserves Urgent option');
+    assert(homeContent.includes('Flexible / Ongoing'), 'Timeframe preserves Flexible option');
+
+    // 17.5 Honeypot & Submit button styling
+    assert(homeContent.includes('name="website"') && homeContent.includes('className="sr-only"'), 'Form contains honeypot spam protection');
+    assert(homeContent.includes('from-blue-600 via-indigo-600 to-purple-600'), 'Submit button features blue/purple gradient aesthetic');
+
+    // 17.6 /api/contact integration test for project enquiry
+    const prevTestMode = process.env.CONTACT_TEST_MODE;
+    const prevResendKey = process.env.RESEND_API_KEY;
+    delete process.env.RESEND_API_KEY;
+    process.env.CONTACT_TEST_MODE = 'true';
+    const { req: enquiryReq, res: enquiryRes, getResponse: getEnquiryRes } = createMockReqRes({
+      method: 'POST',
+      url: '/api/contact',
+      headers: { 'x-forwarded-for': '198.51.100.99' },
+      body: {
+        name: 'Enterprise Test Client',
+        email: 'client@enterprisetest.test',
+        subject: 'project_enquiry',
+        message: 'Project Type: Portal\nPhone: +91 9999999999\nBrief: Building custom enterprise portal\nKey Requirements: SSO, BigQuery analytics, role permissions',
+        formStartTime: Date.now() - 3000
+      }
+    });
+    await contactHandler(enquiryReq, enquiryRes);
+    if (prevTestMode) process.env.CONTACT_TEST_MODE = prevTestMode; else delete process.env.CONTACT_TEST_MODE;
+    if (prevResendKey) process.env.RESEND_API_KEY = prevResendKey; else delete process.env.RESEND_API_KEY;
+    const enquiryResult = getEnquiryRes();
+    assert(
+      enquiryResult.statusCode === 200 &&
+      enquiryResult.body.success === true &&
+      enquiryResult.body.confirmationId,
+      'POST /api/contact delivers project_enquiry, returns confirmationId and 200 OK'
+    );
+  }
+
   // Clean up automated test records from data/ files
   try {
     const cleanFile = (filename: string, filterFn: (item: any) => boolean) => {
