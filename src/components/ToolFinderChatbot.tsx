@@ -325,10 +325,10 @@ export const ToolFinderChatbot: React.FC<ToolFinderChatbotProps> = ({
         <button
           id="tool-finder-chatbot-launcher"
           onClick={() => { setIsOpen(true); setIsMinimized(false); }}
-          className="flex items-center gap-2 px-3 py-2 sm:px-3.5 sm:py-2.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white rounded-full shadow-2xl hover:scale-105 active:scale-95 transition-all cursor-pointer border border-white/25 select-none group"
+          className="flex items-center gap-2.5 px-3 py-1.5 sm:px-4 sm:py-2 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white rounded-full shadow-2xl hover:scale-105 active:scale-95 transition-all cursor-pointer border border-white/30 select-none group"
           aria-label="Open Tool Finder AI Assistant"
         >
-          <RobotCompanion state={robotState} size="sm" showStage={false} className="w-7 h-7" />
+          <RobotCompanion state={robotState} size="sm" showStage={false} className="w-9 h-9 sm:w-10 sm:h-10 robot-gentle-float flex-shrink-0" />
           <div className="text-left hidden sm:block">
             <div className="text-xs font-bold leading-tight flex items-center gap-1.5">
               <span>Tool Finder AI</span>
@@ -357,7 +357,7 @@ export const ToolFinderChatbot: React.FC<ToolFinderChatbotProps> = ({
             state={robotState} 
             size="sm" 
             showStage={false} 
-            className="w-7 h-7 -my-0.5 cursor-pointer flex-shrink-0"
+            className="w-7 h-7 -my-0.5 cursor-pointer flex-shrink-0 robot-gentle-float"
             onToggleRest={() => setRobotState(prev => prev === 'resting' ? 'idle' : 'resting')}
           />
           <div className="min-w-0">

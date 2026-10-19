@@ -35,7 +35,13 @@ import {
   Wrench,
   Headset,
   Rocket,
-  Laptop
+  Laptop,
+  ShoppingCart,
+  Sliders,
+  Users,
+  Languages,
+  FileText,
+  Bot
 } from 'lucide-react';
 import { PRODUCTS, CATEGORIES } from '../data/products';
 import { INDIA_OFFERS } from '../data/indiaOffers';
@@ -960,78 +966,71 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
 
           {/* LEFT COLUMN: WHAT WE DO */}
           <div className="lg:col-span-3 space-y-6">
-            <div className="liquid-glass rounded-3xl p-6 sm:p-7 border border-white/90 shadow-xl space-y-5">
-              <div className="space-y-2">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-xs font-bold shadow-2xs">
+            <div className="water-glass-panel p-6 sm:p-7 space-y-5">
+              <div className="space-y-2.5">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100/80 text-blue-800 text-xs font-bold shadow-2xs border border-blue-200/60">
                   <Code className="w-3.5 h-3.5 text-blue-600" />
                   <span>Engineering</span>
                 </div>
-                <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
+                <h3 className="text-xl sm:text-2xl font-extrabold crystal-heading tracking-tight">
                   What We Do
                 </h3>
-                <p className="text-xs text-slate-600 leading-relaxed">
-                  We build robust web systems, client portals, and bespoke business tools tailored to your operational workflows.
+                <p className="text-xs text-slate-700 leading-relaxed font-medium">
+                  We learn from giants. We work with giants’ products and tools. We develop solutions with Automation.
                 </p>
               </div>
 
-              <div className="space-y-4 pt-1 border-t border-slate-200/60">
-                <div className="space-y-1">
-                  <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                    <Layers className="w-3.5 h-3.5 text-blue-600 flex-shrink-0" />
-                    <span>Portal Development</span>
+              <div className="space-y-2.5 pt-2 border-t border-slate-200/70">
+                {/* 1. Portal Development */}
+                <div className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-white/80 border border-slate-200/80 shadow-2xs hover:border-cyan-400 hover:bg-white transition-all">
+                  <div className="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0">
+                    <Layers className="w-3.5 h-3.5" />
                   </div>
-                  <p className="text-[11px] text-slate-500 leading-relaxed pl-5">
-                    Role-based client & enterprise portals, secure membership dashboards, and self-service workspaces.
-                  </p>
+                  <span className="text-xs font-bold text-slate-900 tracking-tight">Portal Development</span>
                 </div>
 
-                <div className="space-y-1">
-                  <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                    <Laptop className="w-3.5 h-3.5 text-indigo-600 flex-shrink-0" />
-                    <span>Web Application Development</span>
+                {/* 2. Web Development */}
+                <div className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-white/80 border border-slate-200/80 shadow-2xs hover:border-cyan-400 hover:bg-white transition-all">
+                  <div className="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center flex-shrink-0">
+                    <Laptop className="w-3.5 h-3.5" />
                   </div>
-                  <p className="text-[11px] text-slate-500 leading-relaxed pl-5">
-                    Modern single-page applications, responsive web tools, and full-stack architectures built for high performance.
-                  </p>
+                  <span className="text-xs font-bold text-slate-900 tracking-tight">Web Development</span>
                 </div>
 
-                <div className="space-y-1">
-                  <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                    <Cpu className="w-3.5 h-3.5 text-purple-600 flex-shrink-0" />
-                    <span>Custom Software Solutions</span>
+                {/* 3. E-commerce Solutions */}
+                <div className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-white/80 border border-slate-200/80 shadow-2xs hover:border-cyan-400 hover:bg-white transition-all">
+                  <div className="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0">
+                    <ShoppingCart className="w-3.5 h-3.5" />
                   </div>
-                  <p className="text-[11px] text-slate-500 leading-relaxed pl-5">
-                    Bespoke internal calculators, workflow automation, secure database design, and API integrations.
-                  </p>
+                  <span className="text-xs font-bold text-slate-900 tracking-tight">E-commerce Solutions</span>
                 </div>
 
-                <div className="space-y-1">
-                  <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                    <Rocket className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
-                    <span>Deployment</span>
+                {/* 4. Management Solutions */}
+                <div className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-white/80 border border-slate-200/80 shadow-2xs hover:border-cyan-400 hover:bg-white transition-all">
+                  <div className="w-7 h-7 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center flex-shrink-0">
+                    <Sliders className="w-3.5 h-3.5" />
                   </div>
-                  <p className="text-[11px] text-slate-500 leading-relaxed pl-5">
-                    Automated CI/CD pipelines, SSL certificates, custom domain routing, and reliable cloud deployments.
-                  </p>
+                  <span className="text-xs font-bold text-slate-900 tracking-tight">Management Solutions</span>
                 </div>
 
-                <div className="space-y-1">
-                  <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                    <Wrench className="w-3.5 h-3.5 text-amber-600 flex-shrink-0" />
-                    <span>Maintenance</span>
+                {/* 5. CRM Development */}
+                <div className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-white/80 border border-slate-200/80 shadow-2xs hover:border-cyan-400 hover:bg-white transition-all">
+                  <div className="w-7 h-7 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center flex-shrink-0">
+                    <Users className="w-3.5 h-3.5" />
                   </div>
-                  <p className="text-[11px] text-slate-500 leading-relaxed pl-5">
-                    Continuous monitoring, dependency updates, speed optimization, and regular security audits.
-                  </p>
+                  <span className="text-xs font-bold text-slate-900 tracking-tight">CRM Development</span>
                 </div>
 
-                <div className="space-y-1">
-                  <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                    <Headset className="w-3.5 h-3.5 text-teal-600 flex-shrink-0" />
-                    <span>Ongoing Technical Support</span>
+                {/* 6. Entire Marketing System */}
+                <div className="p-2.5 sm:p-3 rounded-xl bg-cyan-50/50 border border-cyan-200/80 shadow-2xs hover:border-cyan-400 hover:bg-white transition-all space-y-1">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-7 h-7 rounded-lg bg-cyan-100 text-cyan-700 flex items-center justify-center flex-shrink-0">
+                      <TrendingUp className="w-3.5 h-3.5" />
+                    </div>
+                    <span className="text-xs font-bold text-slate-900 tracking-tight">Entire Marketing System</span>
                   </div>
-                  <p className="text-[11px] text-slate-500 leading-relaxed pl-5">
-                    Direct technical assistance, troubleshooting, feature enhancements, and dependable ongoing SLAs.
+                  <p className="text-[11px] text-cyan-800 font-medium pl-9 leading-snug">
+                    And it’s tailored to your requirements.
                   </p>
                 </div>
               </div>
@@ -1040,16 +1039,16 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
 
           {/* CENTER COLUMN: PROJECT ENQUIRY FORM */}
           <div className="lg:col-span-6 space-y-6">
-            <div className="liquid-glass rounded-3xl p-6 sm:p-8 border border-white/90 shadow-xl space-y-6">
+            <div className="water-glass-form-elevated p-6 sm:p-8 space-y-6">
               <div className="space-y-2">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100 text-indigo-800 text-xs font-bold shadow-2xs">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100/80 text-indigo-800 text-xs font-bold shadow-2xs border border-indigo-200/60">
                   <Briefcase className="w-3.5 h-3.5 text-indigo-600" />
                   <span>Client Intake</span>
                 </div>
-                <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
-                  Project Enquiry Form
+                <h3 className="text-xl sm:text-2xl font-extrabold crystal-heading tracking-tight">
+                  Project Inquiry Form
                 </h3>
-                <p className="text-xs text-slate-600 leading-relaxed">
+                <p className="text-xs text-slate-700 leading-relaxed font-medium">
                   Tell us about your project requirements and expected timeframe. We review every enquiry and reply within 24 hours.
                 </p>
               </div>
@@ -1068,7 +1067,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
                   <p className="text-xs text-emerald-800 leading-relaxed">
                     {enquirySuccess.message}
                   </p>
-                  <div className="p-3 bg-white/80 rounded-xl border border-emerald-200 text-[11px] text-slate-600 space-y-1">
+                  <div className="p-3 bg-white/90 rounded-xl border border-emerald-200 text-[11px] text-slate-600 space-y-1">
                     <div><strong>Project Type:</strong> {enquiryForm.projectType || 'Custom Project'}</div>
                     <div><strong>Status:</strong> Dispatched to engineering team</div>
                     <div><strong>Response Guarantee:</strong> Within 24–48 hours</div>
@@ -1109,7 +1108,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
                   {/* Row 1: Name & Email */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                     <div className="space-y-1">
-                      <label htmlFor="enquiry-name" className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">
+                      <label htmlFor="enquiry-name" className="block text-[11px] font-bold text-slate-800 uppercase tracking-wider">
                         Full Name <span className="text-red-500">*</span>
                       </label>
                       <input
@@ -1120,7 +1119,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
                         value={enquiryForm.name}
                         onChange={(e) => setEnquiryForm({ ...enquiryForm, name: e.target.value })}
                         placeholder="e.g. Rahul Sharma"
-                        className={`w-full px-3.5 py-2.5 bg-white border ${enquiryErrors.name ? 'border-red-400 focus:ring-red-400' : 'border-slate-200 focus:ring-blue-500'} rounded-xl text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60`}
+                        className={`w-full px-3.5 py-2.5 bg-white border ${enquiryErrors.name ? 'border-red-400 focus:ring-red-400' : 'border-slate-300 focus:border-cyan-500 focus:ring-cyan-400/30'} rounded-xl text-xs font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60`}
                       />
                       {enquiryErrors.name && (
                         <p className="text-[10.5px] text-red-600 font-medium">{enquiryErrors.name}</p>
@@ -1128,7 +1127,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
                     </div>
 
                     <div className="space-y-1">
-                      <label htmlFor="enquiry-email" className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">
+                      <label htmlFor="enquiry-email" className="block text-[11px] font-bold text-slate-800 uppercase tracking-wider">
                         Email Address <span className="text-red-500">*</span>
                       </label>
                       <input
@@ -1139,7 +1138,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
                         value={enquiryForm.email}
                         onChange={(e) => setEnquiryForm({ ...enquiryForm, email: e.target.value })}
                         placeholder="e.g. rahul@example.com"
-                        className={`w-full px-3.5 py-2.5 bg-white border ${enquiryErrors.email ? 'border-red-400 focus:ring-red-400' : 'border-slate-200 focus:ring-blue-500'} rounded-xl text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60`}
+                        className={`w-full px-3.5 py-2.5 bg-white border ${enquiryErrors.email ? 'border-red-400 focus:ring-red-400' : 'border-slate-300 focus:border-cyan-500 focus:ring-cyan-400/30'} rounded-xl text-xs font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60`}
                       />
                       {enquiryErrors.email && (
                         <p className="text-[10.5px] text-red-600 font-medium">{enquiryErrors.email}</p>
@@ -1150,7 +1149,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
                   {/* Row 2: Phone/WhatsApp & Project Type */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                     <div className="space-y-1">
-                      <label htmlFor="enquiry-phone" className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">
+                      <label htmlFor="enquiry-phone" className="block text-[11px] font-bold text-slate-800 uppercase tracking-wider">
                         Phone / WhatsApp <span className="text-red-500">*</span>
                       </label>
                       <div className="relative">
@@ -1163,7 +1162,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
                           value={enquiryForm.phone}
                           onChange={(e) => setEnquiryForm({ ...enquiryForm, phone: e.target.value })}
                           placeholder="+91 98765 43210"
-                          className={`w-full pl-9 pr-3.5 py-2.5 bg-white border ${enquiryErrors.phone ? 'border-red-400 focus:ring-red-400' : 'border-slate-200 focus:ring-blue-500'} rounded-xl text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60`}
+                          className={`w-full pl-9 pr-3.5 py-2.5 bg-white border ${enquiryErrors.phone ? 'border-red-400 focus:ring-red-400' : 'border-slate-300 focus:border-cyan-500 focus:ring-cyan-400/30'} rounded-xl text-xs font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60`}
                         />
                       </div>
                       {enquiryErrors.phone && (
@@ -1172,7 +1171,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
                     </div>
 
                     <div className="space-y-1">
-                      <label htmlFor="enquiry-project-type" className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">
+                      <label htmlFor="enquiry-project-type" className="block text-[11px] font-bold text-slate-800 uppercase tracking-wider">
                         Project Type <span className="text-red-500">*</span>
                       </label>
                       <select
@@ -1181,7 +1180,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
                         disabled={isSubmittingEnquiry}
                         value={enquiryForm.projectType}
                         onChange={(e) => setEnquiryForm({ ...enquiryForm, projectType: e.target.value })}
-                        className={`w-full px-3.5 py-2.5 bg-white border ${enquiryErrors.projectType ? 'border-red-400 focus:ring-red-400' : 'border-slate-200 focus:ring-blue-500'} rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60 cursor-pointer`}
+                        className={`w-full px-3.5 py-2.5 bg-white border ${enquiryErrors.projectType ? 'border-red-400 focus:ring-red-400' : 'border-slate-300 focus:border-cyan-500 focus:ring-cyan-400/30'} rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60 cursor-pointer`}
                       >
                         <option value="Portal">Portal Development</option>
                         <option value="Web App">Web Application</option>
@@ -1198,7 +1197,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
                   {/* Row 3: Budget Range & Preferred Delivery Timeframe */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                     <div className="space-y-1">
-                      <label htmlFor="enquiry-budget" className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">
+                      <label htmlFor="enquiry-budget" className="block text-[11px] font-bold text-slate-800 uppercase tracking-wider">
                         Budget Range <span className="text-red-500">*</span>
                       </label>
                       <select
@@ -1207,7 +1206,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
                         disabled={isSubmittingEnquiry}
                         value={enquiryForm.budgetRange}
                         onChange={(e) => setEnquiryForm({ ...enquiryForm, budgetRange: e.target.value })}
-                        className={`w-full px-3.5 py-2.5 bg-white border ${enquiryErrors.budgetRange ? 'border-red-400 focus:ring-red-400' : 'border-slate-200 focus:ring-blue-500'} rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60 cursor-pointer`}
+                        className={`w-full px-3.5 py-2.5 bg-white border ${enquiryErrors.budgetRange ? 'border-red-400 focus:ring-red-400' : 'border-slate-300 focus:border-cyan-500 focus:ring-cyan-400/30'} rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60 cursor-pointer`}
                       >
                         <option value="Under ₹50,000 / $600">Under ₹50,000 / $600 (Starter / MVP)</option>
                         <option value="₹50,000 – ₹1,50,000 / $600 – $1,800">₹50,000 – ₹1,50,000 / $600 – $1,800</option>
@@ -1222,7 +1221,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
                     </div>
 
                     <div className="space-y-1">
-                      <label htmlFor="enquiry-timeframe" className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">
+                      <label htmlFor="enquiry-timeframe" className="block text-[11px] font-bold text-slate-800 uppercase tracking-wider">
                         Preferred Delivery Timeframe <span className="text-red-500">*</span>
                       </label>
                       <select
@@ -1231,7 +1230,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
                         disabled={isSubmittingEnquiry}
                         value={enquiryForm.timeframe}
                         onChange={(e) => setEnquiryForm({ ...enquiryForm, timeframe: e.target.value })}
-                        className={`w-full px-3.5 py-2.5 bg-white border ${enquiryErrors.timeframe ? 'border-red-400 focus:ring-red-400' : 'border-slate-200 focus:ring-blue-500'} rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60 cursor-pointer`}
+                        className={`w-full px-3.5 py-2.5 bg-white border ${enquiryErrors.timeframe ? 'border-red-400 focus:ring-red-400' : 'border-slate-300 focus:border-cyan-500 focus:ring-cyan-400/30'} rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60 cursor-pointer`}
                       >
                         <option value="Urgent (< 2 weeks)">Urgent (&lt; 2 weeks)</option>
                         <option value="2 to 4 weeks">2 to 4 weeks</option>
@@ -1247,7 +1246,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
 
                   {/* Row 4: Existing Website / App URL (Optional) */}
                   <div className="space-y-1">
-                    <label htmlFor="enquiry-existing-url" className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">
+                    <label htmlFor="enquiry-existing-url" className="block text-[11px] font-bold text-slate-800 uppercase tracking-wider">
                       Existing Website / App URL <span className="text-slate-400 font-normal normal-case">(optional)</span>
                     </label>
                     <div className="relative">
@@ -1259,14 +1258,14 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
                         value={enquiryForm.existingUrl}
                         onChange={(e) => setEnquiryForm({ ...enquiryForm, existingUrl: e.target.value })}
                         placeholder="https://yourcompany.com"
-                        className="w-full pl-9 pr-3.5 py-2.5 bg-white border border-slate-200 focus:ring-blue-500 rounded-xl text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60"
+                        className="w-full pl-9 pr-3.5 py-2.5 bg-white border border-slate-300 focus:border-cyan-500 focus:ring-cyan-400/30 rounded-xl text-xs font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60"
                       />
                     </div>
                   </div>
 
                   {/* Row 5: Brief Project Description */}
                   <div className="space-y-1">
-                    <label htmlFor="enquiry-description" className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">
+                    <label htmlFor="enquiry-description" className="block text-[11px] font-bold text-slate-800 uppercase tracking-wider">
                       Brief Project Description <span className="text-red-500">*</span>
                     </label>
                     <textarea
@@ -1277,7 +1276,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
                       value={enquiryForm.description}
                       onChange={(e) => setEnquiryForm({ ...enquiryForm, description: e.target.value })}
                       placeholder="Summarize your project goals, target audience, and primary problem to solve..."
-                      className={`w-full px-3.5 py-2.5 bg-white border ${enquiryErrors.description ? 'border-red-400 focus:ring-red-400' : 'border-slate-200 focus:ring-blue-500'} rounded-xl text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60 resize-y`}
+                      className={`w-full px-3.5 py-2.5 bg-white border ${enquiryErrors.description ? 'border-red-400 focus:ring-red-400' : 'border-slate-300 focus:border-cyan-500 focus:ring-cyan-400/30'} rounded-xl text-xs font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60 resize-y`}
                     />
                     {enquiryErrors.description && (
                       <p className="text-[10.5px] text-red-600 font-medium">{enquiryErrors.description}</p>
@@ -1286,7 +1285,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
 
                   {/* Row 6: Required Features & Key Requirements */}
                   <div className="space-y-1">
-                    <label htmlFor="enquiry-requirements" className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">
+                    <label htmlFor="enquiry-requirements" className="block text-[11px] font-bold text-slate-800 uppercase tracking-wider">
                       Required Features & Key Requirements <span className="text-red-500">*</span>
                     </label>
                     <textarea
@@ -1297,7 +1296,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
                       value={enquiryForm.keyRequirements}
                       onChange={(e) => setEnquiryForm({ ...enquiryForm, keyRequirements: e.target.value })}
                       placeholder="List key modules (e.g. user authentication, payment gateway, admin portal, analytics API, mobile responsiveness)..."
-                      className={`w-full px-3.5 py-2.5 bg-white border ${enquiryErrors.keyRequirements ? 'border-red-400 focus:ring-red-400' : 'border-slate-200 focus:ring-blue-500'} rounded-xl text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60 resize-y`}
+                      className={`w-full px-3.5 py-2.5 bg-white border ${enquiryErrors.keyRequirements ? 'border-red-400 focus:ring-red-400' : 'border-slate-300 focus:border-cyan-500 focus:ring-cyan-400/30'} rounded-xl text-xs font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-2xs transition-all disabled:opacity-60 resize-y`}
                     />
                     {enquiryErrors.keyRequirements && (
                       <p className="text-[10.5px] text-red-600 font-medium">{enquiryErrors.keyRequirements}</p>
@@ -1309,7 +1308,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
                     <button
                       type="submit"
                       disabled={isSubmittingEnquiry}
-                      className="w-full py-3 px-5 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-700 hover:to-indigo-700 disabled:opacity-60 text-white rounded-xl text-xs font-bold transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 cursor-pointer"
+                      className="w-full py-3 px-5 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-600 hover:from-blue-700 hover:via-indigo-700 hover:to-cyan-700 disabled:opacity-60 text-white rounded-xl text-xs font-bold transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 cursor-pointer"
                     >
                       {isSubmittingEnquiry ? (
                         <>
@@ -1327,7 +1326,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
                 </form>
               )}
 
-              <div className="pt-2 text-[11px] text-slate-400 text-center">
+              <div className="pt-2 text-[11px] text-slate-500 text-center font-medium">
                 Bring My Bite Software Services &bull; All enquiries handled confidentially under NDA &bull; No spam guaranteed.
               </div>
             </div>
@@ -1335,66 +1334,62 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
 
           {/* RIGHT COLUMN: WHY WORK WITH US */}
           <div className="lg:col-span-3 space-y-6">
-            <div className="liquid-glass rounded-3xl p-6 sm:p-7 border border-white/90 shadow-xl space-y-5">
-              <div className="space-y-2">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold shadow-2xs">
+            <div className="water-glass-panel p-6 sm:p-7 space-y-5">
+              <div className="space-y-2.5">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100/80 text-emerald-800 text-xs font-bold shadow-2xs border border-emerald-200/60">
                   <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
                   <span>Advantage</span>
                 </div>
-                <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
+                <h3 className="text-xl sm:text-2xl font-extrabold crystal-heading tracking-tight">
                   Why Work With Us
                 </h3>
-                <p className="text-xs text-slate-600 leading-relaxed">
+                <p className="text-xs text-slate-700 leading-relaxed font-medium">
                   Direct engineering accountability, rapid turnaround, and lifecycle continuity from concept to production.
                 </p>
               </div>
 
-              <div className="space-y-4 pt-1 border-t border-slate-200/60">
-                <div className="space-y-1">
-                  <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
-                    <span>End-to-End Support</span>
+              <div className="space-y-3.5 pt-1 border-t border-slate-200/70">
+                {/* Benefit Card 1: Your Portal. Your Language. */}
+                <div className="water-glass-benefit-card space-y-2">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 text-white flex items-center justify-center flex-shrink-0 shadow-xs">
+                      <Languages className="w-4 h-4" />
+                    </div>
+                    <h4 className="text-xs font-bold text-slate-900 tracking-tight leading-snug">
+                      Your Portal. Your Language.
+                    </h4>
                   </div>
-                  <p className="text-[11px] text-slate-500 leading-relaxed pl-5">
-                    From early wireframes and system architecture to live cloud deployment and ongoing performance tuning.
+                  <p className="text-xs text-slate-600 leading-relaxed pl-0.5">
+                    We will make your portal talk in your language with your own friendly AI.
+                  </p>
+                  <p className="text-[10px] text-slate-400 italic pl-0.5 pt-0.5">
+                    *Terms and conditions apply.
                   </p>
                 </div>
 
-                <div className="space-y-1">
-                  <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-blue-600 flex-shrink-0" />
-                    <span>Remote Collaboration from Home</span>
+                {/* Benefit Card 2: Be Truly Independent */}
+                <div className="water-glass-benefit-card space-y-2">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-600 text-white flex items-center justify-center flex-shrink-0 shadow-xs">
+                      <FileText className="w-4 h-4" />
+                    </div>
+                    <h4 className="text-xs font-bold text-slate-900 tracking-tight leading-snug">
+                      Be Truly Independent
+                    </h4>
                   </div>
-                  <p className="text-[11px] text-slate-500 leading-relaxed pl-5">
-                    Direct access via Google Meet, Slack, and WhatsApp. Zero bureaucratic bloat, maximum developer focus.
+                  <p className="text-xs text-slate-600 leading-relaxed pl-0.5">
+                    We build solutions that give you greater control, so you can manage everyday changes without depending on a developer for every small update.
                   </p>
-                </div>
-
-                <div className="space-y-1">
-                  <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-indigo-600 flex-shrink-0" />
-                    <span>Faster Execution</span>
+                  <div className="p-2.5 rounded-lg bg-indigo-50/70 border border-indigo-100 text-[11px] text-indigo-950 leading-relaxed font-normal">
+                    Every project includes a practical PDF guide covering how your software works, configuration, environment variables, API integrations, and step-by-step instructions for future changes.
                   </div>
-                  <p className="text-[11px] text-slate-500 leading-relaxed pl-5">
-                    Sprint-based agile delivery, modular TypeScript codebases, and working preview demos delivered weekly.
-                  </p>
-                </div>
-
-                <div className="space-y-1">
-                  <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-purple-600 flex-shrink-0" />
-                    <span>Ongoing Maintenance</span>
-                  </div>
-                  <p className="text-[11px] text-slate-500 leading-relaxed pl-5">
-                    We stand by our software post-launch with SLA bug fixing, infrastructure monitoring, and security updates.
-                  </p>
                 </div>
               </div>
 
               {/* Direct Contact Card */}
-              <div className="pt-3 border-t border-slate-200/60">
-                <div className="p-3.5 rounded-2xl bg-white/70 border border-slate-200/80 space-y-2">
-                  <div className="text-[11px] font-bold text-slate-700 flex items-center gap-1.5">
+              <div className="pt-2 border-t border-slate-200/70">
+                <div className="p-3 rounded-2xl bg-white/80 border border-slate-200/80 shadow-2xs space-y-1.5">
+                  <div className="text-[11px] font-bold text-slate-800 flex items-center gap-1.5">
                     <Mail className="w-3.5 h-3.5 text-blue-600" />
                     <span>Direct Inquiries</span>
                   </div>

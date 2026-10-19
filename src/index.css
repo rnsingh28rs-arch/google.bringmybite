@@ -383,6 +383,151 @@
   background-position: right center;
 }
 
+/* ==========================================================================
+   Water-Glass & 3D Glassmorphism System for Project Inquiry Section
+   ========================================================================== */
+
+/* 1. Water-Glass Side Panel (Translucent white surface, subtle cyan glow, crisp edges, soft depth shadows) */
+.water-glass-panel {
+  position: relative;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.92) 0%,
+    rgba(240, 249, 255, 0.78) 50%,
+    rgba(255, 255, 255, 0.88) 100%
+  );
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow:
+    0 20px 40px -12px rgba(14, 165, 233, 0.12),
+    0 8px 24px -4px rgba(15, 23, 42, 0.05),
+    inset 0 1.5px 2px 0 rgba(255, 255, 255, 1),
+    inset 0 -1.5px 3px 0 rgba(186, 230, 253, 0.4);
+  border-radius: 1.75rem;
+  overflow: hidden;
+}
+
+/* Realistic water-glass specular sheen across top edge */
+.water-glass-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 38%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 100%);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* 2. Elevated Project Inquiry Form (Most prominent glass depth, realistic refraction & cyan glow) */
+.water-glass-form-elevated {
+  position: relative;
+  background: linear-gradient(
+    155deg,
+    rgba(255, 255, 255, 0.96) 0%,
+    rgba(240, 249, 255, 0.88) 45%,
+    rgba(255, 255, 255, 0.94) 100%
+  );
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border: 1.5px solid rgba(255, 255, 255, 0.98);
+  box-shadow:
+    0 26px 54px -12px rgba(14, 165, 233, 0.2),
+    0 12px 30px -6px rgba(15, 23, 42, 0.08),
+    0 0 0 1px rgba(186, 230, 253, 0.55),
+    inset 0 2px 3px 0 rgba(255, 255, 255, 1),
+    inset 0 -2px 4px 0 rgba(186, 230, 253, 0.45);
+  border-radius: 1.75rem;
+  overflow: hidden;
+}
+
+.water-glass-form-elevated::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 45%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* 3. Subtle Crystal-Like Heading Highlight (Crisp, highly readable deep slate with light refractive sheen) */
+.crystal-heading {
+  background: linear-gradient(
+    135deg,
+    #0f172a 0%,
+    #1e3a8a 32%,
+    #0284c7 55%,
+    #1e293b 80%,
+    #0f172a 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.4);
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.9));
+}
+
+/* 4. High-Contrast Sharp Form Inputs for Maximum Usability */
+.water-glass-input {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 0.75rem;
+  font-weight: 500;
+  box-shadow: 0 1px 2px 0 rgba(15, 23, 42, 0.04), inset 0 1px 1px 0 rgba(15, 23, 42, 0.02);
+  transition: all 0.2s ease-in-out;
+}
+
+.water-glass-input:focus {
+  border-color: #0284c7 !important;
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.25), 0 2px 6px -1px rgba(14, 165, 233, 0.12) !important;
+  outline: none !important;
+}
+
+.water-glass-input-error {
+  border-color: #f87171 !important;
+}
+
+.water-glass-input-error:focus {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.22) !important;
+}
+
+/* 5. Water-Glass Benefit Card */
+.water-glass-benefit-card {
+  position: relative;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.94) 0%,
+    rgba(240, 249, 255, 0.78) 100%
+  );
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow:
+    0 6px 18px -3px rgba(14, 165, 233, 0.08),
+    0 2px 6px -1px rgba(15, 23, 42, 0.04),
+    inset 0 1.5px 2px rgba(255, 255, 255, 1);
+  border-radius: 1.25rem;
+  padding: 1.15rem;
+  transition: all 0.25s ease-in-out;
+}
+
+.water-glass-benefit-card:hover {
+  border-color: rgba(147, 197, 253, 0.9);
+  box-shadow:
+    0 12px 28px -4px rgba(14, 165, 233, 0.15),
+    0 4px 10px -2px rgba(15, 23, 42, 0.06),
+    inset 0 2px 3px #ffffff;
+  transform: translateY(-2px);
+}
+
 /* Reduced Motion Fallback */
 @media (prefers-reduced-motion: reduce) {
   * {

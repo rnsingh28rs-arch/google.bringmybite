@@ -33,9 +33,9 @@ export const RobotCompanion: React.FC<RobotCompanionProps> = ({
     '/assets/robot/robot-idle.png';
 
   const sizeStyles = {
-    sm: { img: 'w-16 h-16', stage: 'py-1' },
-    md: { img: 'w-28 h-28', stage: 'py-2' },
-    lg: { img: 'w-36 h-36', stage: 'py-4' }
+    sm: { img: 'w-9 h-9 sm:w-10 sm:h-10', stage: showStage ? 'py-1' : 'py-0' },
+    md: { img: 'w-24 h-24 sm:w-28 sm:h-28', stage: 'py-2' },
+    lg: { img: 'w-32 h-32 sm:w-36 sm:h-36', stage: 'py-4' }
   }[size];
 
   return (
