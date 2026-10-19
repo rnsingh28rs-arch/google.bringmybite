@@ -26,7 +26,7 @@ export const TutorialsPage: React.FC<TutorialsPageProps> = ({ onSelectTutorial }
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-10">
-      
+
       {/* Header */}
       <div className="space-y-3 max-w-3xl">
         <div className="flex items-center gap-2 text-xs font-bold text-blue-600 uppercase tracking-wider">
@@ -90,7 +90,6 @@ export const TutorialsPage: React.FC<TutorialsPageProps> = ({ onSelectTutorial }
           <ShieldCheck className="w-4 h-4 text-emerald-600" />
           <span>Independent instructional articles. Screenshots and trademarks referenced under educational fair use.</span>
         </span>
-        <span className="font-semibold text-slate-700">Last audited: October 2026</span>
       </div>
 
     </div>

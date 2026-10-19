@@ -31,7 +31,7 @@ const LegalPage = lazy(() => import('./pages/LegalPages').then(m => ({ default: 
 const NotFoundPage = lazy(() => import('./pages/LegalPages').then(m => ({ default: m.NotFoundPage })));
 const AdminMonetizationPage = lazy(() => import('./pages/AdminMonetizationPage').then(m => ({ default: m.AdminMonetizationPage })));
 
-export type AppView = 
+export type AppView =
   | 'home'
   | 'products'
   | 'product-detail'
@@ -47,6 +47,7 @@ export type AppView =
   | 'about'
   | 'contact'
   | 'affiliate-disclosure'
+  | 'disclaimer'
   | 'privacy'
   | 'terms'
   | 'admin'
@@ -85,8 +86,16 @@ export default function App() {
     }
 
     const parts = raw.split('/');
-    const view = parts[0] as AppView;
+    const rawView = parts[0];
     const slug = parts[1] || '';
+
+    if (rawView === 'affiliate' || rawView === 'affiliate-disclosure') {
+      setCurrentView('affiliate-disclosure');
+      setCurrentSlug('');
+      return;
+    }
+
+    const view = rawView as AppView;
 
     if (view === 'products' && slug) {
       const isProduct = PRODUCTS.some(p => p.slug === slug);
@@ -104,10 +113,10 @@ export default function App() {
       setCurrentView('comparison-detail');
       setCurrentSlug(slug);
     } else if ([
-      'home', 'products', 'product-detail', 'ai-tools', 'free-tools', 
-      'pricing', 'india-offers', 'tutorials', 'tutorial-detail', 
-      'comparisons', 'comparison-detail', 'latest-updates', 'about', 
-      'contact', 'affiliate-disclosure', 'privacy', 'terms', 'admin'
+      'home', 'products', 'product-detail', 'ai-tools', 'free-tools',
+      'pricing', 'india-offers', 'tutorials', 'tutorial-detail',
+      'comparisons', 'comparison-detail', 'latest-updates', 'about',
+      'contact', 'affiliate-disclosure', 'disclaimer', 'privacy', 'terms', 'admin'
     ].includes(view)) {
       setCurrentView(view);
       setCurrentSlug(slug);
@@ -145,7 +154,7 @@ export default function App() {
       title = 'Google Tool Finder by Bring My Bite - Technology Discovery & INR Pricing';
       canonicalPath = '/';
     } else if (currentView === 'products') {
-      title = currentSlug 
+      title = currentSlug
         ? `${currentSlug.charAt(0).toUpperCase() + currentSlug.slice(1)} Google Tools Directory | Google Tool Finder`
         : 'All Google Products & Workspace Directory | Google Tool Finder';
       description = 'Browse complete directory of Google products, Workspace productivity tools, Cloud APIs, and AI models with transparent features.';
@@ -211,6 +220,10 @@ export default function App() {
       title = 'Affiliate Disclosure & Transparency Statement | Google Tool Finder';
       description = 'Read our transparent affiliate disclosure and editorial independence guarantee.';
       canonicalPath = '/affiliate-disclosure';
+    } else if (currentView === 'disclaimer') {
+      title = 'Legal & Trademark Disclaimer | Google Tool Finder';
+      description = 'Editorial independence, trademark fair use, pricing accuracy, and advertising disclaimers for Google Tool Finder by Bring My Bite.';
+      canonicalPath = '/disclaimer';
     } else if (currentView === 'privacy') {
       title = 'Privacy Policy | Google Tool Finder';
       canonicalPath = '/privacy';
@@ -225,7 +238,7 @@ export default function App() {
     }
 
     document.title = title;
-    
+
     // Update Meta Description
     let metaDesc = document.querySelector('meta[name="description"]');
     if (!metaDesc) {
@@ -302,7 +315,7 @@ export default function App() {
   return (
     <AuthProvider>
       <div className="min-h-screen flex flex-col bg-white text-slate-800 font-sans selection:bg-blue-100 selection:text-blue-900">
-        
+
         {/* Accessible Skip to Content Link */}
         <a
           href="#main-content"
@@ -409,15 +422,22 @@ export default function App() {
             )}
 
             {currentView === 'affiliate-disclosure' && (
-              <AffiliateDisclosurePage />
+              <AffiliateDisclosurePage
+                onSelectProduct={(slug) => navigate('product-detail', slug)}
+                onNavigate={navigate}
+              />
+            )}
+
+            {currentView === 'disclaimer' && (
+              <LegalPage type="disclaimer" onNavigateHome={() => navigate('home')} onNavigate={navigate} />
             )}
 
             {currentView === 'privacy' && (
-              <LegalPage type="privacy" onNavigateHome={() => navigate('home')} />
+              <LegalPage type="privacy" onNavigateHome={() => navigate('home')} onNavigate={navigate} />
             )}
 
             {currentView === 'terms' && (
-              <LegalPage type="terms" onNavigateHome={() => navigate('home')} />
+              <LegalPage type="terms" onNavigateHome={() => navigate('home')} onNavigate={navigate} />
             )}
 
             {currentView === 'admin' && (

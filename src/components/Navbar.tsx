@@ -1,18 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { 
-  Search, 
-  Menu, 
-  X, 
-  Compass, 
-  Sparkles, 
-  Gift, 
-  Layers, 
-  Tag, 
-  BookOpen, 
-  Scale, 
-  Bell, 
-  Info, 
-  Mail, 
+import {
+  Search,
+  Menu,
+  X,
+  Compass,
+  Sparkles,
+  Gift,
+  Layers,
+  Tag,
+  BookOpen,
+  Scale,
+  Bell,
+  Info,
+  Mail,
   ChevronDown,
   ShieldCheck,
   ExternalLink,
@@ -31,15 +31,15 @@ interface NavbarProps {
 
 /**
  * Feature Flag: Top Information Strip
- * When set to false, visually hides the top information strip (disclaimer, audit date, Admin & AdSense, India Offers)
- * while preserving 100% of the underlying markup and functionality for easy future restoration.
+ * Restored per specification; responsive across desktop and mobile.
  */
-export const SHOW_TOP_INFORMATION_STRIP = false;
+export const SHOW_TOP_INFORMATION_STRIP = true;
 
 export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenSearch }) => {
   const { user, openSignInModal, signOut } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [moreDropdownOpen, setMoreDropdownOpen] = useState(false);
+  const [mobileMoreOpen, setMobileMoreOpen] = useState(true);
   const [activeSpySection, setActiveSpySection] = useState<string>('home');
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -89,15 +89,31 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
     return () => window.removeEventListener('scroll', handleScroll);
   }, [currentView]);
 
-  // Close dropdown on click outside
+  // Close dropdown on click or touch outside
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setMoreDropdownOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, []);
+
+  // Keyboard accessibility: Escape key closes active menus
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setMoreDropdownOpen(false);
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
   const handleNavClick = (viewId: string, sectionId?: string, forceNavigateToPage = false) => {
@@ -133,28 +149,26 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
       {/* Google 4-Color Ambient Top Ribbon */}
       <div className="h-1 w-full bg-gradient-to-r from-[#4285F4] via-[#EA4335] via-[#FBBC05] to-[#34A853]"></div>
 
-      {/* Top Compact Editorial Announcement Bar (Preserved for future restoration; visually hidden per specification) */}
+      {/* Top Compact Editorial Announcement Bar (Fully responsive on desktop and mobile) */}
       {SHOW_TOP_INFORMATION_STRIP && (
-        <div className="bg-slate-900 text-slate-300 px-4 py-1.5 text-[11px] font-medium border-b border-slate-800 select-none">
-          <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 truncate">
+        <div className="bg-slate-900 text-slate-300 px-3 sm:px-4 py-1.5 sm:py-1.5 text-[10.5px] sm:text-[11px] font-medium border-b border-slate-800 select-none">
+          <div className="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-3">
+            <div className="flex items-center gap-2 min-w-0 max-w-full">
               <span className="w-2 h-2 rounded-full bg-emerald-400 flex-shrink-0 animate-pulse"></span>
-              <span className="text-slate-200 truncate">
+              <span className="text-slate-200 truncate sm:whitespace-normal">
                 <strong className="font-semibold text-white">Google Tool Finder:</strong> Independent Technology Discovery & Monetisation Guide by parent company Bring My Bite. Not affiliated with Google LLC.
               </span>
             </div>
 
-            <div className="flex items-center gap-3 text-slate-400 flex-shrink-0 text-[11px]">
-              <span className="hidden sm:inline">Audited: Oct 2026</span>
-              <span className="hidden sm:inline text-slate-700">•</span>
-              <button 
+            <div className="flex items-center gap-2.5 sm:gap-3 text-slate-400 flex-shrink-0 text-[10.5px] sm:text-[11px] self-end sm:self-auto">
+              <button
                 onClick={() => handleNavClick('admin')}
                 className="text-slate-300 hover:text-white transition-colors underline-offset-2 hover:underline cursor-pointer"
               >
                 Admin & AdSense
               </button>
               <span className="text-slate-700">•</span>
-              <button 
+              <button
                 onClick={() => handleNavClick('india-offers', 'india-offers-section')}
                 className="text-emerald-400 hover:text-emerald-300 font-semibold transition-colors flex items-center gap-1.5 group cursor-pointer"
               >
@@ -168,28 +182,28 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
 
       {/* Main Sticky Header with Liquid Glass Backdrop */}
       <header className="sticky top-0 z-40 liquid-glass-nav transition-all duration-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 gap-3 lg:gap-4">
-            
+        <div className="max-w-7xl mx-auto px-2.5 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 gap-1.5 sm:gap-3 lg:gap-4">
+
             {/* 1. Brand Identity with Water Light Glass Ripple Effect */}
             <WaterLightGlass
               onClick={() => handleNavClick('home', 'hero-section')}
-              className="rounded-2xl px-2.5 py-1.5 -ml-1 cursor-pointer group select-none flex-shrink-0 transition-transform duration-200 hover:scale-[1.02]"
+              className="rounded-2xl px-1.5 sm:px-2.5 py-1.5 -ml-1 cursor-pointer group select-none flex-shrink-0 transition-transform duration-200 hover:scale-[1.02]"
               title="Google Tool Finder • by Bring My Bite"
               intensity="medium"
             >
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl liquid-logo-vessel shadow-md transition-all duration-300 group-hover:scale-110 flex items-center justify-center flex-shrink-0">
-                  <Compass className="w-5 h-5 text-blue-600 transition-transform duration-300 group-hover:rotate-45" />
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-2xl liquid-logo-vessel shadow-md transition-all duration-300 group-hover:scale-110 flex items-center justify-center flex-shrink-0">
+                  <Compass className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 transition-transform duration-300 group-hover:rotate-45" />
                 </div>
                 <div className="flex flex-col whitespace-nowrap">
-                  <span className="font-extrabold text-sm sm:text-base tracking-tight text-slate-900 leading-tight flex items-center gap-1.5">
+                  <span className="font-extrabold text-xs sm:text-base tracking-tight text-slate-900 leading-tight flex items-center gap-1">
                     <span className="bg-gradient-to-r from-[#4285F4] via-[#EA4335] via-[#FBBC05] to-[#34A853] bg-clip-text text-transparent font-black">
                       Google
                     </span>
                     <span className="text-slate-900 font-extrabold">Tool Finder</span>
                   </span>
-                  <span className="text-[10px] text-slate-500 font-medium tracking-wide flex items-center gap-1">
+                  <span className="hidden min-[360px]:flex text-[10px] text-slate-500 font-medium tracking-wide items-center gap-1">
                     <span>by</span>
                     <span className="font-bold text-slate-700 group-hover:text-blue-600 transition-colors">Bring My Bite</span>
                   </span>
@@ -199,7 +213,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
 
             {/* 2. Desktop Navigation Links with Scroll-Spy & Animated Sliding Highlight */}
             <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5 text-xs font-semibold text-slate-600 whitespace-nowrap">
-              
+
               {/* Home */}
               <button
                 onClick={() => handleNavClick('home', 'hero-section')}
@@ -348,26 +362,42 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
               <div className="relative" ref={dropdownRef}>
                 <button
                   type="button"
+                  id="desktop-more-dropdown-button"
                   onClick={() => setMoreDropdownOpen(!moreDropdownOpen)}
-                  className={`px-3 py-2 rounded-xl flex items-center gap-1.5 transition-all duration-200 cursor-pointer ${
-                    isMoreActive 
-                      ? 'text-blue-700 nav-active-pill font-bold' 
+                  onKeyDown={(e) => {
+                    if (e.key === 'Escape') setMoreDropdownOpen(false);
+                  }}
+                  className={`px-2.5 xl:px-3 py-1.5 xl:py-2 rounded-xl flex items-center gap-1.5 transition-all duration-200 cursor-pointer ${
+                    isMoreActive
+                      ? 'text-blue-700 nav-active-pill font-bold'
                       : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/80'
                   }`}
                   aria-expanded={moreDropdownOpen}
+                  aria-haspopup="true"
+                  aria-controls="desktop-more-dropdown-menu"
                 >
                   <span>More</span>
                   <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${moreDropdownOpen ? 'rotate-180' : ''}`} />
                 </button>
 
                 {moreDropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-64 glass-card rounded-2xl shadow-2xl py-2.5 z-50 animate-in fade-in zoom-in-95 duration-150 border border-white/90">
+                  <div
+                    id="desktop-more-dropdown-menu"
+                    role="menu"
+                    aria-orientation="vertical"
+                    aria-labelledby="desktop-more-dropdown-button"
+                    className="absolute right-0 mt-2 w-64 max-w-[calc(100vw-2rem)] glass-card rounded-2xl shadow-2xl py-2.5 z-50 animate-in fade-in zoom-in-95 duration-150 border border-white/90"
+                  >
                     <div className="px-3 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                       Resources & Tools
                     </div>
 
                     <button
-                      onClick={() => handleNavClick('tutorials', 'tutorials-section')}
+                      role="menuitem"
+                      onClick={() => {
+                        setMoreDropdownOpen(false);
+                        handleNavClick('tutorials', 'tutorials-section');
+                      }}
                       className={`w-full flex items-center gap-3 px-3 py-2 text-left text-xs transition-colors cursor-pointer ${
                         activeTab === 'tutorials'
                           ? 'bg-blue-50 text-blue-700 font-semibold'
@@ -384,6 +414,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
                     </button>
 
                     <button
+                      role="menuitem"
                       onClick={() => {
                         setMoreDropdownOpen(false);
                         onNavigate('comparisons');
@@ -404,7 +435,11 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
                     </button>
 
                     <button
-                      onClick={() => handleNavClick('latest-updates')}
+                      role="menuitem"
+                      onClick={() => {
+                        setMoreDropdownOpen(false);
+                        handleNavClick('latest-updates');
+                      }}
                       className={`w-full flex items-center gap-3 px-3 py-2 text-left text-xs transition-colors cursor-pointer ${
                         currentView === 'latest-updates'
                           ? 'bg-blue-50 text-blue-700 font-semibold'
@@ -427,7 +462,11 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
                     </div>
 
                     <button
-                      onClick={() => handleNavClick('about')}
+                      role="menuitem"
+                      onClick={() => {
+                        setMoreDropdownOpen(false);
+                        handleNavClick('about');
+                      }}
                       className={`w-full flex items-center gap-3 px-3 py-2 text-left text-xs transition-colors cursor-pointer ${
                         currentView === 'about'
                           ? 'bg-blue-50 text-blue-700 font-semibold'
@@ -437,11 +476,18 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
                       <div className="w-8 h-8 rounded-xl glass-icon-base flex items-center justify-center text-slate-600 flex-shrink-0">
                         <Info className="w-4 h-4" />
                       </div>
-                      <span>About Us & Mission</span>
+                      <div>
+                        <div className="font-semibold">About Us & Mission</div>
+                        <div className="text-[10px] text-slate-400">Mission & standards</div>
+                      </div>
                     </button>
 
                     <button
-                      onClick={() => handleNavClick('contact')}
+                      role="menuitem"
+                      onClick={() => {
+                        setMoreDropdownOpen(false);
+                        handleNavClick('contact');
+                      }}
                       className={`w-full flex items-center gap-3 px-3 py-2 text-left text-xs transition-colors cursor-pointer ${
                         currentView === 'contact'
                           ? 'bg-blue-50 text-blue-700 font-semibold'
@@ -451,11 +497,18 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
                       <div className="w-8 h-8 rounded-xl glass-icon-base flex items-center justify-center text-slate-600 flex-shrink-0">
                         <Mail className="w-4 h-4" />
                       </div>
-                      <span>Contact Editorial</span>
+                      <div>
+                        <div className="font-semibold">Contact Editorial</div>
+                        <div className="text-[10px] text-slate-400">Feedback & enquiries</div>
+                      </div>
                     </button>
 
                     <button
-                      onClick={() => handleNavClick('affiliate-disclosure')}
+                      role="menuitem"
+                      onClick={() => {
+                        setMoreDropdownOpen(false);
+                        handleNavClick('affiliate-disclosure');
+                      }}
                       className={`w-full flex items-center gap-3 px-3 py-2 text-left text-xs transition-colors cursor-pointer ${
                         currentView === 'affiliate-disclosure'
                           ? 'bg-blue-50 text-blue-700 font-semibold'
@@ -465,25 +518,48 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
                       <div className="w-8 h-8 rounded-xl glass-icon-emerald flex items-center justify-center text-emerald-600 flex-shrink-0">
                         <ShieldCheck className="w-4 h-4" />
                       </div>
-                      <span>Affiliate Disclosure</span>
+                      <div>
+                        <div className="font-semibold">Affiliate Disclosure</div>
+                        <div className="text-[10px] text-slate-400">FTC compliant policy</div>
+                      </div>
                     </button>
                   </div>
                 )}
               </div>
             </nav>
 
-            {/* 3. Search Action, Google Auth & Mobile Hamburger */}
-            <div className="flex items-center gap-2 flex-shrink-0">
+            {/* 3. Search Action, Google Auth & Mobile Actions */}
+            <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+              {/* Mobile "More" pill button: direct touch access to More menu on tablet & mobile */}
+              <button
+                type="button"
+                id="mobile-nav-more-button"
+                onClick={() => {
+                  setMobileMenuOpen(true);
+                  setMobileMoreOpen(true);
+                }}
+                className={`lg:hidden flex items-center gap-1 px-2 sm:px-2.5 py-1.5 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${
+                  isMoreActive
+                    ? 'bg-blue-50 text-blue-700 border-blue-200 font-bold'
+                    : 'bg-white/90 hover:bg-white text-slate-700 border-slate-200 hover:border-blue-400 shadow-2xs'
+                }`}
+                aria-label="Open More resources and editorial menu"
+                aria-expanded={mobileMenuOpen && mobileMoreOpen}
+              >
+                <span>More</span>
+                <ChevronDown className="w-3 h-3 text-slate-500" />
+              </button>
+
               <button
                 onClick={onOpenSearch}
-                className="flex items-center gap-2.5 px-3.5 py-2 bg-slate-100/90 hover:bg-white text-slate-600 rounded-xl text-xs font-medium border border-slate-200/80 hover:border-blue-400 transition-all shadow-2xs hover:shadow-sm group cursor-pointer"
+                className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3.5 py-1.5 sm:py-2 bg-slate-100/90 hover:bg-white text-slate-600 rounded-xl text-xs font-medium border border-slate-200/80 hover:border-blue-400 transition-all shadow-2xs hover:shadow-sm group cursor-pointer"
                 title="Search directory (Ctrl+K or ⌘K)"
               >
                 <div className="w-5 h-5 rounded-lg glass-icon-blue flex items-center justify-center text-blue-600 flex-shrink-0">
                   <Search className="w-3 h-3 transition-transform group-hover:scale-110" />
                 </div>
                 <span className="hidden sm:inline whitespace-nowrap">Search tools...</span>
-                <span className="sm:hidden text-xs">Search</span>
+                <span className="hidden min-[360px]:inline sm:hidden text-xs">Search</span>
                 <kbd className="hidden md:inline-block px-1.5 py-0.5 text-[10px] font-mono text-slate-500 bg-white border border-slate-200 rounded shadow-2xs">
                   ⌘K
                 </kbd>
@@ -529,9 +605,11 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
 
               {/* Mobile Hamburger Button */}
               <button
+                id="mobile-hamburger-button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="lg:hidden p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-colors cursor-pointer"
                 aria-label="Toggle navigation menu"
+                aria-expanded={mobileMenuOpen}
               >
                 {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
@@ -542,8 +620,8 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
 
         {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 shadow-xl space-y-3 max-h-[85vh] overflow-y-auto">
-            
+          <div className="lg:hidden border-t border-slate-200 bg-white px-3 sm:px-4 pt-3 pb-6 shadow-xl space-y-3 max-h-[85vh] overflow-y-auto overflow-x-hidden touch-pan-y">
+
             {/* Quick search button for mobile */}
             <button
               onClick={() => { onOpenSearch(); setMobileMenuOpen(false); }}
@@ -634,33 +712,153 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
               </div>
             </div>
 
-            {/* Knowledge & Guides */}
-            <div className="space-y-1 pt-2 border-t border-slate-100">
-              <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2">
-                Guides & Resources
-              </div>
-              <div className="grid grid-cols-2 gap-1.5">
-                {[
-                  { id: 'tutorials', label: 'Tutorials (7)', sectionId: 'tutorials-section' },
-                  { id: 'comparisons', label: 'Comparisons' },
-                  { id: 'latest-updates', label: 'Latest Updates' },
-                  { id: 'about', label: 'About Us' },
-                  { id: 'contact', label: 'Contact' },
-                  { id: 'affiliate-disclosure', label: 'Affiliate Policy' },
-                ].map((link) => (
+            {/* Dedicated Mobile "More" Menu Section */}
+            <div className="space-y-1.5 pt-2 border-t border-slate-100">
+              <button
+                type="button"
+                id="mobile-more-dropdown-toggle"
+                onClick={() => setMobileMoreOpen(!mobileMoreOpen)}
+                className={`w-full flex items-center justify-between p-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  isMoreActive
+                    ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                    : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200/80'
+                }`}
+                aria-expanded={mobileMoreOpen}
+                aria-controls="mobile-more-dropdown-items"
+              >
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 rounded-lg glass-icon-blue flex items-center justify-center text-blue-600 flex-shrink-0">
+                    <Layers className="w-3.5 h-3.5" />
+                  </div>
+                  <span className="font-bold">More (Resources & Editorial)</span>
+                  <span className="px-1.5 py-0.5 rounded-md text-[10px] bg-white border border-slate-200 text-slate-600 font-semibold">
+                    6 items
+                  </span>
+                </div>
+                <ChevronDown className={`w-4 h-4 text-slate-500 transition-transform duration-200 flex-shrink-0 ${mobileMoreOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {mobileMoreOpen && (
+                <div
+                  id="mobile-more-dropdown-items"
+                  className="space-y-1 pt-1 animate-in fade-in duration-150"
+                  role="region"
+                  aria-labelledby="mobile-more-dropdown-toggle"
+                >
+                  <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2 pt-1 pb-0.5">
+                    Resources & Tools
+                  </div>
+
                   <button
-                    key={link.id}
-                    onClick={() => handleNavClick(link.id, link.sectionId)}
-                    className={`p-2.5 rounded-xl text-xs font-semibold text-left transition-colors cursor-pointer ${
-                      activeTab === link.id
-                        ? 'bg-blue-50 text-blue-700 font-bold'
-                        : 'text-slate-600 hover:bg-slate-50'
+                    onClick={() => handleNavClick('tutorials', 'tutorials-section')}
+                    className={`w-full min-h-[44px] flex items-center gap-3 p-2.5 rounded-xl text-left text-xs transition-colors cursor-pointer ${
+                      activeTab === 'tutorials'
+                        ? 'bg-blue-50 text-blue-700 font-semibold border border-blue-200'
+                        : 'text-slate-700 hover:bg-slate-50 bg-white border border-slate-100'
                     }`}
                   >
-                    {link.label}
+                    <div className="w-8 h-8 rounded-xl glass-icon-blue flex items-center justify-center text-blue-600 flex-shrink-0">
+                      <BookOpen className="w-4 h-4" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="font-semibold text-slate-900 truncate">Tutorials & Guides</div>
+                      <div className="text-[10px] text-slate-500 truncate">7 practical masterclasses</div>
+                    </div>
                   </button>
-                ))}
-              </div>
+
+                  <button
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      onNavigate('comparisons');
+                    }}
+                    className={`w-full min-h-[44px] flex items-center gap-3 p-2.5 rounded-xl text-left text-xs transition-colors cursor-pointer ${
+                      currentView === 'comparisons' || currentView === 'comparison-detail'
+                        ? 'bg-blue-50 text-blue-700 font-semibold border border-blue-200'
+                        : 'text-slate-700 hover:bg-slate-50 bg-white border border-slate-100'
+                    }`}
+                  >
+                    <div className="w-8 h-8 rounded-xl glass-icon-violet flex items-center justify-center text-violet-600 flex-shrink-0">
+                      <Scale className="w-4 h-4" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="font-semibold text-slate-900 truncate">Product Comparisons</div>
+                      <div className="text-[10px] text-slate-500 truncate">Side-by-side matrices</div>
+                    </div>
+                  </button>
+
+                  <button
+                    onClick={() => handleNavClick('latest-updates')}
+                    className={`w-full min-h-[44px] flex items-center gap-3 p-2.5 rounded-xl text-left text-xs transition-colors cursor-pointer ${
+                      currentView === 'latest-updates'
+                        ? 'bg-blue-50 text-blue-700 font-semibold border border-blue-200'
+                        : 'text-slate-700 hover:bg-slate-50 bg-white border border-slate-100'
+                    }`}
+                  >
+                    <div className="w-8 h-8 rounded-xl glass-icon-amber flex items-center justify-center text-amber-600 flex-shrink-0">
+                      <Bell className="w-4 h-4" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="font-semibold text-slate-900 truncate">Latest Updates</div>
+                      <div className="text-[10px] text-slate-500 truncate">Changelog & releases</div>
+                    </div>
+                  </button>
+
+                  <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2 pt-2 pb-0.5 border-t border-slate-100 mt-2">
+                    About & Editorial
+                  </div>
+
+                  <button
+                    onClick={() => handleNavClick('about')}
+                    className={`w-full min-h-[44px] flex items-center gap-3 p-2.5 rounded-xl text-left text-xs transition-colors cursor-pointer ${
+                      currentView === 'about'
+                        ? 'bg-blue-50 text-blue-700 font-semibold border border-blue-200'
+                        : 'text-slate-700 hover:bg-slate-50 bg-white border border-slate-100'
+                    }`}
+                  >
+                    <div className="w-8 h-8 rounded-xl glass-icon-base flex items-center justify-center text-slate-600 flex-shrink-0">
+                      <Info className="w-4 h-4" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="font-semibold text-slate-900 truncate">About Us & Mission</div>
+                      <div className="text-[10px] text-slate-500 truncate">Mission & standards</div>
+                    </div>
+                  </button>
+
+                  <button
+                    onClick={() => handleNavClick('contact')}
+                    className={`w-full min-h-[44px] flex items-center gap-3 p-2.5 rounded-xl text-left text-xs transition-colors cursor-pointer ${
+                      currentView === 'contact'
+                        ? 'bg-blue-50 text-blue-700 font-semibold border border-blue-200'
+                        : 'text-slate-700 hover:bg-slate-50 bg-white border border-slate-100'
+                    }`}
+                  >
+                    <div className="w-8 h-8 rounded-xl glass-icon-base flex items-center justify-center text-slate-600 flex-shrink-0">
+                      <Mail className="w-4 h-4" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="font-semibold text-slate-900 truncate">Contact Editorial</div>
+                      <div className="text-[10px] text-slate-500 truncate">Feedback & enquiries</div>
+                    </div>
+                  </button>
+
+                  <button
+                    onClick={() => handleNavClick('affiliate-disclosure')}
+                    className={`w-full min-h-[44px] flex items-center gap-3 p-2.5 rounded-xl text-left text-xs transition-colors cursor-pointer ${
+                      currentView === 'affiliate-disclosure'
+                        ? 'bg-blue-50 text-blue-700 font-semibold border border-blue-200'
+                        : 'text-slate-700 hover:bg-slate-50 bg-white border border-slate-100'
+                    }`}
+                  >
+                    <div className="w-8 h-8 rounded-xl glass-icon-emerald flex items-center justify-center text-emerald-600 flex-shrink-0">
+                      <ShieldCheck className="w-4 h-4" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="font-semibold text-slate-900 truncate">Affiliate Disclosure</div>
+                      <div className="text-[10px] text-slate-500 truncate">FTC compliant policy</div>
+                    </div>
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* Disclaimer pill */}

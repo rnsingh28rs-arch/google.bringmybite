@@ -15,7 +15,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
       {/* Upper Main Footer */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
-          
+
           {/* Col 1: Identity & Editorial Mission */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
@@ -34,7 +34,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 </span>
               </div>
             </div>
-            
+
             <p className="text-slate-400 text-xs leading-relaxed max-w-sm">
               Google Tool Finder is an independent, community-first informational directory developed by Bring My Bite to help individuals, professionals, and businesses discover Google tools, evaluate transparent pricing, verify legitimate Indian telecom perks, and master features.
             </p>
@@ -127,6 +127,11 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 </button>
               </li>
               <li>
+                <button onClick={() => onNavigate('disclaimer')} className="hover:text-white transition-colors">
+                  Legal Disclaimer
+                </button>
+              </li>
+              <li>
                 <button onClick={() => onNavigate('affiliate-disclosure')} className="hover:text-white transition-colors">
                   Affiliate Disclosure
                 </button>
@@ -147,10 +152,21 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         </div>
 
         {/* Legal Disclaimer Box */}
-        <div className="mt-12 p-4 rounded-2xl bg-slate-800/80 border border-slate-700/80 text-[11px] leading-relaxed text-slate-400">
-          <p className="font-semibold text-slate-300 mb-1">Important Editorial & Trademark Disclaimer:</p>
-          <p>
-            Google Tool Finder is an independent informational guide and directory. Google, Gmail, Google Drive, Google Docs, Google Sheets, Google Slides, Google Meet, Google Calendar, Gemini, NotebookLM, Google AI Studio, Google Cloud, Firebase, Google Analytics, Google Maps, Google Photos, Google Ads, and Google Workspace are registered trademarks or service marks of Google LLC. This platform is NOT affiliated with, sponsored by, authorized by, or in any way officially connected with Google LLC or Alphabet Inc. All product screenshots, logos, and descriptions are used solely for identification, comparison, and educational purposes under fair use. Pricing and terms are subject to change by Google; always verify directly on official Google web portals.
+        <div className="mt-12 p-5 rounded-2xl bg-slate-800/80 border border-slate-700/80 text-[11px] leading-relaxed text-slate-300 space-y-2">
+          <div className="flex items-center justify-between">
+            <p className="font-bold text-white text-xs">Important Legal, Editorial & Trademark Disclaimer:</p>
+            <button
+              onClick={() => onNavigate('disclaimer')}
+              className="text-blue-400 hover:text-blue-300 font-semibold underline underline-offset-2 transition-colors cursor-pointer text-[11px]"
+            >
+              Read Full Disclaimer &rarr;
+            </button>
+          </div>
+          <p className="text-slate-300">
+            <strong>Google Tool Finder</strong> is an independent educational catalog and discovery guide developed and published by parent company <strong>Bring My Bite</strong>. Google, Gmail, Google Drive, Google Docs, Google Sheets, Google Slides, Google Meet, Google Calendar, Gemini, NotebookLM, Google AI Studio, Google Cloud, Firebase, Google Analytics, Google Maps, Google Photos, Google Ads, Google AdMob, Android, Android Studio, and Google Workspace are registered trademarks or service marks of Google LLC.
+          </p>
+          <p className="text-slate-400">
+            This platform is <strong>NOT affiliated with, endorsed by, sponsored by, authorized by, or in any way officially connected with Google LLC or Alphabet Inc.</strong> All product trademarks, service marks, logos, and screenshots are referenced strictly for identification, comparative analysis, and educational fair use. Pricing tiers, INR currency estimates, telecom promotional storage perks (e.g., Jio & Airtel 100 GB bundles), and software features are established solely by Google LLC and partner carriers and are subject to change without notice. Always verify terms on official Google domains (<code className="text-slate-300">*.google.com</code>).
           </p>
         </div>
       </div>

@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { 
-  Search, 
-  Sparkles, 
-  ArrowRight, 
-  ShieldCheck, 
-  Zap, 
-  CheckCircle2, 
-  Gift, 
-  BookOpen, 
-  Scale, 
-  HelpCircle, 
+import {
+  Search,
+  Sparkles,
+  ArrowRight,
+  ShieldCheck,
+  Zap,
+  CheckCircle2,
+  Gift,
+  BookOpen,
+  Scale,
+  HelpCircle,
   ExternalLink,
   ChevronRight,
   TrendingUp,
@@ -111,10 +111,10 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
 
   return (
     <div className="space-y-16 sm:space-y-24 pb-16">
-      
+
       {/* 1. HERO SECTION (Liquid Glass Design with Fluid Curved Panels) */}
       <section id="hero-section" className="relative pt-6 pb-12 sm:pt-10 sm:pb-16 lg:pt-12 lg:pb-20 border-b border-slate-200/60 overflow-hidden">
-        
+
         {/* Ambient Fluid Color Caustics */}
         <div className="absolute top-10 left-1/4 w-96 h-96 bg-blue-300/25 rounded-full blur-3xl pointer-events-none -z-10 animate-pulse"></div>
         <div className="absolute top-20 right-1/4 w-96 h-96 bg-purple-300/20 rounded-full blur-3xl pointer-events-none -z-10"></div>
@@ -122,10 +122,10 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-            
+
             {/* Left Column: Headline, Narrative & Liquid Search Bar */}
             <div className="lg:col-span-7 space-y-6">
-              
+
               {/* Brand Tag with Water Glass Sheen */}
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full water-glass-surface shadow-xs text-xs font-semibold text-slate-700">
                 <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse"></span>
@@ -172,7 +172,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
 
               {/* Prominent Liquid Glass Search Interface */}
               <div className="pt-1 max-w-xl">
-                <div 
+                <div
                   onClick={onOpenSearch}
                   className="group relative flex items-center w-full p-2.5 water-glass-surface rounded-2xl border-2 border-white/90 hover:border-blue-400 shadow-md hover:shadow-xl transition-all cursor-pointer"
                 >
@@ -195,7 +195,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
                 {/* Quick Section Jumper Pills */}
                 <div className="flex flex-wrap items-center gap-2 mt-4 text-xs font-semibold text-slate-600">
                   <span className="text-slate-400 text-xs">Explore:</span>
-                  <button 
+                  <button
                     onClick={() => {
                       const el = document.getElementById('ai-tools-section');
                       if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -204,7 +204,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
                   >
                     <span>✨ AI Tools</span>
                   </button>
-                  <button 
+                  <button
                     onClick={() => {
                       const el = document.getElementById('monetization-section');
                       if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -213,7 +213,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
                   >
                     <span>💰 Monetisation</span>
                   </button>
-                  <button 
+                  <button
                     onClick={() => {
                       const el = document.getElementById('india-offers-section');
                       if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -222,7 +222,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
                   >
                     <span>📶 Jio & Airtel Perks</span>
                   </button>
-                  <button 
+                  <button
                     onClick={() => {
                       const el = document.getElementById('chatbot-section');
                       if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -274,6 +274,171 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
       {/* Owner-Controlled Launch Showcase & Promotional Video (Active only when configured by site owner) */}
       <FeaturedOwnerPromotion />
 
+      {/* ECOSYSTEM ARCHITECTURE & PURPOSE: THE 3 FOUNDATIONAL TIERS */}
+      <section id="ecosystem-architecture" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
+        <div className="bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 text-white rounded-3xl p-6 sm:p-10 lg:p-12 border border-slate-800 shadow-xl relative overflow-hidden">
+
+          {/* Ambient Lighting Orbs */}
+          <div className="absolute -top-24 -left-24 w-96 h-96 bg-violet-600/15 rounded-full blur-3xl pointer-events-none"></div>
+          <div className="absolute top-1/2 right-0 w-80 h-80 bg-blue-600/15 rounded-full blur-3xl pointer-events-none"></div>
+          <div className="absolute -bottom-24 left-1/3 w-80 h-80 bg-emerald-600/15 rounded-full blur-3xl pointer-events-none"></div>
+
+          <div className="relative z-10 space-y-10">
+            {/* Header: Platform Purpose */}
+            <div className="max-w-3xl space-y-3">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-800/80 border border-slate-700 text-slate-300 text-xs font-semibold">
+                <span className="w-2 h-2 rounded-full bg-blue-400 animate-ping"></span>
+                <span>Why Google Tool Finder Exists</span>
+              </div>
+              <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
+                Empowering Discovery Across Google's Ecosystem
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                Google Tool Finder was created by parent company <strong className="text-white">Bring My Bite</strong> to provide independent clarity in a complex tech landscape. We cut through marketing hype, unravel rapid renames, verify genuine Indian telecom storage perks (Jio & Airtel), and guide you directly to the tools that elevate your personal and business productivity.
+              </p>
+            </div>
+
+            {/* The Three Named Sections: 3-Column Architectural Cards */}
+            <div className="grid md:grid-cols-3 gap-6 items-stretch">
+
+              {/* Pillar 1: ONE-CLICK-TO-NEURAL */}
+              <div className="rounded-2xl bg-slate-800/60 border border-violet-500/30 p-6 flex flex-col justify-between space-y-5 hover:border-violet-400/60 transition-all duration-300 backdrop-blur-sm group">
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider bg-violet-500/20 text-violet-300 border border-violet-500/30">
+                      Tier 1 • AI & Reasoning
+                    </span>
+                    <Sparkles className="w-5 h-5 text-violet-400 group-hover:scale-110 transition-transform" />
+                  </div>
+                  <h3 className="text-lg sm:text-xl font-black text-white tracking-tight flex items-center gap-2">
+                    <span className="bg-gradient-to-r from-violet-300 to-purple-400 bg-clip-text text-transparent">
+                      ONE-CLICK-TO-NEURAL
+                    </span>
+                  </h3>
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    Instant, friction-free discovery of Google's frontier AI capabilities. Grounded synthesis with <strong className="text-white">NotebookLM</strong>, multimodal reasoning via <strong className="text-white">Gemini</strong>, developer prototyping in <strong className="text-white">Google AI Studio</strong>, and autonomous coding with <strong className="text-white">Google Antigravity</strong>.
+                  </p>
+
+                  <div className="pt-2 flex flex-wrap gap-1.5">
+                    {['gemini', 'notebooklm', 'google-ai-studio', 'google-antigravity'].map((slug) => (
+                      <button
+                        key={slug}
+                        onClick={() => onNavigate('product-detail', slug)}
+                        className="text-[11px] px-2.5 py-1 rounded-lg bg-slate-700/60 hover:bg-violet-600 hover:text-white text-slate-300 font-medium transition-colors cursor-pointer"
+                      >
+                        {slug === 'gemini' ? 'Gemini' : slug === 'notebooklm' ? 'NotebookLM' : slug === 'google-ai-studio' ? 'AI Studio' : 'Antigravity'}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => {
+                    const el = document.getElementById('ai-tools-section');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    else onNavigate('ai-tools');
+                  }}
+                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-violet-600/80 hover:bg-violet-600 text-white text-xs font-bold transition-all shadow-sm cursor-pointer"
+                >
+                  <span>Explore Neural AI</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+
+              {/* Pillar 2: QUANTUM ENGINE */}
+              <div className="rounded-2xl bg-slate-800/60 border border-blue-500/30 p-6 flex flex-col justify-between space-y-5 hover:border-blue-400/60 transition-all duration-300 backdrop-blur-sm group">
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                      Tier 2 • Cloud & Compute
+                    </span>
+                    <Cpu className="w-5 h-5 text-blue-400 group-hover:scale-110 transition-transform" />
+                  </div>
+                  <h3 className="text-lg sm:text-xl font-black text-white tracking-tight flex items-center gap-2">
+                    <span className="bg-gradient-to-r from-blue-300 to-cyan-400 bg-clip-text text-transparent">
+                      QUANTUM ENGINE
+                    </span>
+                  </h3>
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    Demystifying Google's deep engineering stack and developer cloud infrastructure. Deploy serverless backends with <strong className="text-white">Firebase</strong>, query petabyte data via <strong className="text-white">BigQuery</strong>, build native mobile apps with <strong className="text-white">Android Studio</strong>, and train models on <strong className="text-white">Google Cloud</strong>.
+                  </p>
+
+                  <div className="pt-2 flex flex-wrap gap-1.5">
+                    {['google-cloud', 'firebase', 'bigquery', 'android-studio'].map((slug) => (
+                      <button
+                        key={slug}
+                        onClick={() => onNavigate('product-detail', slug)}
+                        className="text-[11px] px-2.5 py-1 rounded-lg bg-slate-700/60 hover:bg-blue-600 hover:text-white text-slate-300 font-medium transition-colors cursor-pointer"
+                      >
+                        {slug === 'google-cloud' ? 'Google Cloud' : slug === 'firebase' ? 'Firebase' : slug === 'bigquery' ? 'BigQuery' : 'Android Studio'}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => {
+                    const el = document.getElementById('dev-tools-section');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    else onNavigate('products', 'Developer Tools');
+                  }}
+                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600/80 hover:bg-blue-600 text-white text-xs font-bold transition-all shadow-sm cursor-pointer"
+                >
+                  <span>Explore Cloud Engine</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+
+              {/* Pillar 3: TOTAL COGNITIVE NEXUS */}
+              <div className="rounded-2xl bg-slate-800/60 border border-emerald-500/30 p-6 flex flex-col justify-between space-y-5 hover:border-emerald-400/60 transition-all duration-300 backdrop-blur-sm group">
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                      Tier 3 • Workspace Nexus
+                    </span>
+                    <Globe className="w-5 h-5 text-emerald-400 group-hover:scale-110 transition-transform" />
+                  </div>
+                  <h3 className="text-lg sm:text-xl font-black text-white tracking-tight flex items-center gap-2">
+                    <span className="bg-gradient-to-r from-emerald-300 to-teal-400 bg-clip-text text-transparent">
+                      TOTAL COGNITIVE NEXUS
+                    </span>
+                  </h3>
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    Unifying collaboration, enterprise document workflows, and transparent licensing. Discover team communication across <strong className="text-white">Google Workspace</strong>, secure file storage in <strong className="text-white">Google Drive</strong>, real-time editing in <strong className="text-white">Docs & Sheets</strong>, and HD video on <strong className="text-white">Google Meet</strong>.
+                  </p>
+
+                  <div className="pt-2 flex flex-wrap gap-1.5">
+                    {['google-workspace', 'google-drive', 'google-docs', 'google-meet'].map((slug) => (
+                      <button
+                        key={slug}
+                        onClick={() => onNavigate('product-detail', slug)}
+                        className="text-[11px] px-2.5 py-1 rounded-lg bg-slate-700/60 hover:bg-emerald-600 hover:text-white text-slate-300 font-medium transition-colors cursor-pointer"
+                      >
+                        {slug === 'google-workspace' ? 'Workspace' : slug === 'google-drive' ? 'Drive' : slug === 'google-docs' ? 'Docs' : 'Meet'}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => {
+                    const el = document.getElementById('productivity-section');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    else onNavigate('pricing');
+                  }}
+                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600/80 hover:bg-emerald-600 text-white text-xs font-bold transition-all shadow-sm cursor-pointer"
+                >
+                  <span>Explore Total Nexus</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       {/* 2. POPULAR GOOGLE PRODUCTS (Visual Discovery: Logo-First Cards) */}
       <section id="popular-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
         {/* Anchor alias for directory-section without duplicating section */}
@@ -293,7 +458,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
               Foundational communication, cloud backup, and web exploration tools.
             </p>
           </div>
-          
+
           <button
             onClick={() => onNavigate('products')}
             className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 transition-colors cursor-pointer shadow-2xs"
@@ -318,12 +483,17 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
       {/* 3. AI TOOLS SECTION (Next-Gen Gemini & Research Intelligence) */}
       <section id="ai-tools-section" className="relative py-14 sm:py-18 bg-gradient-to-b from-violet-50/60 via-slate-50/20 to-white border-y border-slate-200/70 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-          
+
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-100 text-violet-800 text-xs font-bold mb-2 shadow-2xs">
-                <Sparkles className="w-3.5 h-3.5 text-violet-600" />
-                <span>Next-Gen Gemini Intelligence</span>
+              <div className="flex flex-wrap items-center gap-2 mb-2">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-100 text-violet-800 text-xs font-bold shadow-2xs">
+                  <Sparkles className="w-3.5 h-3.5 text-violet-600" />
+                  <span>Next-Gen Gemini Intelligence</span>
+                </div>
+                <span className="text-[10px] tracking-wider font-black uppercase bg-violet-200/80 text-violet-900 px-2.5 py-0.5 rounded-full border border-violet-300/60">
+                  ONE-CLICK-TO-NEURAL
+                </span>
               </div>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
                 AI & Generative Tools
@@ -332,7 +502,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
                 Multimodal reasoning, grounded research, and developer API studios.
               </p>
             </div>
-            
+
             <button
               onClick={() => onNavigate('ai-tools')}
               className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold bg-violet-600 hover:bg-violet-700 text-white shadow-xs transition-colors cursor-pointer"
@@ -360,11 +530,16 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
       <section id="dev-tools-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
           <div>
-            <div className="flex items-center gap-2 text-xs font-bold text-indigo-600 uppercase tracking-wider mb-1">
-              <div className="w-5 h-5 rounded-lg glass-icon-indigo flex items-center justify-center text-indigo-600">
-                <Code className="w-3.5 h-3.5" />
+            <div className="flex flex-wrap items-center gap-2 mb-1">
+              <div className="flex items-center gap-2 text-xs font-bold text-indigo-600 uppercase tracking-wider">
+                <div className="w-5 h-5 rounded-lg glass-icon-indigo flex items-center justify-center text-indigo-600">
+                  <Code className="w-3.5 h-3.5" />
+                </div>
+                <span>Engineering & Infrastructure</span>
               </div>
-              <span>Engineering & Infrastructure</span>
+              <span className="text-[10px] tracking-wider font-black uppercase bg-indigo-100 text-indigo-900 px-2.5 py-0.5 rounded-full border border-indigo-200">
+                QUANTUM ENGINE
+              </span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
               Web & App Development Tools
@@ -399,11 +574,16 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
       <section id="productivity-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
           <div>
-            <div className="flex items-center gap-2 text-xs font-bold text-emerald-600 uppercase tracking-wider mb-1">
-              <div className="w-5 h-5 rounded-lg glass-icon-emerald flex items-center justify-center text-emerald-600">
-                <Building2 className="w-3.5 h-3.5" />
+            <div className="flex flex-wrap items-center gap-2 mb-1">
+              <div className="flex items-center gap-2 text-xs font-bold text-emerald-600 uppercase tracking-wider">
+                <div className="w-5 h-5 rounded-lg glass-icon-emerald flex items-center justify-center text-emerald-600">
+                  <Building2 className="w-3.5 h-3.5" />
+                </div>
+                <span>Office Suite & Teamwork</span>
               </div>
-              <span>Office Suite & Teamwork</span>
+              <span className="text-[10px] tracking-wider font-black uppercase bg-emerald-100 text-emerald-900 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                TOTAL COGNITIVE NEXUS
+              </span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
               Productivity & Workspace
@@ -437,7 +617,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
       {/* 6. MONETISATION TOOLS (AdMob, Play Billing, IMA, Google Ads) */}
       <section id="monetization-section" className="relative py-14 sm:py-18 bg-gradient-to-b from-amber-50/50 via-slate-50/20 to-white border-y border-slate-200/70 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-          
+
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold mb-2 shadow-2xs">
@@ -557,7 +737,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
                 <strong>Jio & Airtel Customer Notice:</strong> Claim benefits strictly through official MyJio or Airtel Thanks apps. Never input passwords on unverified SMS/WhatsApp links.
               </span>
             </div>
-            <button 
+            <button
               onClick={() => onNavigate('tutorial-detail', 'discovering-eligible-offers-india')}
               className="text-white underline font-semibold hover:text-emerald-100 cursor-pointer"
             >
@@ -584,7 +764,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
               Actionable guides on Gemini prompting, custom email setup, and cloud storage management.
             </p>
           </div>
-          
+
           <button
             onClick={() => onNavigate('tutorials')}
             className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 transition-colors shadow-2xs cursor-pointer"
@@ -644,7 +824,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
             </p>
           </div>
 
-          <ToolFinderChatbot 
+          <ToolFinderChatbot
             onNavigateProduct={(slug) => onNavigate('product-detail', slug)}
             onNavigateTutorial={(slug) => onNavigate('tutorial-detail', slug)}
             onNavigateOffer={() => onNavigate('india-offers')}
@@ -662,7 +842,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
           <div className="w-12 h-12 rounded-2xl glass-icon-blue flex items-center justify-center text-blue-600 mx-auto shadow-sm">
             <Mail className="w-6 h-6" />
           </div>
-          
+
           <div className="space-y-2 max-w-lg mx-auto">
             <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900">
               Stay Informed on Google Updates & Indian Perks

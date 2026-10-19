@@ -15,6 +15,10 @@ import userHandler from '../api/user.ts';
 import adminAnalyticsHandler from '../api/admin-analytics.ts';
 import { timingSafeCompare } from '../api/_utils.ts';
 import { getSubscribers } from '../api/_storage.ts';
+import {
+  resolveProductActionUrl,
+  isVerifiedReferralUrl
+} from '../src/data/monetizationConfig.ts';
 
 // Mock request / response helper
 function createMockReqRes(options: {
@@ -270,13 +274,20 @@ async function runTests() {
   {
     // 2.4 Live Gemini 3.1 Flash Lite API integration test
     if (process.env.GEMINI_API_KEY && !process.env.GEMINI_API_KEY.startsWith('MY_')) {
-      const { req, res, getResponse } = createMockReqRes({
-        method: 'POST',
-        url: '/api/assistant',
-        body: { message: 'Recommend an AI tool for building web apps' }
-      });
-      await assistantHandler(req, res);
-      const result = getResponse();
+      let attempts = 0;
+      let result: any;
+      while (attempts < 2) {
+        attempts++;
+        const { req, res, getResponse } = createMockReqRes({
+          method: 'POST',
+          url: '/api/assistant',
+          body: { message: 'Recommend an AI tool for building web apps' }
+        });
+        await assistantHandler(req, res);
+        result = getResponse();
+        if (result.statusCode === 200) break;
+        if (attempts < 2) await new Promise(r => setTimeout(r, 1500));
+      }
       assert(result.statusCode === 200, `Live assistant with gemini-3.1-flash-lite returns 200 (got ${result.statusCode}: ${JSON.stringify(result.body)})`);
       assert(result.body.success === true, 'Response body success is true');
       assert(typeof result.body.text === 'string' && result.body.text.length > 0, 'Assistant returned non-empty response text');
@@ -417,7 +428,7 @@ async function runTests() {
       method: 'POST',
       url: '/api/admin/monetization',
       headers: { authorization: `Bearer ${validToken}` },
-      body: { 
+      body: {
         previewMode: true,
         ownerPromotion: {
           enabled: true,
@@ -444,6 +455,183 @@ async function runTests() {
     const promoBody = getPromoResult().body;
     assert(promoBody.settings?.ownerPromotion?.title === 'Introducing Google Workspace Sync', 'GET verifies ownerPromotion saved correctly');
     assert(promoBody.settings?.ownerPromotion?.enabled === true, 'GET verifies ownerPromotion enabled state persisted');
+
+    // 4.5 POST rejecting unverified or ordinary Google URLs as affiliate redirects
+    const { req: ordinaryReq, res: ordinaryRes, getResponse: getOrdinaryRes } = createMockReqRes({
+      method: 'POST',
+      url: '/api/admin/monetization',
+      headers: { authorization: `Bearer ${validToken}` },
+      body: {
+        affiliate: {
+          enabled: true, // Attempt to enable without verified referral URL
+          programs: {
+            googleWorkspace: {
+              customUrl: 'https://workspace.google.com/?ref=YOUR_REFERRAL_CODE'
+            },
+            googleCloud: {
+              customUrl: 'https://cloud.google.com'
+            },
+            googleOne: {
+              customUrl: 'https://one.google.com/about/plans'
+            }
+          }
+        }
+      }
+    });
+    await adminMonetizationHandler(ordinaryReq, ordinaryRes);
+    const ordinaryBody = getOrdinaryRes().body;
+    assert(ordinaryBody.settings?.affiliate?.enabled === false, 'POST enforces affiliate redirects remain disabled when referral URLs are ordinary or placeholders');
+    assert(ordinaryBody.settings?.affiliate?.programs?.googleWorkspace?.active === false, 'Google Workspace marked inactive when URL is a placeholder');
+    assert(ordinaryBody.settings?.affiliate?.programs?.googleCloud?.active === false, 'Google Cloud marked inactive when URL is standard cloud.google.com');
+
+    // 4.6 POST with verified referral link sets program active
+    const { req: verifiedReq, res: verifiedRes, getResponse: getVerifiedRes } = createMockReqRes({
+      method: 'POST',
+      url: '/api/admin/monetization',
+      headers: { authorization: `Bearer ${validToken}` },
+      body: {
+        affiliate: {
+          programs: {
+            googleWorkspace: {
+              customUrl: 'https://referworkspace.app.goo.gl/validRefToken123'
+            }
+          }
+        }
+      }
+    });
+    await adminMonetizationHandler(verifiedReq, verifiedRes);
+    const verifiedBody = getVerifiedRes().body;
+    assert(verifiedBody.settings?.affiliate?.programs?.googleWorkspace?.active === true, 'Genuine referral URL sets program to active');
+
+    // 4.7 Reset to clean safe defaults with redirects disabled
+    const { req: resetReq, res: resetRes, getResponse: getResetRes } = createMockReqRes({
+      method: 'POST',
+      url: '/api/admin/monetization',
+      headers: { authorization: `Bearer ${validToken}` },
+      body: {
+        affiliate: {
+          enabled: false,
+          programs: {
+            googleWorkspace: { customUrl: '', active: false },
+            googleCloud: { customUrl: '', active: false },
+            googleOne: { customUrl: '', active: false }
+          }
+        }
+      }
+    });
+    await adminMonetizationHandler(resetReq, resetRes);
+    assert(getResetRes().body.settings?.affiliate?.enabled === false, 'Safe default persists with redirects disabled');
+
+    // 4.8 Direct official URL resolution when redirects are disabled or unverified
+    const wsAction = resolveProductActionUrl('https://workspace.google.com', undefined, 'google-workspace');
+    assert(wsAction.url === 'https://workspace.google.com' && wsAction.isAffiliate === false, 'Workspace resolves directly to official Google URL with isAffiliate: false');
+    const gcpAction = resolveProductActionUrl('https://cloud.google.com', undefined, 'google-cloud');
+    assert(gcpAction.url === 'https://cloud.google.com' && gcpAction.isAffiliate === false, 'GCP resolves directly to official Google URL with isAffiliate: false');
+    const driveAction = resolveProductActionUrl('https://drive.google.com', undefined, 'google-drive');
+    assert(driveAction.url === 'https://drive.google.com' && driveAction.isAffiliate === false, 'Drive resolves directly to official Google URL with isAffiliate: false');
+    assert(isVerifiedReferralUrl('https://workspace.google.com') === false, 'Ordinary workspace.google.com rejected as referral URL');
+    assert(isVerifiedReferralUrl('https://cloud.google.com/?partner=YOUR_PARTNER_ID') === false, 'Placeholder partner parameter rejected as referral URL');
+    assert(isVerifiedReferralUrl('https://referworkspace.app.goo.gl/token') === true, 'Official Google Workspace referral URL accepted as verified');
+
+    // 4.9 CJ Affiliate domain validation
+    assert(isVerifiedReferralUrl('https://www.anrdoezrs.net/click-100987654-15234567') === true, 'CJ anrdoezrs.net tracking URL accepted as verified');
+    assert(isVerifiedReferralUrl('https://www.dpbolvw.net/click-100987654-15234567') === true, 'CJ dpbolvw.net tracking URL accepted as verified');
+    assert(isVerifiedReferralUrl('https://www.jdoqocy.com/click-100987654-15234567') === true, 'CJ jdoqocy.com tracking URL accepted as verified');
+    assert(isVerifiedReferralUrl('https://www.tkqlhce.com/click-100987654-15234567') === true, 'CJ tkqlhce.com tracking URL accepted as verified');
+    assert(isVerifiedReferralUrl('https://bringmybite.prf.hn/click/camref:123') === true, 'Impact prf.hn tracking URL accepted as verified');
+
+    // 4.10 CJ Affiliate configuration persistence and truthful status validation
+    const { req: cjReq, res: cjRes, getResponse: getCjRes } = createMockReqRes({
+      method: 'POST',
+      url: '/api/admin/monetization',
+      headers: { authorization: `Bearer ${validToken}` },
+      body: {
+        affiliate: {
+          cj: {
+            status: 'pending_approval',
+            publisherCid: '6123456',
+            websitePid: '100987654',
+            defaultSid: 'gtf-test-01',
+            approvedPrograms: [
+              {
+                id: 'google-workspace-cj',
+                name: 'Google Workspace (via CJ Affiliate)',
+                cjAdvertiserId: '5493021',
+                status: 'pending_approval',
+                referralUrl: 'https://www.anrdoezrs.net/click-100987654-15234567',
+                commissionTier: 'Bounty per qualified business seat',
+                notes: 'Test CJ approval'
+              }
+            ]
+          },
+          google: {
+            googleWorkspace: {
+              status: 'pending_approval',
+              referralId: 'REF-IN-123',
+              customUrl: 'https://referworkspace.app.goo.gl/realRefToken'
+            }
+          },
+          impact: {
+            status: 'pending_approval',
+            accountSid: 'IR-ACC-99',
+            mediaPartnerId: '9876543',
+            campaignId: '22334',
+            customUrl: 'https://app.impact.com/advertiser/123'
+          }
+        },
+        adsense: {
+          status: 'pending_approval',
+          verificationStatus: 'pending_review',
+          publisherId: 'ca-pub-1234567890123456',
+          enabled: false
+        }
+      }
+    });
+    await adminMonetizationHandler(cjReq, cjRes);
+    const cjResult = getCjRes().body;
+    assert(cjResult.success === true, 'POST saves CJ Affiliate, Google programs, and AdSense status correctly');
+    assert(cjResult.settings?.affiliate?.cj?.publisherCid === '6123456', 'CJ publisherCid persisted to server storage');
+    assert(cjResult.settings?.affiliate?.cj?.websitePid === '100987654', 'CJ websitePid persisted to server storage');
+    assert(cjResult.settings?.affiliate?.cj?.defaultSid === 'gtf-test-01', 'CJ defaultSid persisted to server storage');
+    assert(cjResult.settings?.affiliate?.cj?.approvedPrograms?.[0]?.cjAdvertiserId === '5493021', 'CJ approved advertiser programme persisted');
+    assert(cjResult.settings?.affiliate?.impact?.accountSid === 'IR-ACC-99', 'Impact accountSid persisted');
+    assert(cjResult.settings?.adsense?.verificationStatus === 'pending_review', 'AdSense verificationStatus persisted');
+
+    // 4.11 AdSense placeholder prevents premature activation
+    const { req: fakeAdSenseReq, res: fakeAdSenseRes, getResponse: getFakeAdSenseRes } = createMockReqRes({
+      method: 'POST',
+      url: '/api/admin/monetization',
+      headers: { authorization: `Bearer ${validToken}` },
+      body: {
+        adsense: {
+          publisherId: 'ca-pub-XXXXXXXXXXXXXXXX',
+          enabled: true,
+          status: 'active'
+        }
+      }
+    });
+    await adminMonetizationHandler(fakeAdSenseReq, fakeAdSenseRes);
+    const fakeAdSenseBody = getFakeAdSenseRes().body;
+    assert(fakeAdSenseBody.settings?.adsense?.enabled === false, 'AdSense with placeholder ID cannot be enabled');
+    assert(fakeAdSenseBody.settings?.adsense?.status !== 'active', 'AdSense with placeholder ID cannot be marked active');
+
+    // Reset settings to safe clean defaults for remainder of tests
+    const { req: cleanReq, res: cleanRes } = createMockReqRes({
+      method: 'POST',
+      url: '/api/admin/monetization',
+      headers: { authorization: `Bearer ${validToken}` },
+      body: {
+        affiliate: {
+          enabled: false,
+          programs: {
+            googleWorkspace: { customUrl: '', active: false },
+            googleCloud: { customUrl: '', active: false },
+            googleOne: { customUrl: '', active: false }
+          }
+        }
+      }
+    });
+    await adminMonetizationHandler(cleanReq, cleanRes);
   }
 
   // TEST SUITE 5: NEWSLETTER
@@ -632,11 +820,24 @@ async function runTests() {
     }
     assert(!secretFound, 'Zero provider secrets or passwords leaked in production client bundle');
 
-    // Check Top Information Strip visual suppression and source preservation
+    // Check Top Information Strip restoration and audit date removal
     const navbarContent = fs.readFileSync(path.join(process.cwd(), 'src', 'components', 'Navbar.tsx'), 'utf-8');
-    assert(navbarContent.includes('export const SHOW_TOP_INFORMATION_STRIP = false;'), 'Top Information Strip visually hidden by default via feature flag');
-    assert(navbarContent.includes('SHOW_TOP_INFORMATION_STRIP &&'), 'Top Information Strip source markup and logic fully preserved for restoration');
+    assert(navbarContent.includes('export const SHOW_TOP_INFORMATION_STRIP = true;'), 'Top Information Strip restored and enabled');
+    assert(navbarContent.includes('SHOW_TOP_INFORMATION_STRIP &&'), 'Top Information Strip source markup and logic active');
     assert(navbarContent.includes('Admin & AdSense') && navbarContent.includes('India Offers: Jio & Airtel Perks'), 'Top Information Strip content and links preserved intact in codebase');
+    assert(!navbarContent.includes('Audited: Oct 2026'), 'Audit date strictly removed from Top Information Strip');
+
+    // Check 3 Named Sections and Purpose
+    const homeContent = fs.readFileSync(path.join(process.cwd(), 'src', 'pages', 'HomePage.tsx'), 'utf-8');
+    assert(homeContent.includes('ONE-CLICK-TO-NEURAL'), 'HomePage contains ONE-CLICK-TO-NEURAL section');
+    assert(homeContent.includes('QUANTUM ENGINE'), 'HomePage contains QUANTUM ENGINE section');
+    assert(homeContent.includes('TOTAL COGNITIVE NEXUS'), 'HomePage contains TOTAL COGNITIVE NEXUS section');
+    assert(homeContent.includes('Why Google Tool Finder Exists'), 'HomePage explains why Google Tool Finder exists');
+
+    // Check Disclaimer, Terms & Conditions source preservation
+    const legalContent = fs.readFileSync(path.join(process.cwd(), 'src', 'pages', 'LegalPages.tsx'), 'utf-8');
+    assert(legalContent.includes("type === 'disclaimer'"), 'LegalPages supports dedicated disclaimer view');
+    assert(legalContent.includes('Terms of Service') && legalContent.includes('Acceptance of Terms'), 'Existing Terms & Conditions preserved as authoritative source');
 
     // Check Frontend Security Deterrent module
     const deterrentPath = path.join(process.cwd(), 'src', 'utils', 'securityDeterrent.ts');
@@ -886,11 +1087,11 @@ async function runTests() {
   // TEST SUITE 13: SUPABASE STORAGE ADAPTER & PERSISTENCE
   console.log('\n--- TEST SUITE 13: Storage Abstraction & Resilient Persistence ---');
   {
-    const { 
-      getUsers, 
-      saveUser, 
-      recordOutboundClick, 
-      recordSubscriber, 
+    const {
+      getUsers,
+      saveUser,
+      recordOutboundClick,
+      recordSubscriber,
       recordContactEnquiry,
       getMonetizationSettings,
       saveMonetizationSettings
@@ -999,6 +1200,49 @@ async function runTests() {
     assert(indexHtml.includes('name="robots" content="index, follow"'), 'index.html includes explicit robots index, follow directive');
   }
 
+  // TEST SUITE 16: AFFILIATE PAGE END-TO-END VERIFICATION
+  console.log('\n--- TEST SUITE 16: Affiliate Page & Commercial Verification ---');
+  {
+    // 16.1 Affiliate page source & component integrity
+    const affPagePath = path.join(process.cwd(), 'src', 'pages', 'AffiliateDisclosurePage.tsx');
+    assert(fs.existsSync(affPagePath), 'src/pages/AffiliateDisclosurePage.tsx exists');
+    const affContent = fs.readFileSync(affPagePath, 'utf-8');
+    assert(affContent.includes('useMonetizationSync'), 'AffiliateDisclosurePage connects to useMonetizationSync');
+    assert(affContent.includes('resolveProductActionUrl'), 'AffiliateDisclosurePage uses resolveProductActionUrl for destination safety');
+    assert(affContent.includes('trackOutboundClick'), 'AffiliateDisclosurePage wires clicks to trackOutboundClick');
+    assert(affContent.includes('ProductLogo'), 'AffiliateDisclosurePage displays authentic product logos');
+
+    // 16.2 Eligible commercial products profiled
+    assert(affContent.includes('google-workspace') && affContent.includes('google-cloud') && affContent.includes('google-drive'), 'Affiliate page profiles Google Workspace, Cloud, and Drive');
+
+    // 16.3 Regulatory disclosures intact
+    assert(affContent.includes('1. Current Status: Redirects Disabled & Awaiting Verified Referral URLs'), 'Affiliate page contains Section 1 with redirects disabled notice');
+    assert(affContent.includes('2. How Commercial Referral Links Work'), 'Affiliate page contains Section 2 zero cost explanation');
+    assert(affContent.includes('3. Uncompromised Editorial Independence Firewall'), 'Affiliate page contains Section 3 editorial independence firewall');
+    assert(affContent.includes('4. FTC 16 CFR § 255 & ASCI Consumer Protection Compliance'), 'Affiliate page contains Section 4 FTC compliance statement');
+
+    // 16.4 Route mapping in App.tsx
+    const appPath = path.join(process.cwd(), 'src', 'App.tsx');
+    const appCode = fs.readFileSync(appPath, 'utf-8');
+    assert(appCode.includes("rawView === 'affiliate' || rawView === 'affiliate-disclosure'"), 'App.tsx routes both /affiliate and /affiliate-disclosure');
+    assert(appCode.includes('<AffiliateDisclosurePage'), 'App.tsx renders AffiliateDisclosurePage with navigation props');
+
+    // 16.5 Outbound click tracking telemetry integration
+    const { req: affClickReq, res: affClickRes, getResponse: getAffClickRes } = createMockReqRes({
+      method: 'POST',
+      url: '/api/track-click',
+      body: {
+        destination: 'https://workspace.google.com',
+        productSlug: 'google-workspace',
+        sourcePage: 'affiliate-page',
+        isAffiliate: false
+      }
+    });
+    await trackClickHandler(affClickReq, affClickRes);
+    const clickRes = getAffClickRes();
+    assert(clickRes.statusCode === 200 && clickRes.body.success === true, 'Outbound click on affiliate page logs to /api/track-click successfully');
+  }
+
   // Clean up automated test records from data/ files
   try {
     const cleanFile = (filename: string, filterFn: (item: any) => boolean) => {
@@ -1010,22 +1254,9 @@ async function runTests() {
     };
     cleanFile('subscribers.json', (s: any) => !s.email.includes('test'));
     cleanFile('users.json', (u: any) => !u.uid.startsWith('goog_test_') && !u.uid.startsWith('storage_test_'));
-    cleanFile('outbound-clicks.json', (c: any) => !c.sessionId?.startsWith('test_sess_') && c.sourcePage !== 'test-suite');
+    cleanFile('outbound-clicks.json', (c: any) => !c.sessionId?.startsWith('test_sess_') && c.sourcePage !== 'test-suite' && c.sourcePage !== 'affiliate-page' && c.sourcePage !== 'home');
     cleanFile('enquiries.json', (e: any) => !e.email.includes('test'));
-  } catch {}
-
-  // Clean up automated test records from data/ files
-  try {
-    const cleanFile = (filename: string, filterFn: (item: any) => boolean) => {
-      const p = path.join(process.cwd(), 'data', filename);
-      if (fs.existsSync(p)) {
-        const items = JSON.parse(fs.readFileSync(p, 'utf-8'));
-        fs.writeFileSync(p, JSON.stringify(items.filter(filterFn), null, 2), 'utf-8');
-      }
-    };
-    cleanFile('subscribers.json', (s: any) => !s.email.includes('.test'));
-    cleanFile('users.json', (u: any) => !u.uid.startsWith('goog_test_'));
-    cleanFile('outbound-clicks.json', (c: any) => !c.sessionId?.startsWith('test_sess_'));
+    cleanFile('assistant-usage.json', (a: any) => a.promptLength !== 20 && a.promptLength !== 5 && a.promptLength !== 42);
   } catch {}
 
   console.log('\n====================================================');

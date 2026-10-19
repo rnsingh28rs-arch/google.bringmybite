@@ -1,11 +1,11 @@
 import React from 'react';
-import { 
-  ArrowLeft, 
-  Scale, 
-  Trophy, 
-  Check, 
-  X, 
-  ShieldCheck, 
+import {
+  ArrowLeft,
+  Scale,
+  Trophy,
+  Check,
+  X,
+  ShieldCheck,
   ExternalLink,
   Users,
   HelpCircle
@@ -43,7 +43,7 @@ export const ComparisonDetailPage: React.FC<ComparisonDetailPageProps> = ({
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-10">
-      
+
       {/* Back button */}
       <div className="flex items-center justify-between">
         <button
@@ -55,7 +55,7 @@ export const ComparisonDetailPage: React.FC<ComparisonDetailPageProps> = ({
         </button>
         <div className="text-[11px] text-slate-400 flex items-center gap-1.5">
           <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
-          <span>Last Audited: {comparison.lastVerifiedDate}</span>
+          <span>Verified Freshness: {comparison.lastVerifiedDate}</span>
         </div>
       </div>
 
@@ -83,7 +83,7 @@ export const ComparisonDetailPage: React.FC<ComparisonDetailPageProps> = ({
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Contender</span>
               <h2 className="text-xl font-extrabold text-slate-900 mt-0.5">{item.name}</h2>
               <p className="text-xs font-medium text-slate-500 mt-1">{item.tagline}</p>
-              
+
               <div className="mt-3 p-2.5 rounded-xl bg-slate-50 border border-slate-100 text-xs text-slate-800">
                 <span className="font-bold block text-[10px] text-slate-400 uppercase">Pricing Status:</span>
                 <span>{item.pricingSummary}</span>

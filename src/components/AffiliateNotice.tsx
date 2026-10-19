@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ExternalLink, Info, ShieldCheck, Tag } from 'lucide-react';
 import { trackOutboundClick } from '../utils/analyticsBroker';
-import { getMonetizationSettings } from '../data/monetizationConfig';
+import { getMonetizationSettings, isVerifiedReferralUrl } from '../data/monetizationConfig';
 
 interface AffiliateLinkProps {
   merchantName: string;
@@ -24,14 +24,11 @@ export const AffiliateLink: React.FC<AffiliateLinkProps> = ({
   const [showTooltip, setShowTooltip] = useState(false);
   const settings = getMonetizationSettings();
 
-  // Active approved affiliate only if affiliate mode is enabled and legitimate non-placeholder tracking exists
+  // Active approved affiliate ONLY if affiliate mode is enabled AND genuine referral URL is verified
   const effectiveUrl = destinationUrl;
   const isApprovedAffiliate = Boolean(
     settings.affiliate.enabled &&
-    trackingId &&
-    !trackingId.startsWith('gtf-') &&
-    !trackingId.includes('demo') &&
-    trackingId.trim().length > 0
+    isVerifiedReferralUrl(destinationUrl)
   );
 
   const handleClick = () => {
@@ -105,8 +102,8 @@ export const AffiliateLink: React.FC<AffiliateLinkProps> = ({
             <span>Outbound Link Transparency</span>
           </div>
           <p className="text-[11px] text-slate-300 leading-snug">
-            {isApprovedAffiliate 
-              ? 'Approved affiliate referral link. Outbound click safely recorded in server telemetry.' 
+            {isApprovedAffiliate
+              ? 'Approved affiliate referral link. Outbound click safely recorded in server telemetry.'
               : 'Direct navigation to the authentic Google ecosystem portal. Outbound click safely recorded in server telemetry.'}
           </p>
         </div>
@@ -129,7 +126,7 @@ export const AffiliateGlobalNotice: React.FC<AffiliateGlobalNoticeProps> = ({ on
             <strong>Editorial Transparency:</strong> Google Tool Finder is completely independent. Outbound links connect directly to verified Google product portals. We never fabricate commercial endorsements or affiliate approval.
           </span>
         </div>
-        <button 
+        <button
           type="button"
           onClick={() => {
             if (onNavigate) {

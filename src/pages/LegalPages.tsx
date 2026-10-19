@@ -2,23 +2,53 @@ import React from 'react';
 import { ShieldCheck, FileText, ArrowLeft, Home, Search } from 'lucide-react';
 
 interface LegalPageProps {
-  type: 'privacy' | 'terms';
+  type: 'privacy' | 'terms' | 'disclaimer';
   onNavigateHome: () => void;
+  onNavigate?: (view: string) => void;
 }
 
-export const LegalPage: React.FC<LegalPageProps> = ({ type, onNavigateHome }) => {
+export const LegalPage: React.FC<LegalPageProps> = ({ type, onNavigateHome, onNavigate }) => {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16 space-y-8">
-      <button
-        onClick={onNavigateHome}
-        className="inline-flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-blue-600 transition-colors"
-      >
-        <ArrowLeft className="w-4 h-4" />
-        <span>Back to Home</span>
-      </button>
+      <div className="flex items-center justify-between">
+        <button
+          onClick={onNavigateHome}
+          className="inline-flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-blue-600 transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          <span>Back to Home</span>
+        </button>
+
+        <div className="flex items-center gap-3 text-xs">
+          {type !== 'disclaimer' && (
+            <button
+              onClick={() => onNavigate && onNavigate('disclaimer')}
+              className="text-slate-500 hover:text-blue-600 font-semibold transition-colors"
+            >
+              Disclaimer
+            </button>
+          )}
+          {type !== 'terms' && (
+            <button
+              onClick={() => onNavigate && onNavigate('terms')}
+              className="text-slate-500 hover:text-blue-600 font-semibold transition-colors"
+            >
+              Terms of Service
+            </button>
+          )}
+          {type !== 'privacy' && (
+            <button
+              onClick={() => onNavigate && onNavigate('privacy')}
+              className="text-slate-500 hover:text-blue-600 font-semibold transition-colors"
+            >
+              Privacy Policy
+            </button>
+          )}
+        </div>
+      </div>
 
       <div className="bg-white rounded-3xl border border-slate-200 p-8 sm:p-12 space-y-6 text-xs sm:text-sm text-slate-700 leading-relaxed shadow-sm">
-        {type === 'privacy' ? (
+        {type === 'privacy' && (
           <>
             <div className="space-y-2 border-b border-slate-100 pb-4">
               <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">Legal Document</span>
@@ -50,7 +80,9 @@ export const LegalPage: React.FC<LegalPageProps> = ({ type, onNavigateHome }) =>
               </p>
             </section>
           </>
-        ) : (
+        )}
+
+        {type === 'terms' && (
           <>
             <div className="space-y-2 border-b border-slate-100 pb-4">
               <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">Terms of Use</span>
@@ -76,6 +108,76 @@ export const LegalPage: React.FC<LegalPageProps> = ({ type, onNavigateHome }) =>
               <h2 className="text-base font-bold text-slate-900">3. Trademark Disclaimers</h2>
               <p>
                 Google, Gmail, Google Drive, Google Docs, Sheets, Slides, Google Meet, Gemini, NotebookLM, Google AI Studio, Google Cloud, Firebase, and Google Workspace are trademarks of Google LLC. Google Tool Finder has no official affiliation with Google LLC.
+              </p>
+            </section>
+
+            <section className="space-y-2">
+              <h2 className="text-base font-bold text-slate-900">4. Permitted Educational & Directory Use</h2>
+              <p>
+                Content, calculators, and tutorials provided on Google Tool Finder are intended for individual educational guidance, business research, and productivity planning. Automated mass-scraping or denial-of-service activities targeting our infrastructure are strictly prohibited.
+              </p>
+            </section>
+
+            <section className="space-y-2">
+              <h2 className="text-base font-bold text-slate-900">5. Commercial Transparency & Referrals</h2>
+              <p>
+                In compliance with FTC guidelines and ASCI regulations, outbound links to commercial editions or partner services may in the future include verified referral parameters. Such relationships do not influence editorial scores, comparison methodologies, or product inclusion.
+              </p>
+            </section>
+          </>
+        )}
+
+        {type === 'disclaimer' && (
+          <>
+            <div className="space-y-2 border-b border-slate-100 pb-4">
+              <span className="text-xs font-bold text-amber-600 uppercase tracking-wider">Legal Disclaimers</span>
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">Legal & Trademark Disclaimer</h1>
+              <p className="text-xs text-slate-400">Effective Date: October 2026 • Published by Bring My Bite</p>
+            </div>
+
+            <section className="space-y-2">
+              <h2 className="text-base font-bold text-slate-900">1. Editorial Independence & Non-Affiliation</h2>
+              <p>
+                Google Tool Finder is an independent, community-first informational guide and directory developed and maintained by parent company <strong>Bring My Bite</strong>. This website is <strong>not</strong> affiliated with, endorsed by, sponsored by, authorized by, or in any way officially connected with Google LLC, Alphabet Inc., or any of their subsidiaries or affiliates.
+              </p>
+            </section>
+
+            <section className="space-y-2">
+              <h2 className="text-base font-bold text-slate-900">2. Trademark Notice & Educational Fair Use</h2>
+              <p>
+                Google, Gmail, Google Drive, Google Docs, Google Sheets, Google Slides, Google Meet, Google Calendar, Gemini, NotebookLM, Google AI Studio, Google Cloud, Firebase, Google Analytics, Google Maps, Google Photos, Google Ads, Google AdMob, Android, Android Studio, and Google Workspace are registered trademarks or service marks of Google LLC.
+              </p>
+              <p>
+                All product names, logos, screenshots, and brand identifiers displayed on this website are used strictly for identification, comparative analysis, tutorial guidance, and educational purposes under the principles of Nominative Fair Use (United States Trademark Law) and Section 30 of the Indian Trade Marks Act, 1999.
+              </p>
+            </section>
+
+            <section className="space-y-2">
+              <h2 className="text-base font-bold text-slate-900">3. Pricing, Offers & Telecom Perks Accuracy</h2>
+              <p>
+                Software subscription plans, commercial licensing tiers, and special regional offers (including Indian telecom bundles such as Jio and Airtel 100 GB Cloud perks) are established solely by Google LLC and third-party telecom operators. These offerings are subject to modification, withdrawal, or price adjustments at any time without notice.
+              </p>
+              <p>
+                While Google Tool Finder verifies pricing structures, RBI recurring banking mandates, and regional trial eligibility, all data is provided strictly "as is". Users are strongly advised to confirm current prices and terms directly on official Google web portals (such as <code>workspace.google.com</code>, <code>cloud.google.com</code>, or <code>one.google.com</code>) prior to any purchase or trial redemption.
+              </p>
+            </section>
+
+            <section className="space-y-2">
+              <h2 className="text-base font-bold text-slate-900">4. Advertising & Affiliate Transparency</h2>
+              <p>
+                In full alignment with the Federal Trade Commission (FTC) Guides Concerning the Use of Endorsements and Testimonials in Advertising (16 CFR § 255) and the Advertising Standards Council of India (ASCI) guidelines:
+              </p>
+              <ul className="list-disc list-inside space-y-1 pl-2 text-slate-600">
+                <li>We clearly disclose commercial relationships and referral destinations across our platform.</li>
+                <li>We do not claim official partnership or AdSense approval until formally verified.</li>
+                <li>Affiliate commissions, if earned on verified future referral links, incur zero additional cost to you and do not compromise our editorial integrity.</li>
+              </ul>
+            </section>
+
+            <section className="space-y-2">
+              <h2 className="text-base font-bold text-slate-900">5. Limitation of Liability</h2>
+              <p>
+                Under no circumstances shall Google Tool Finder, Bring My Bite, or its creators be liable for any direct, indirect, incidental, consequential, or punitive damages arising from the use of, or inability to use, information provided on this directory.
               </p>
             </section>
           </>
