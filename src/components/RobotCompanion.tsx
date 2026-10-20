@@ -27,10 +27,10 @@ export const RobotCompanion: React.FC<RobotCompanionProps> = ({
   const motionClass = `motion-${state}`;
 
   const imageSrc = 
-    state === 'thinking' ? '/assets/robot/robot-thinking.png' :
-    state === 'resting' ? '/assets/robot/robot-resting.png' :
-    state === 'speaking' ? '/assets/robot-main.png' :
-    '/assets/robot/robot-idle.png';
+    state === 'thinking' ? '/assets/robot/robot.png' :
+    state === 'resting' ? '/assets/robot/robot.png' :
+    state === 'speaking' ? '/assets/robot.png' :
+    '/assets/robot/robot.png';
 
   const sizeStyles = {
     sm: { img: 'w-9 h-9 sm:w-10 sm:h-10', stage: showStage ? 'py-1' : 'py-0' },
@@ -65,7 +65,7 @@ export const RobotCompanion: React.FC<RobotCompanionProps> = ({
             loading="eager"
             draggable={false}
             onError={(e) => {
-              (e.currentTarget as HTMLImageElement).src = '/assets/robot-main.png';
+              (e.currentTarget as HTMLImageElement).src = '/assets/robot.png';
             }}
           />
 
