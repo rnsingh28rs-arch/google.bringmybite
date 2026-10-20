@@ -67,14 +67,34 @@ export const LegalPage: React.FC<LegalPageProps> = ({ type, onNavigateHome, onNa
             </section>
 
             <section className="space-y-2">
-              <h2 className="text-base font-bold text-slate-900">2. Cookies and Analytics</h2>
+              <h2 className="text-base font-bold text-slate-900">2. Analytics, Cookies and Similar Technologies</h2>
               <p>
-                We do not use intrusive cross-site tracking pixels. Standard session cookies or local storage may be utilized solely to preserve your UI preferences (e.g., currency selection between INR and USD).
+                This website currently includes Google Tag Manager and Google Analytics tags. Depending on the tag configuration and your location, these services may collect technical information such as pages viewed, interactions, device and browser details, approximate location, and online identifiers. These tools may use cookies or similar technologies. We should not describe analytics as disabled unless the live configuration confirms that.
+              </p>
+              <p>
+                The site may also use browser storage to support functionality and preferences. You can manage cookies through your browser settings; disabling them may affect some features. Where legally required, non-essential analytics and advertising technologies should only run after the required consent has been obtained.
               </p>
             </section>
 
             <section className="space-y-2">
-              <h2 className="text-base font-bold text-slate-900">3. Third-Party Links</h2>
+              <h2 className="text-base font-bold text-slate-900">3. Advertising and Google AdSense</h2>
+              <p>
+                If Google AdSense or another advertising provider is enabled, that provider may use cookies, web beacons, IP addresses, or similar technologies to serve, measure, limit, and personalise advertising, subject to your choices, applicable law, and the provider's settings. Third-party vendors, including Google, may use information collected from this site and other sites to provide advertising services.
+              </p>
+              <p>
+                For information about how Google uses data when you use partner sites and apps, visit Google's published privacy information. Advertising features and personalised advertising may vary by region and by the consent choices you make. We will update this notice if our advertising or analytics configuration materially changes.
+              </p>
+            </section>
+
+            <section className="space-y-2">
+              <h2 className="text-base font-bold text-slate-900">4. Contact Form Information</h2>
+              <p>
+                If you submit the contact form, the information you provide (such as your name, email address, topic, and message) is sent to us so we can respond and handle your request. Please do not include passwords, payment-card details, or other sensitive information in the form. Retention depends on the purpose of the request and applicable legal obligations.
+              </p>
+            </section>
+
+            <section className="space-y-2">
+              <h2 className="text-base font-bold text-slate-900">5. Third-Party Links</h2>
               <p>
                 Our directory contains links to external web portals, including official Google service pages (*.google.com). Once you navigate away from our website, your privacy is governed by the respective third-party platform’s policies.
               </p>
