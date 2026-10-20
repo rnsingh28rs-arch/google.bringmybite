@@ -27,10 +27,10 @@ export const RobotCompanion: React.FC<RobotCompanionProps> = ({
   const motionClass = `motion-${state}`;
 
   const imageSrc = 
-    state === 'thinking' ? '/assets/robot/robot.png' :
-    state === 'resting' ? '/assets/robot/robot.png' :
+    state === 'thinking' ? '/assets/robot.png' :
+    state === 'resting' ? '/assets/robot.png' :
     state === 'speaking' ? '/assets/robot.png' :
-    '/assets/robot/robot.png';
+    '/assets/robot.png';
 
   const sizeStyles = {
     sm: { img: 'w-9 h-9 sm:w-10 sm:h-10', stage: showStage ? 'py-1' : 'py-0' },
