@@ -323,8 +323,8 @@ export const ToolFinderChatbot: React.FC<ToolFinderChatbotProps> = ({
 
     return (
       <div className="fixed bottom-2 right-1 sm:bottom-3 sm:right-3 z-40 flex flex-col items-center gap-1.5">
-        <div className="robot-welcome-glass relative max-w-[230px] px-4 py-3 text-center text-[12px] font-semibold text-slate-900">
-          <span className="relative z-10">👋 Hi! I’m your assistant — here to help you find the best Google tools.</span>
+        <div className="robot-welcome-glass relative w-[min(290px,calc(100vw-2rem))] px-5 py-3.5 text-center text-[13px] leading-snug font-semibold text-slate-900">
+          <span className="relative z-10 block">👋 Hi! I’m your assistant<br /><span className="font-medium">Here to help you find the best Google tools.</span></span>
           <span aria-hidden="true" className="robot-welcome-glass-tail absolute -bottom-1 right-5 h-3 w-3 rotate-45" />
           <span aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-[inherit] bg-gradient-to-br from-white/20 via-white/5 to-cyan-200/10" />
         </div>
