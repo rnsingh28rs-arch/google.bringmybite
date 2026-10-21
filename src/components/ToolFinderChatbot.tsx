@@ -423,7 +423,24 @@ export const ToolFinderChatbot: React.FC<ToolFinderChatbotProps> = ({
       </div>
 
       {/* Message List */}
-      <div ref={messagesContainerRef} className="flex-1 min-h-0 p-3 sm:p-3.5 overflow-y-auto space-y-2.5 text-[11px] text-slate-700 leading-snug">
+      <div ref={messagesContainerRef} className="flex-1 min-h-0 p-3 sm:p-3.5 overflow-y-auto text-[11px] text-slate-700 leading-snug">
+        {messages.length === 1 && messages[0].sender === 'assistant' && messages[0].id.startsWith('welcome-') ? (
+          <div className="flex h-full flex-col justify-center gap-3 rounded-2xl bg-gradient-to-br from-white via-white/95 to-sky-50/90 p-4 sm:p-5">
+            <div className="text-center">
+              <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-md ring-1 ring-slate-100"><img src="/assets/robot.png" alt="Tool Finder assistant" className="h-11 w-11 object-contain" /></div>
+              <h2 className="text-xl font-extrabold tracking-tight text-slate-900">Discover <span className="bg-gradient-to-r from-blue-600 via-cyan-500 to-indigo-600 bg-clip-text text-transparent">Google Tools</span></h2>
+              <p className="mx-auto mt-1 max-w-[250px] text-xs leading-relaxed text-slate-600">Find, learn, compare and explore the best Google tools, AI tools and offers — all in one place.</p>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <button type="button" onClick={() => handleSendMessage("Show me the best Google tools for my needs.")} className="rounded-xl border border-slate-200 bg-white/90 p-3 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md"><span className="block text-sm font-bold text-blue-700">✦ Google Tools</span><span className="mt-1 block text-[10px] text-slate-500">Explore the catalog</span></button>
+              <button type="button" onClick={() => handleSendMessage("Show me useful Google AI tools and explain how to choose one.")} className="rounded-xl border border-slate-200 bg-white/90 p-3 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-violet-300 hover:shadow-md"><span className="block text-sm font-bold text-violet-700">✧ AI Tools</span><span className="mt-1 block text-[10px] text-slate-500">Discover AI options</span></button>
+              <button type="button" onClick={() => handleSendMessage("What tutorials and guides are available for Google tools?")} className="rounded-xl border border-slate-200 bg-white/90 p-3 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-cyan-300 hover:shadow-md"><span className="block text-sm font-bold text-cyan-700">▤ Tutorials</span><span className="mt-1 block text-[10px] text-slate-500">Learn step by step</span></button>
+              <button type="button" onClick={() => onNavigateOffer ? onNavigateOffer() : handleSendMessage("Show me verified Google India offers and credits.")} className="rounded-xl border border-slate-200 bg-white/90 p-3 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-md"><span className="block text-sm font-bold text-emerald-700">◇ Offers</span><span className="mt-1 block text-[10px] text-slate-500">Credits and savings</span></button>
+            </div>
+            <button type="button" onClick={() => onNavigateHome ? onNavigateHome() : window.location.assign('/')} className="mx-auto text-[11px] font-semibold text-blue-700 hover:underline">Open full homepage →</button>
+          </div>
+        ) : (
+        <div className="space-y-2.5">
         {messages.map((msg) => (
           <div 
             key={msg.id}
@@ -509,6 +526,9 @@ export const ToolFinderChatbot: React.FC<ToolFinderChatbotProps> = ({
           </div>
         ))}
 
+        </div>
+        )}
+        
         {isTyping && (
           <div className="flex items-center gap-1.5 text-slate-400 py-0.5 pl-0.5">
             <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-bounce" />
