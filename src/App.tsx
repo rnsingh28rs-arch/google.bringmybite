@@ -489,6 +489,7 @@ export default function App() {
         onNavigateProduct={(slug) => navigate('product-detail', slug)}
         onNavigateTutorial={(slug) => navigate('tutorial-detail', slug)}
         onNavigateOffer={() => navigate('india-offers')}
+        onNavigateHome={() => navigate('home')}
       />
 
       {/* Site Footer */}
