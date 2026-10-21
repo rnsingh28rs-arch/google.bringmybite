@@ -307,3 +307,19 @@
 @media (prefers-reduced-motion: reduce) {
   .robot-welcome-glass, .tool-finder-glass-chat { animation: none; }
 }
+
+
+/* Robot arrives into the chat header with a subtle 3D lift */
+.robot-chat-arrival {
+  transform-origin: center bottom;
+  animation: robotChatArrival .62s cubic-bezier(.16,1,.3,1) both, robotGentleFloat 3.8s ease-in-out .62s infinite;
+  filter: drop-shadow(0 5px 9px rgba(56,189,248,.24));
+}
+@keyframes robotChatArrival {
+  0% { opacity: 0; transform: translate3d(38px, 24px, 0) rotateY(-24deg) scale(.72); }
+  65% { opacity: 1; transform: translate3d(-3px, -2px, 0) rotateY(7deg) scale(1.06); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0) rotateY(0) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .robot-chat-arrival { animation: none; }
+}
