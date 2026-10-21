@@ -323,10 +323,15 @@ export const ToolFinderChatbot: React.FC<ToolFinderChatbotProps> = ({
 
     return (
       <div className="fixed bottom-2 right-1 sm:bottom-3 sm:right-3 z-40 flex flex-col items-center gap-1.5">
-        <div className="robot-welcome-glass relative w-[min(320px,calc(100vw-2rem))] px-5 py-4 text-center text-[17px] leading-tight font-bold text-slate-900">
-          <span className="relative z-10 block">👋 Hi! I’m Your<br /><span className="block text-[25px] font-extrabold bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-500 bg-clip-text text-transparent">Assistant</span><span className="mt-1 block text-[13px] font-medium">To Help You Find the Best<br />Google Tools</span><span className="mt-3 flex items-center justify-center gap-1.5 text-[10px] font-semibold"><span className="rounded-full bg-blue-600 px-3 py-1.5 text-white shadow-md">⚒ Tools</span><span className="rounded-full bg-white/75 px-2.5 py-1.5 text-purple-700">▣ Tutorials</span><span className="rounded-full bg-cyan-50/90 px-2.5 py-1.5 text-emerald-700">◇ Offers</span></span></span>
-          <span aria-hidden="true" className="robot-welcome-glass-tail absolute -bottom-1 right-5 h-3 w-3 rotate-45" />
-          <span aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-[inherit] bg-gradient-to-br from-white/20 via-white/5 to-cyan-200/10" />
+        <div className="robot-welcome-glass relative w-[min(320px,calc(100vw-2rem))] px-5 py-4 text-center text-slate-900">
+          <span className="relative z-10 block text-[17px] font-bold leading-tight">👋 Hi! I’m Your <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-500 bg-clip-text text-transparent">Assistant</span></span>
+          <span className="relative z-10 mt-1 block text-[13px] font-medium leading-snug">To Help You Find the Best<br />Google Tools</span>
+          <span className="relative z-10 mt-3 flex items-center justify-center gap-1.5 text-[10px] font-semibold">
+            <span className="rounded-full bg-blue-600 px-3 py-1.5 text-white shadow-md">⚒ Tools</span>
+            <span className="rounded-full bg-white/75 px-2.5 py-1.5 text-purple-700">▣ Tutorials</span>
+            <span className="rounded-full bg-cyan-50/90 px-2.5 py-1.5 text-emerald-700">◇ Offers</span>
+          </span>
+          <span aria-hidden="true" className="robot-welcome-glass-tail absolute -bottom-2 right-8 h-4 w-4 rotate-45" />
         </div>
         <button
           id="tool-finder-chatbot-launcher"
