@@ -278,15 +278,15 @@
 /* Tool Finder floating assistant: liquid-glass welcome + elevated chat panel */
 .robot-welcome-glass {
   border-radius: 22px 22px 6px 22px;
-  background: linear-gradient(135deg, rgba(255,255,255,.19), rgba(148,163,184,.07) 48%, rgba(34,211,238,.12));
-  -webkit-backdrop-filter: blur(24px) saturate(165%);
-  backdrop-filter: blur(24px) saturate(165%);
-  box-shadow: 0 12px 34px rgba(2,8,23,.28), inset 0 1px 0 rgba(255,255,255,.35), 0 0 24px rgba(34,211,238,.12);
+  background: linear-gradient(135deg, rgba(255,255,255,.82), rgba(255,244,252,.70) 48%, rgba(224,247,255,.76));
+  -webkit-backdrop-filter: blur(26px) saturate(170%);
+  backdrop-filter: blur(26px) saturate(170%);
+  box-shadow: 0 14px 36px rgba(30,41,59,.18), inset 0 1px 0 rgba(255,255,255,.88), 0 0 26px rgba(244,114,182,.18);
   text-shadow: 0 1px 12px rgba(2,8,23,.32);
   animation: robotWelcomeFloatIn .55s cubic-bezier(.2,.8,.2,1) both;
 }
 .robot-welcome-glass-tail {
-  background: rgba(104, 190, 222, .28);
+  background: rgba(255, 246, 252, .82);
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
 }
