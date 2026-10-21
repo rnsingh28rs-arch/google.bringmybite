@@ -8,7 +8,7 @@ import {
   ArrowRight, 
   Bot, 
   User, 
-  Compass, 
+  Home, 
   ExternalLink,
   ShieldCheck,
   RotateCcw,
@@ -39,13 +39,15 @@ interface ToolFinderChatbotProps {
   onNavigateProduct?: (slug: string) => void;
   onNavigateTutorial?: (slug: string) => void;
   onNavigateOffer?: () => void;
+  onNavigateHome?: () => void;
 }
 
 export const ToolFinderChatbot: React.FC<ToolFinderChatbotProps> = ({
   isFloatingWidget = false,
   onNavigateProduct,
   onNavigateTutorial,
-  onNavigateOffer
+  onNavigateOffer,
+  onNavigateHome
 }) => {
   const [isOpen, setIsOpen] = useState(!isFloatingWidget);
   const [isMinimized, setIsMinimized] = useState(false);
@@ -401,52 +403,18 @@ export const ToolFinderChatbot: React.FC<ToolFinderChatbotProps> = ({
         </div>
       </div>
 
-      {/* Guided Website Tour Quick Bar */}
-      <div className="bg-slate-50/95 border-b border-slate-200/80 px-3 py-1.5 flex items-center justify-between text-[10px] text-slate-600 gap-2 overflow-x-auto select-none">
-        <span className="font-bold text-slate-700 whitespace-nowrap flex items-center gap-0.5">
-          <Compass className="w-3 h-3 text-blue-600" />
-          <span>Tour:</span>
-        </span>
+      {/* Homepage shortcut replaces the non-working tour label */}
+      <div className="bg-slate-50/95 border-b border-slate-200/80 px-3 py-1.5 flex items-center gap-2 text-[11px] text-slate-700 select-none">
         <button
-          onClick={() => {
-            handleSendMessage("Give me a quick tour of the 29 Google products in the directory.");
-          }}
-          className="px-1.5 py-0.5 rounded hover:bg-white text-slate-700 font-medium transition-colors whitespace-nowrap cursor-pointer"
+          type="button"
+          onClick={() => onNavigateHome ? onNavigateHome() : window.location.assign('/')}
+          className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 font-semibold hover:bg-white hover:shadow-sm transition-colors cursor-pointer"
+          aria-label="Go to homepage"
         >
-          29 Tools
+          <Home className="w-3.5 h-3.5 text-blue-600" />
+          <span>Home</span>
         </button>
-        <button
-          onClick={() => {
-            handleSendMessage("What step-by-step tutorials are available to learn Google Cloud and AI tools?");
-          }}
-          className="px-1.5 py-0.5 rounded hover:bg-white text-slate-700 font-medium transition-colors whitespace-nowrap cursor-pointer flex items-center gap-0.5"
-        >
-          <BookOpen className="w-2.5 h-2.5 text-purple-600" />
-          <span>Guides</span>
-        </button>
-        <button
-          onClick={() => {
-            if (onNavigateOffer) {
-              onNavigateOffer();
-            } else {
-              handleSendMessage("Show me all verified India startup credits and telecom offers.");
-              window.location.assign('/india-offers');
-            }
-          }}
-          className="px-1.5 py-0.5 rounded hover:bg-white text-slate-700 font-medium transition-colors whitespace-nowrap cursor-pointer flex items-center gap-0.5"
-        >
-          <Tag className="w-2.5 h-2.5 text-emerald-600" />
-          <span>India Offers</span>
-        </button>
-        <button
-          onClick={() => {
-            handleSendMessage("How do I calculate team costs for Google Workspace Starter and Standard?");
-          }}
-          className="px-1.5 py-0.5 rounded hover:bg-white text-slate-700 font-medium transition-colors whitespace-nowrap cursor-pointer flex items-center gap-0.5"
-        >
-          <DollarSign className="w-2.5 h-2.5 text-amber-600" />
-          <span>Pricing</span>
-        </button>
+        <span className="text-slate-400">Explore Google tools and offers</span>
       </div>
 
       {/* Message List */}
