@@ -320,7 +320,11 @@ export const ToolFinderChatbot: React.FC<ToolFinderChatbotProps> = ({
     }
 
     return (
-      <div className="fixed bottom-2 right-1 sm:bottom-3 sm:right-3 z-40 flex flex-col items-center">
+      <div className="fixed bottom-2 right-1 sm:bottom-3 sm:right-3 z-40 flex flex-col items-center gap-1.5">
+        <div className="relative max-w-[210px] rounded-2xl rounded-br-sm border border-cyan-200/80 bg-white/95 px-3 py-2 text-center text-[11px] font-semibold text-slate-800 shadow-lg backdrop-blur-md">
+          Hi! I’m your assistant, here to assist you.
+          <span aria-hidden="true" className="absolute -bottom-1 right-4 h-2 w-2 rotate-45 border-b border-r border-cyan-200/80 bg-white" />
+        </div>
         <button
           id="tool-finder-chatbot-launcher"
           onClick={() => { setIsOpen(true); setIsMinimized(false); }}
@@ -328,7 +332,7 @@ export const ToolFinderChatbot: React.FC<ToolFinderChatbotProps> = ({
           aria-label="Open Tool Finder AI Assistant"
           title="Open your assistant"
         >
-          <img src="/assets/robot.png" alt="3D neon assistant robot" className="robot-neon-mascot object-contain flex-shrink-0" loading="eager" draggable={false} onError={(e) => { e.currentTarget.src = "/assets/robot.png"; }} />
+          <img src="/assets/robot.png" alt="3D neon assistant robot facing right" className="robot-neon-mascot object-contain flex-shrink-0 scale-x-[-1]" loading="eager" draggable={false} onError={(e) => { e.currentTarget.src = "/assets/robot.png"; }} />
         </button>
       </div>
     );
