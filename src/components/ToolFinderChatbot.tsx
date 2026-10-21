@@ -321,9 +321,10 @@ export const ToolFinderChatbot: React.FC<ToolFinderChatbotProps> = ({
 
     return (
       <div className="fixed bottom-2 right-1 sm:bottom-3 sm:right-3 z-40 flex flex-col items-center gap-1.5">
-        <div className="relative max-w-[210px] rounded-2xl rounded-br-sm border border-cyan-200/80 bg-white/95 px-3 py-2 text-center text-[11px] font-semibold text-slate-800 shadow-lg backdrop-blur-md">
-          Hi! I’m your assistant, here to assist you.
-          <span aria-hidden="true" className="absolute -bottom-1 right-4 h-2 w-2 rotate-45 border-b border-r border-cyan-200/80 bg-white" />
+        <div className="robot-welcome-glass relative max-w-[230px] px-4 py-3 text-center text-[12px] font-semibold text-white/95">
+          <span className="relative z-10">Hi! I’m your assistant, here to assist you.</span>
+          <span aria-hidden="true" className="robot-welcome-glass-tail absolute -bottom-1 right-5 h-3 w-3 rotate-45" />
+          <span aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-[inherit] bg-gradient-to-br from-white/20 via-white/5 to-cyan-200/10" />
         </div>
         <button
           id="tool-finder-chatbot-launcher"
@@ -342,8 +343,8 @@ export const ToolFinderChatbot: React.FC<ToolFinderChatbotProps> = ({
     <div
       className={
         isFloatingWidget
-          ? "fixed bottom-4 sm:bottom-5 right-3 sm:right-5 z-40 w-[calc(100vw-2rem)] sm:w-[310px] max-h-[420px] flex flex-col bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-2xl rounded-2xl overflow-hidden transition-all duration-300 font-sans"
-          : "relative w-full max-w-[340px] sm:max-w-[360px] mx-auto max-h-[440px] flex flex-col bg-white/95 backdrop-blur-xl border border-indigo-100 shadow-xl rounded-2xl overflow-hidden transition-all duration-300 font-sans"
+          ? "tool-finder-glass-chat fixed bottom-4 sm:bottom-5 right-3 sm:right-5 z-40 w-[calc(100vw-1.5rem)] sm:w-[390px] max-h-[min(78vh,720px)] flex flex-col bg-slate-950/70 backdrop-blur-2xl border border-white/20 shadow-[0_24px_80px_rgba(2,8,23,0.55),0_0_36px_rgba(56,189,248,0.16)] rounded-[24px] overflow-hidden transition-all duration-300 font-sans"
+          : "tool-finder-glass-chat relative w-full max-w-[390px] mx-auto max-h-[min(78vh,720px)] flex flex-col bg-slate-950/70 backdrop-blur-2xl border border-white/20 shadow-[0_24px_80px_rgba(2,8,23,0.45),0_0_36px_rgba(56,189,248,0.14)] rounded-[24px] overflow-hidden transition-all duration-300 font-sans"
       }
     >
       
