@@ -343,13 +343,13 @@ export const ToolFinderChatbot: React.FC<ToolFinderChatbotProps> = ({
     <div
       className={
         isFloatingWidget
-          ? "tool-finder-glass-chat fixed bottom-4 sm:bottom-5 right-3 sm:right-5 z-40 w-[calc(100vw-1.5rem)] sm:w-[390px] max-h-[min(78vh,720px)] flex flex-col bg-slate-950/70 backdrop-blur-2xl border border-white/20 shadow-[0_24px_80px_rgba(2,8,23,0.55),0_0_36px_rgba(56,189,248,0.16)] rounded-[24px] overflow-hidden transition-all duration-300 font-sans"
-          : "tool-finder-glass-chat relative w-full max-w-[390px] mx-auto max-h-[min(78vh,720px)] flex flex-col bg-slate-950/70 backdrop-blur-2xl border border-white/20 shadow-[0_24px_80px_rgba(2,8,23,0.45),0_0_36px_rgba(56,189,248,0.14)] rounded-[24px] overflow-hidden transition-all duration-300 font-sans"
+          ? "tool-finder-glass-chat fixed bottom-4 sm:bottom-5 right-3 sm:right-5 z-40 w-[calc(100vw-1rem)] sm:w-[350px] h-[min(88dvh,820px)] max-h-[calc(100dvh-1rem)] flex flex-col bg-slate-950/70 backdrop-blur-2xl border border-white/20 shadow-[0_24px_80px_rgba(2,8,23,0.55),0_0_36px_rgba(56,189,248,0.16)] rounded-[24px] overflow-hidden transition-all duration-300 font-sans"
+          : "tool-finder-glass-chat relative w-full max-w-[350px] mx-auto h-[min(88dvh,820px)] max-h-[calc(100dvh-1rem)] flex flex-col bg-slate-950/70 backdrop-blur-2xl border border-white/20 shadow-[0_24px_80px_rgba(2,8,23,0.45),0_0_36px_rgba(56,189,248,0.14)] rounded-[24px] overflow-hidden transition-all duration-300 font-sans"
       }
     >
       
       {/* Header Bar */}
-      <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-blue-950 text-white px-3 py-2 flex items-center justify-between select-none border-b border-white/10">
+      <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-blue-950 text-white px-4 py-3 flex items-center justify-between select-none border-b border-white/10 bg-slate-950/35">
         <div className="flex items-center gap-2 min-w-0">
           <RobotCompanion 
             state={robotState} 
@@ -402,7 +402,7 @@ export const ToolFinderChatbot: React.FC<ToolFinderChatbotProps> = ({
       </div>
 
       {/* Guided Website Tour Quick Bar */}
-      <div className="bg-slate-100/90 border-b border-slate-200/80 px-2 py-1 flex items-center justify-between text-[10px] text-slate-600 gap-1 overflow-x-auto select-none">
+      <div className="bg-white/[0.06] border-b border-white/10 px-3 py-2 flex items-center justify-between text-[11px] text-slate-200 gap-2 overflow-x-auto select-none">
         <span className="font-bold text-slate-700 whitespace-nowrap flex items-center gap-0.5">
           <Compass className="w-3 h-3 text-blue-600" />
           <span>Tour:</span>
@@ -446,15 +446,15 @@ export const ToolFinderChatbot: React.FC<ToolFinderChatbotProps> = ({
       </div>
 
       {/* Message List */}
-      <div ref={messagesContainerRef} className="flex-1 p-2.5 overflow-y-auto max-h-[180px] space-y-2 text-[11px] text-slate-700 leading-snug">
+      <div ref={messagesContainerRef} className="flex-1 min-h-0 p-4 sm:p-5 overflow-y-auto space-y-4 text-[13px] text-slate-100 leading-relaxed">
         {messages.map((msg) => (
           <div 
             key={msg.id}
             className={`flex flex-col ${msg.sender === 'user' ? 'items-end' : 'items-start'}`}
           >
-            <div className="flex items-center gap-1 mb-0.5 px-0.5">
+            <div className="flex items-center gap-1.5 mb-1 px-1">
               {msg.sender === 'assistant' ? (
-                <div className="flex items-center gap-1 text-[9.5px] font-bold text-slate-500">
+                <div className="flex items-center gap-1 text-[10px] font-semibold text-slate-300">
                   <Bot className="w-2.5 h-2.5 text-blue-600" />
                   <span>Tool Finder AI</span>
                   {msg.mode === 'live-ai' ? (
@@ -475,12 +475,12 @@ export const ToolFinderChatbot: React.FC<ToolFinderChatbotProps> = ({
             </div>
 
             <div
-              className={`rounded-xl px-2.5 py-1.5 max-w-[95%] leading-relaxed ${
+              className={`rounded-2xl px-3.5 py-2.5 max-w-[92%] sm:max-w-[88%] text-[13px] leading-relaxed ${
                 msg.sender === 'user'
                   ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-tr-none shadow-xs'
                   : msg.isConfigWarning
-                  ? 'bg-amber-50 border border-amber-200 text-amber-900 rounded-tl-none'
-                  : 'bg-slate-100/90 border border-slate-200/80 text-slate-800 rounded-tl-none'
+                  ? 'bg-amber-400/10 text-amber-100 rounded-tl-md'
+                  : 'bg-white/[0.07] text-slate-100 rounded-tl-md'
               }`}
             >
               <div className="whitespace-pre-wrap">{msg.text}</div>
@@ -564,7 +564,7 @@ export const ToolFinderChatbot: React.FC<ToolFinderChatbotProps> = ({
       )}
 
       {/* Input Box */}
-      <div className="p-2 bg-slate-50 border-t border-slate-200/80">
+      <div className="p-3 sm:p-4 bg-slate-950/55 border-t border-white/10">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -578,12 +578,12 @@ export const ToolFinderChatbot: React.FC<ToolFinderChatbotProps> = ({
             onChange={(e) => setInputQuery(e.target.value)}
             placeholder="Ask about Google tools, India offers, pricing..."
             disabled={isTyping}
-            className="flex-1 bg-white border border-slate-300 rounded-lg px-2.5 py-1 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1.5 focus:ring-blue-500 focus:border-transparent transition-all"
+            className="flex-1 min-w-0 bg-white/[0.08] border border-white/20 rounded-xl px-3 py-2.5 text-[13px] text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/60 focus:border-cyan-300/40 transition-all"
           />
           <button
             type="submit"
             disabled={!inputQuery.trim() || isTyping}
-            className="p-1.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white rounded-lg shadow-2xs transition-all cursor-pointer flex-shrink-0"
+            className="p-2.5 bg-gradient-to-br from-blue-500 to-violet-600 hover:from-blue-400 hover:to-violet-500 disabled:opacity-50 text-white rounded-xl shadow-lg shadow-blue-950/30 transition-all cursor-pointer flex-shrink-0"
             title="Send Message"
           >
             <Send className="w-3.5 h-3.5" />
