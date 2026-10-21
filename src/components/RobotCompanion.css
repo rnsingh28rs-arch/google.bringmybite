@@ -277,19 +277,17 @@
 
 /* Tool Finder floating assistant: liquid-glass welcome + elevated chat panel */
 .robot-welcome-glass {
-  border: 1px solid rgba(255,255,255,.88);
-  border-radius: 42% 38% 35% 32% / 25% 28% 30% 27%;
-  background:
-    radial-gradient(ellipse at 18% 8%, rgba(255,255,255,.98), transparent 46%),
-    linear-gradient(115deg, rgba(255,226,247,.94), rgba(255,255,255,.94) 48%, rgba(218,247,255,.94));
-  -webkit-backdrop-filter: blur(30px) saturate(180%);
-  backdrop-filter: blur(30px) saturate(180%);
-  box-shadow: 0 16px 38px rgba(55,65,81,.16), inset 0 1px 0 rgba(255,255,255,.98), 0 0 30px rgba(244,114,182,.28), 0 0 26px rgba(56,189,248,.20);
+  border: 1px solid rgba(255,255,255,.92);
+  border-radius: 22px 22px 22px 5px;
+  background: linear-gradient(135deg, rgba(255,255,255,.96), rgba(255,246,252,.92) 52%, rgba(224,248,255,.94));
+  -webkit-backdrop-filter: blur(26px) saturate(170%);
+  backdrop-filter: blur(26px) saturate(170%);
+  box-shadow: 0 12px 28px rgba(55,65,81,.15), inset 0 1px 0 rgba(255,255,255,.98), 0 0 22px rgba(244,114,182,.15), 0 0 18px rgba(56,189,248,.10);
   text-shadow: 0 1px 0 rgba(255,255,255,.65);
   animation: robotWelcomeFloatIn .55s cubic-bezier(.2,.8,.2,1) both;
 }
 .robot-welcome-glass-tail {
-  background: rgba(255, 241, 250, .94);
+  background: rgba(255, 246, 252, .96);
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
 }
