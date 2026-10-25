@@ -26,6 +26,33 @@ export const TutorialsPage: React.FC<TutorialsPageProps> = ({ onSelectTutorial }
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-10">
+      <section aria-label="Official Google learning catalog" className="rounded-2xl border border-indigo-200 bg-gradient-to-r from-indigo-950 via-slate-900 to-cyan-950 p-5 sm:p-7 text-white shadow-lg">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div className="max-w-3xl">
+            <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-cyan-200/30 bg-cyan-200/10 px-3 py-1 text-[10px] font-extrabold uppercase tracking-widest text-cyan-200">
+              <BookOpen className="h-3.5 w-3.5" /> Official course directory
+            </div>
+            <h2 className="text-xl sm:text-2xl font-black tracking-tight">Explore Google courses, data science and certificates</h2>
+            <p className="mt-2 text-sm leading-relaxed text-slate-300">Browse Google's live catalog for the latest courses, hands-on labs, learning paths and skill badges. Start with BigQuery and data analytics, then progress to Python, machine learning and Google Cloud. Course and certificate costs vary—check each listing.</p>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <a href="https://www.skills.google/" target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-2 rounded-xl bg-cyan-300 px-4 py-3 text-sm font-extrabold text-slate-950 transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-200">
+              Browse Google Skills <ArrowRight className="h-4 w-4" />
+            </a>
+            <a href="https://cloud.google.com/learn/certification" target="_blank" rel="noreferrer" className="inline-flex items-center justify-center rounded-xl border border-white/25 bg-white/5 px-4 py-3 text-sm font-bold text-white transition hover:bg-white/10">
+              Cloud Certifications
+            </a>
+          </div>
+        </div>
+        <div className="mt-4 flex flex-wrap gap-2 text-xs font-semibold text-slate-200">
+          <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5">BigQuery & SQL</span>
+          <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5">Data Analytics</span>
+          <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5">Python & Colab</span>
+          <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5">Machine Learning</span>
+          <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5">Cloud Skill Badges</span>
+        </div>
+      </section>
+
 
       {/* Header */}
       <div className="space-y-3 max-w-3xl">
