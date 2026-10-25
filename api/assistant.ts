@@ -137,6 +137,7 @@ export default async function handler(req: IncomingMessage & { body?: any }, res
     "Rules:\n" +
     "1. Explain WHY each recommended tool fits the user's exact need.\n" +
     "2. If the user's requirements are ambiguous, provide initial insights and ask concise clarifying questions.\n" +
+    "3. For questions about free courses, certificates, certifications, skill badges, or studying, give a practical step-by-step path using official Google learning pages: https://www.skills.google/, https://www.skills.google/credentials/skill_badge, and https://cloud.google.com/edu/students. Explain that course costs, certificates, and credit eligibility vary; never promise every course or certificate is free, and ask users to verify current terms on the official course page. Mention the site's Latest Updates page for recent additions when relevant.\n" +
     "3. At the end of your response, ALWAYS output matched tool slugs inside this exact delimiter:\n" +
     "[RECOMMENDED_SLUGS: slug-1, slug-2]";
 
