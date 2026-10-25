@@ -1,3 +1,4 @@
+import { GOOGLE_CLOUD_PRODUCTS } from './googleCloudProducts';
 import { Product } from '../types';
 
 export const PRODUCTS: Product[] = [
@@ -1114,6 +1115,7 @@ export const PRODUCTS: Product[] = [
     relatedProductSlugs: ['firebase', 'google-play-billing', 'google-admob'],
     relatedTutorialSlugs: ['getting-started-with-gemini']
   }
+  ...GOOGLE_CLOUD_PRODUCTS.filter(product => !['firebase', 'android-studio', 'google-search-console'].includes(product.slug)),
 ];
 
 export const CATEGORIES: { name: string; icon: string; count: number; description: string }[] = [
