@@ -158,12 +158,12 @@ export default function App() {
 
   // Dynamic SEO metadata updater (Page titles, descriptions, canonical URLs, and OG tags)
   useEffect(() => {
-    let title = 'Google Tool Finder by Bring My Bite - Technology Discovery & Monetisation';
-    let description = 'Google Tool Finder by parent company Bring My Bite — Independent Google technology directory, transparent INR pricing, verified free trials, and India telecom cloud perks.';
+    let title = 'Google Tool Finder | Google AI Tools, Tutorials & Developer Guides';
+    let description = 'Discover Google AI tools, free software, practical tutorials, product comparisons, and guides for learning AI, coding, app development, and portal development. Independent resource, not affiliated with Google.';
     let canonicalPath = '/';
 
     if (currentView === 'home') {
-      title = 'Google Tool Finder by Bring My Bite - Technology Discovery & INR Pricing';
+      title = 'Google Tool Finder | Google AI Tools, Tutorials & Developer Guides';
       canonicalPath = '/';
     } else if (currentView === 'products') {
       title = currentSlug
@@ -221,8 +221,8 @@ export default function App() {
       description = 'Monthly editorial audits of newly released Google AI capabilities, pricing modifications, and policy changes.';
       canonicalPath = '/latest-updates';
     } else if (currentView === 'about') {
-      title = 'About Google Tool Finder & Editorial Mission | Bring My Bite';
-      description = 'Independent, community-first technology directory built by Bring My Bite to bring transparency to Google tool discovery.';
+      title = 'About Google Tool Finder | Independent Technology Education';
+      description = 'Google Tool Finder is an independent directory and learning resource for Google tools, AI, software development, and practical technology tutorials. It is not affiliated with Google.';
       canonicalPath = '/about';
     } else if (currentView === 'contact') {
       title = 'Contact Editorial Team & Inquiries | Google Tool Finder';
@@ -234,7 +234,7 @@ export default function App() {
       canonicalPath = '/affiliate-disclosure';
     } else if (currentView === 'disclaimer') {
       title = 'Legal & Trademark Disclaimer | Google Tool Finder';
-      description = 'Editorial independence, trademark fair use, pricing accuracy, and advertising disclaimers for Google Tool Finder by Bring My Bite.';
+      description = 'Editorial independence, trademark fair use, pricing accuracy, and advertising disclaimers for Google Tool Finder, an independent resource not affiliated with Google.';
       canonicalPath = '/disclaimer';
     } else if (currentView === 'privacy') {
       title = 'Privacy Policy | Google Tool Finder';
@@ -277,6 +277,10 @@ export default function App() {
     if (ogDesc) ogDesc.setAttribute('content', description);
     const ogUrl = document.querySelector('meta[property="og:url"]');
     if (ogUrl) ogUrl.setAttribute('content', fullCanonical);
+    const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+    if (twitterTitle) twitterTitle.setAttribute('content', title);
+    const twitterDesc = document.querySelector('meta[name="twitter:description"]');
+    if (twitterDesc) twitterDesc.setAttribute('content', description);
 
     // Track SPA route navigation in GA4 (skipping initial mount as gtag('config') fires initial page_view)
     if (isInitialMountRef.current) {
