@@ -260,31 +260,59 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
   return (
     <div className="space-y-16 sm:space-y-24 pb-16">
 
-      {/* Fresh learning and free-certificate discovery banner */}
-      <section aria-label="New learning resources" className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pt-4">
-        <div className="relative overflow-hidden rounded-2xl border border-emerald-200 bg-gradient-to-r from-emerald-50 via-white to-blue-50 p-4 sm:p-5 shadow-sm">
-          <div className="absolute right-4 top-4 hidden sm:block" aria-hidden="true">
-            <span className="relative flex h-3 w-3">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-60"></span>
-              <span className="relative inline-flex h-3 w-3 rounded-full bg-emerald-600"></span>
-            </span>
-          </div>
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="min-w-0">
-              <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white px-3 py-1 text-[11px] font-extrabold uppercase tracking-wider text-emerald-800">
-                <Sparkles className="h-3.5 w-3.5 animate-pulse" />
-                NEW · Learn for free
+      {/* Animated What's New laser showcase directly beneath the site navigation */}
+      <section aria-label="What's New at Google Tool Finder" className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pt-3">
+        <style>{`
+          @keyframes gtf-laser-sweep { 0% { transform: translateX(-130%) rotate(12deg); opacity: 0; } 12% { opacity: .95; } 88% { opacity: .8; } 100% { transform: translateX(420%) rotate(12deg); opacity: 0; } }
+          @keyframes gtf-marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+          @keyframes gtf-neon-pulse { 0%,100% { box-shadow: 0 0 12px rgba(34,211,238,.18), inset 0 0 18px rgba(168,85,247,.08); } 50% { box-shadow: 0 0 30px rgba(34,211,238,.32), 0 0 48px rgba(168,85,247,.18), inset 0 0 22px rgba(168,85,247,.14); } }
+          @media (prefers-reduced-motion: reduce) { .gtf-laser-motion, .gtf-marquee-motion { animation: none !important; } }
+        `}</style>
+        <div className="relative isolate overflow-hidden rounded-[1.6rem] border border-cyan-300/40 bg-slate-950 text-white shadow-2xl" style={{ animation: 'gtf-neon-pulse 4s ease-in-out infinite' }}>
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-70" style={{ background: 'radial-gradient(ellipse at 10% 0%, rgba(14,165,233,.28), transparent 42%), radial-gradient(ellipse at 90% 100%, rgba(168,85,247,.30), transparent 48%), linear-gradient(120deg, transparent 20%, rgba(34,211,238,.06) 50%, transparent 80%)' }} />
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-[1.6rem] border border-cyan-200/20" />
+          <div aria-hidden="true" className="gtf-laser-motion pointer-events-none absolute -inset-y-12 left-0 z-10 w-24 bg-gradient-to-r from-transparent via-cyan-300/70 to-transparent blur-md" style={{ animation: 'gtf-laser-sweep 5s ease-in-out infinite' }} />
+          <div className="relative px-4 py-5 sm:px-7 sm:py-6 lg:px-9">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="inline-flex items-center gap-2 rounded-full border border-cyan-300/40 bg-cyan-300/10 px-3 py-1 text-[10px] font-black uppercase tracking-[.22em] text-cyan-200">
+                <span className="relative flex h-2 w-2"><span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-fuchsia-300 opacity-80" /><span className="relative inline-flex h-2 w-2 rounded-full bg-cyan-200" /></span>
+                Live discovery · Fresh picks
               </div>
-              <h2 className="text-lg sm:text-xl font-extrabold tracking-tight text-slate-900">New Google learning resources & certificate paths</h2>
-              <p className="mt-1 max-w-3xl text-sm leading-relaxed text-slate-600">Explore Google Skills courses, skill badges and eligible free learning credits. Check each program’s terms before enrolling—some credits or certificates have eligibility requirements.</p>
+              <span className="text-[10px] font-bold uppercase tracking-[.24em] text-slate-400">Google Tool Finder</span>
             </div>
-            <div className="flex shrink-0 flex-wrap gap-2">
-              <button type="button" onClick={() => onNavigate('latest-updates')} className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-700 px-4 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-emerald-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2">
-                <BookOpen className="h-4 w-4" /> See what’s new <ArrowRight className="h-4 w-4" />
-              </button>
-              <button type="button" onClick={() => onNavigate('tutorials')} className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-bold text-slate-700 transition hover:border-blue-300 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                Learning guides
-              </button>
+            <div className="mt-4 grid items-center gap-5 lg:grid-cols-[1fr_auto]">
+              <div className="min-w-0">
+                <h2 className="text-3xl font-black uppercase leading-none tracking-tight sm:text-5xl lg:text-6xl">
+                  <span className="bg-gradient-to-r from-cyan-200 via-white to-fuchsia-300 bg-clip-text text-transparent">What’s New</span>
+                  <span className="ml-2 inline-block text-cyan-300" aria-hidden="true">✦</span>
+                </h2>
+                <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-300 sm:text-base">Fresh Google launches, free learning routes, skill badges and useful guides — all in one place.</p>
+              </div>
+              <div className="flex flex-wrap gap-2 lg:justify-end">
+                <button type="button" onClick={() => onNavigate('latest-updates')} className="inline-flex items-center justify-center gap-2 rounded-xl border border-cyan-200/60 bg-cyan-300 px-4 py-3 text-sm font-extrabold text-slate-950 shadow-lg shadow-cyan-500/20 transition hover:-translate-y-0.5 hover:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-slate-950">
+                  <Sparkles className="h-4 w-4" /> Explore updates <ArrowRight className="h-4 w-4" />
+                </button>
+                <button type="button" onClick={() => onNavigate('tutorials')} className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/5 px-4 py-3 text-sm font-bold text-white transition hover:border-fuchsia-300/60 hover:bg-fuchsia-300/10 focus:outline-none focus:ring-2 focus:ring-fuchsia-300">
+                  <BookOpen className="h-4 w-4" /> Learn free
+                </button>
+              </div>
+            </div>
+            <div className="mt-5 overflow-hidden border-y border-white/10 py-3" aria-label="Highlights">
+              <div className="gtf-marquee-motion flex w-max items-center gap-3" style={{ animation: 'gtf-marquee 28s linear infinite' }}>
+                {[0,1].map(copy => <div key={copy} className="flex shrink-0 items-center gap-3 pr-3">
+                  {[
+                    ['🎓','FREE LEARNING PATHS'],
+                    ['✦','GOOGLE SKILL BADGES'],
+                    ['⚡','NEW AI & CLOUD TOOLS'],
+                    ['◈','STEP-BY-STEP GUIDES'],
+                    ['↗','LATEST PRODUCT UPDATES']
+                  ].map(([icon, label]) => <span key={label} className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[.06] px-3 py-2 text-[10px] font-extrabold tracking-[.12em] text-slate-200 sm:text-xs"><span className="text-cyan-300">{icon}</span>{label}</span>)}
+                </div>)}
+              </div>
+            </div>
+            <div className="mt-3 flex items-center gap-2 text-xs text-slate-400">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,.8)]" />
+              <span>Certificate costs and eligibility vary — check each official program before enrolling.</span>
             </div>
           </div>
         </div>
