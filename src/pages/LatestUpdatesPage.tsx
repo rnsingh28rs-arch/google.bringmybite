@@ -6,7 +6,7 @@ import { UpdateItem } from '../types';
 export const LatestUpdatesPage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
-  const categories = ['all', 'AI Launch', 'Pricing Update', 'New Feature', 'India Offer'];
+  const categories = ['all', 'AI Launch', 'New Feature', 'Free Learning', 'Pricing Update', 'India Offer'];
 
   const filtered = LATEST_UPDATES.filter(u => {
     if (selectedCategory !== 'all' && u.category !== selectedCategory) return false;
