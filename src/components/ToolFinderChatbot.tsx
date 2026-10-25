@@ -92,6 +92,7 @@ export const ToolFinderChatbot: React.FC<ToolFinderChatbotProps> = ({
   }, []);
 
   const quickPrompts = [
+    { label: '🎓 Free certificates & Google Skills', query: 'How can I study for free Google certificates and skill badges? Give me the official links and steps.' },
     { label: '🚀 Free tools to launch a startup', query: 'What are the best 100% free or generous trial Google tools to build and launch a web startup?' },
     { label: '🇮🇳 India cloud offers & credits', query: 'What exclusive promo offers and cloud startup grants are available in India for Google Workspace and GCP?' },
     { label: '🤖 Compare Gemini vs Vertex AI', query: 'Should my business use Gemini Advanced or Vertex AI for automated customer workflows?' },
@@ -162,6 +163,15 @@ export const ToolFinderChatbot: React.FC<ToolFinderChatbotProps> = ({
         "6. **Indian Market Perks**: 13 verified startup grants and cloud bundles.\n\n" +
         "Click any product badge below to view verified specs and official portals.";
       matchedSlugs = ['gemini', 'vertex-ai', 'firebase', 'google-cloud', 'google-workspace', 'looker-studio'];
+    } else if (q.includes('certificate') || q.includes('certification') || q.includes('skill badge') || q.includes('google skills') || q.includes('free course') || q.includes('free learning')) {
+      replyText = "You can start with Google's official learning portals. Here is a practical route:\n\n" +
+        "1. **Browse Google Skills**: https://www.skills.google/ — search for a topic such as AI, data analytics, cloud, or cybersecurity.\n" +
+        "2. **Start a learning path or course** and check the page for cost, prerequisites, and whether a completion badge or certificate is included.\n" +
+        "3. **Earn skill badges** by completing the required hands-on activities and assessments: https://www.skills.google/credentials/skill_badge\n" +
+        "4. **Check learning credits**: some eligible learners may receive credits or access through a program; availability and terms vary. Student information: https://cloud.google.com/edu/students\n" +
+        "5. **Keep proof of completion**: follow the course page instructions to share or add your earned credential to your profile.\n\n" +
+        "Important: not every course is free, and learning credits do not automatically mean a free certificate. Verify the current price and eligibility on the official course page before starting. For recently added resources, open Latest Updates on this site.";
+      matchedSlugs = ['google-cloud', 'google-ai-studio', 'google-colab', 'notebooklm'];
     } else if (q.includes('tutorial') || q.includes('guide') || q.includes('learn') || q.includes('how to')) {
       replyText = "We feature 7 step-by-step engineering tutorials in our Guides section:\n\n" +
         "• **Gemini Flash Quickstart**: Prototyping multimodal workflows in Google AI Studio.\n" +
