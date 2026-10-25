@@ -291,6 +291,19 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
                 <span>Free Tools</span>
               </button>
 
+              {/* What's New — direct, visible navigation */}
+              <button
+                onClick={() => handleNavClick('latest-updates', undefined, true)}
+                className={`relative px-2 xl:px-3 py-1.5 xl:py-2 rounded-lg xl:rounded-xl whitespace-nowrap flex items-center gap-1 transition-all duration-300 cursor-pointer ${
+                  currentView === 'latest-updates'
+                    ? 'text-blue-700 font-bold bg-blue-50 border border-blue-200'
+                    : 'text-blue-700 hover:bg-blue-50'
+                }`}
+              >
+                <Bell className="w-3.5 h-3.5" />
+                <span>What's New</span>
+              </button>
+
               {/* Pricing & Plans */}
               <button
                 onClick={() => {
