@@ -260,6 +260,36 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
   return (
     <div className="space-y-16 sm:space-y-24 pb-16">
 
+      {/* Fresh learning and free-certificate discovery banner */}
+      <section aria-label="New learning resources" className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pt-4">
+        <div className="relative overflow-hidden rounded-2xl border border-emerald-200 bg-gradient-to-r from-emerald-50 via-white to-blue-50 p-4 sm:p-5 shadow-sm">
+          <div className="absolute right-4 top-4 hidden sm:block" aria-hidden="true">
+            <span className="relative flex h-3 w-3">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-60"></span>
+              <span className="relative inline-flex h-3 w-3 rounded-full bg-emerald-600"></span>
+            </span>
+          </div>
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="min-w-0">
+              <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white px-3 py-1 text-[11px] font-extrabold uppercase tracking-wider text-emerald-800">
+                <Sparkles className="h-3.5 w-3.5 animate-pulse" />
+                NEW · Learn for free
+              </div>
+              <h2 className="text-lg sm:text-xl font-extrabold tracking-tight text-slate-900">New Google learning resources & certificate paths</h2>
+              <p className="mt-1 max-w-3xl text-sm leading-relaxed text-slate-600">Explore Google Skills courses, skill badges and eligible free learning credits. Check each program’s terms before enrolling—some credits or certificates have eligibility requirements.</p>
+            </div>
+            <div className="flex shrink-0 flex-wrap gap-2">
+              <button type="button" onClick={() => onNavigate('latest-updates')} className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-700 px-4 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-emerald-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2">
+                <BookOpen className="h-4 w-4" /> See what’s new <ArrowRight className="h-4 w-4" />
+              </button>
+              <button type="button" onClick={() => onNavigate('tutorials')} className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-bold text-slate-700 transition hover:border-blue-300 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                Learning guides
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 1. HERO SECTION (Liquid Glass Design with Fluid Curved Panels) */}
       <section id="hero-section" className="relative pt-6 pb-12 sm:pt-10 sm:pb-16 lg:pt-12 lg:pb-20 border-b border-slate-200/60 overflow-hidden">
 
