@@ -1119,16 +1119,20 @@ export const PRODUCTS: Product[] = [
 ];
 
 export const CATEGORIES: { name: string; icon: string; count: number; description: string }[] = [
-  { name: 'AI & Generative AI', icon: 'Sparkles', count: 4, description: 'Gemini, NotebookLM & next-gen generative models' },
-  { name: 'Productivity & Office', icon: 'FileText', count: 5, description: 'Docs, Sheets, Slides, Forms, Keep' },
-  { name: 'Email & Communication', icon: 'Mail', count: 2, description: 'Gmail and Google Meet conferencing' },
-  { name: 'Cloud Storage & Files', icon: 'HardDrive', count: 1, description: 'Drive file storage & Google One tiers' },
-  { name: 'Search & Research', icon: 'Search', count: 2, description: 'Google Search & Search Console' },
-  { name: 'Developer Tools', icon: 'Code', count: 5, description: 'Android Studio, AI Studio, Antigravity, Firebase, Colab' },
-  { name: 'Cloud Computing', icon: 'Server', count: 2, description: 'Google Cloud Platform (GCP) & BigQuery' },
-  { name: 'Analytics & Marketing', icon: 'BarChart2', count: 3, description: 'GA4, Google Ads, Looker Studio' },
-  { name: 'Monetisation & Ads', icon: 'DollarSign', count: 3, description: 'AdMob, Google Play Billing & IMA video monetization' },
-  { name: 'Maps & Location', icon: 'MapPin', count: 1, description: 'Google Maps and Maps Platform APIs' },
-  { name: 'Photos & Media', icon: 'Image', count: 1, description: 'Google Photos backup & editing tools' },
-  { name: 'Business Tools', icon: 'Briefcase', count: 1, description: 'Google Workspace custom domain solutions' }
-];
+  { name: 'AI & Generative AI', icon: 'Sparkles', count: 0, description: 'Gemini, AI Studio, Vertex AI, model APIs and machine learning' },
+  { name: 'Productivity & Office', icon: 'FileText', count: 0, description: 'Docs, Sheets, Slides, Forms, Calendar and collaboration' },
+  { name: 'Email & Communication', icon: 'Mail', count: 0, description: 'Gmail, Meet and communication services' },
+  { name: 'Cloud Storage & Files', icon: 'HardDrive', count: 0, description: 'Drive, Cloud Storage and file services' },
+  { name: 'Search & Research', icon: 'Search', count: 0, description: 'Google Search, Trends, NotebookLM and research tools' },
+  { name: 'Developer Tools', icon: 'Code', count: 0, description: 'Firebase, Android Studio, APIs, SDKs and developer services' },
+  { name: 'Cloud Computing', icon: 'Server', count: 0, description: 'Cloud Console, compute, networking, databases and operations' },
+  { name: 'Analytics & Marketing', icon: 'BarChart2', count: 0, description: 'BigQuery, data pipelines, dashboards, GA4 and measurement' },
+  { name: 'Monetisation & Ads', icon: 'DollarSign', count: 0, description: 'AdMob, AdSense, Ad Manager and advertising services' },
+  { name: 'Maps & Location', icon: 'MapPin', count: 0, description: 'Maps Platform and geospatial tools' },
+  { name: 'Photos & Media', icon: 'Image', count: 0, description: 'Photos, media and content tools' },
+  { name: 'Business Tools', icon: 'Briefcase', count: 0, description: 'Workspace, AppSheet and business services' },
+  { name: 'Security & Account', icon: 'ShieldCheck', count: 0, description: 'Identity, IAM, secrets and cloud security services' },
+].map(category => ({
+  ...category,
+  count: PRODUCTS.filter(product => product.category === category.name).length
+}));
