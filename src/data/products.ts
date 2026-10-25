@@ -1114,7 +1114,7 @@ export const PRODUCTS: Product[] = [
     iconName: 'Cpu',
     relatedProductSlugs: ['firebase', 'google-play-billing', 'google-admob'],
     relatedTutorialSlugs: ['getting-started-with-gemini']
-  }
+  },
   ...GOOGLE_CLOUD_PRODUCTS.filter(product => !['firebase', 'android-studio', 'google-search-console'].includes(product.slug)),
 ];
 
