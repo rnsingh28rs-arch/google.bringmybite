@@ -1,3 +1,4 @@
+// Deployment verification: this change intentionally does not alter runtime behavior.
 interface ImportMetaEnv {
   readonly BASE_URL: string;
   readonly MODE: string;
