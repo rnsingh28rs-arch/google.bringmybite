@@ -378,5 +378,338 @@ export const TUTORIALS: Tutorial[] = [
         ]
       }
     ]
+  },
+  {
+    "id": "google-cloud-data-science-roadmap",
+    "slug": "google-cloud-data-science-roadmap",
+    "title": "Google Cloud Data Science Roadmap: From SQL to Machine Learning",
+    "subtitle": "A practical learning route using BigQuery, Python notebooks, analytics, and machine learning on Google Cloud.",
+    "category": "Data Science & Analytics",
+    "readingTimeMinutes": 12,
+    "difficulty": "Beginner",
+    "lastUpdated": "October 2026",
+    "relatedProductSlug": "bigquery",
+    "summary": "Follow a staged data-science path: learn SQL, explore public datasets in BigQuery, analyze with notebooks, visualize results, and then study machine learning. This is a curated roadmap, not a claim that every linked course is free.",
+    "keyTakeaways": [
+      "Start with SQL and data analysis before jumping into model training.",
+      "Use BigQuery public datasets for hands-on analytics practice; query costs and quotas still apply.",
+      "Use Colab or Colab Enterprise for Python notebook practice.",
+      "Study model concepts before moving into Vertex AI or BigQuery ML."
+    ],
+    "officialDocUrl": "https://www.skills.google/"
+  },
+  {
+    "id": "bigquery-sql-for-data-analysis",
+    "slug": "bigquery-sql-for-data-analysis",
+    "title": "BigQuery SQL: Query Public Datasets and Analyze Data",
+    "subtitle": "Learn tables, SELECT, filtering, joins, aggregation, window functions, and exploratory analysis.",
+    "category": "Data Science & Analytics",
+    "readingTimeMinutes": 10,
+    "difficulty": "Beginner",
+    "lastUpdated": "October 2026",
+    "relatedProductSlug": "bigquery",
+    "summary": "A hands-on starter guide for learning analytics SQL in BigQuery. Start in the Google Cloud console, choose a public dataset, write read-only queries, and inspect the results before building dashboards.",
+    "keyTakeaways": [
+      "Practice SELECT, WHERE, GROUP BY, JOIN, and window functions.",
+      "Estimate bytes processed and use query limits to avoid unexpected charges.",
+      "Keep projects, datasets, and permissions organized.",
+      "Official BigQuery learning labs and course availability may change."
+    ],
+    "officialDocUrl": "https://cloud.google.com/bigquery/docs/introduction-sql"
+  },
+  {
+    "id": "google-cloud-data-analytics-learning-path",
+    "slug": "google-cloud-data-analytics-learning-path",
+    "title": "Google Cloud Data Analytics Learning Path",
+    "subtitle": "Find official courses and hands-on labs for data engineering, analytics, and BigQuery.",
+    "category": "Data Science & Analytics",
+    "readingTimeMinutes": 8,
+    "difficulty": "Beginner",
+    "lastUpdated": "October 2026",
+    "relatedProductSlug": "google-cloud-platform",
+    "summary": "Use Google Skills to browse the current data analytics learning paths, courses, and hands-on labs. Check each item for its enrollment conditions, skill badge requirements, and any credit or subscription requirements.",
+    "keyTakeaways": [
+      "Search the official catalog for BigQuery, data analytics, data engineering, and SQL.",
+      "Read course prerequisites and lab requirements before starting.",
+      "Track completions and badges in the Google Skills account.",
+      "Do not assume every lab or credential is free."
+    ],
+    "officialDocUrl": "https://www.skills.google/"
+  },
+  {
+    "id": "google-cloud-data-engineering",
+    "slug": "google-cloud-data-engineering",
+    "title": "Data Engineering Foundations with Google Cloud",
+    "subtitle": "Understand data ingestion, transformation, orchestration, and analytical storage.",
+    "category": "Data Science & Analytics",
+    "readingTimeMinutes": 11,
+    "difficulty": "Intermediate",
+    "lastUpdated": "October 2026",
+    "relatedProductSlug": "bigquery",
+    "summary": "A guided overview of data engineering concepts using BigQuery, Pub/Sub, Dataflow, Dataform, and workflow orchestration. Use official learning paths for practical labs.",
+    "keyTakeaways": [
+      "Separate ingestion, transformation, storage, and serving layers.",
+      "Learn batch versus streaming data processing.",
+      "Understand SQL transformation testing and workflow orchestration.",
+      "Use the official catalog to find current labs for each service."
+    ],
+    "officialDocUrl": "https://www.skills.google/"
+  },
+  {
+    "id": "bigquery-ml-intro",
+    "slug": "bigquery-ml-intro",
+    "title": "Introduction to BigQuery ML",
+    "subtitle": "Learn how SQL can create, evaluate, and use machine-learning models inside BigQuery.",
+    "category": "Data Science & Analytics",
+    "readingTimeMinutes": 9,
+    "difficulty": "Intermediate",
+    "lastUpdated": "October 2026",
+    "relatedProductSlug": "bigquery",
+    "summary": "Explore the BigQuery ML workflow: prepare data, create a model with SQL, evaluate metrics, make predictions, and understand supported model types and constraints.",
+    "keyTakeaways": [
+      "Prepare clean, representative training data.",
+      "Split training and evaluation data appropriately.",
+      "Evaluate model metrics before using predictions.",
+      "Check model type, regional availability, quotas, and pricing."
+    ],
+    "officialDocUrl": "https://cloud.google.com/bigquery/docs/bqml-introduction"
+  },
+  {
+    "id": "colab-python-data-science",
+    "slug": "colab-python-data-science",
+    "title": "Python for Data Science with Google Colab",
+    "subtitle": "Practice Python notebooks, pandas, charts, and reproducible analysis in the browser.",
+    "category": "Data Science & Analytics",
+    "readingTimeMinutes": 10,
+    "difficulty": "Beginner",
+    "lastUpdated": "October 2026",
+    "relatedProductSlug": "google-colab",
+    "summary": "Use Colab notebooks to learn Python fundamentals, load CSV files, clean data with pandas, visualize distributions, and share reproducible work. Avoid uploading confidential datasets to public notebooks.",
+    "keyTakeaways": [
+      "Learn variables, functions, lists, and dictionaries.",
+      "Use pandas for data cleaning and aggregation.",
+      "Visualize results with Matplotlib.",
+      "Save notebook versions and document assumptions."
+    ],
+    "officialDocUrl": "https://colab.research.google.com/"
+  },
+  {
+    "id": "looker-studio-data-visualization",
+    "slug": "looker-studio-data-visualization",
+    "title": "Build Data Dashboards with Looker Studio",
+    "subtitle": "Turn reports and datasets into shareable charts, filters, and dashboards.",
+    "category": "Data Science & Analytics",
+    "readingTimeMinutes": 8,
+    "difficulty": "Beginner",
+    "lastUpdated": "October 2026",
+    "relatedProductSlug": "looker-studio",
+    "summary": "Learn to connect a supported data source, select meaningful metrics, build charts and controls, and share a dashboard with appropriate access permissions.",
+    "keyTakeaways": [
+      "Define the audience and business question first.",
+      "Choose chart types that fit the data and comparison.",
+      "Validate filters, date ranges, and calculated fields.",
+      "Review sharing permissions before publishing."
+    ],
+    "officialDocUrl": "https://lookerstudio.google.com/"
+  },
+  {
+    "id": "vertex-ai-ml-foundations",
+    "slug": "vertex-ai-ml-foundations",
+    "title": "Machine Learning Foundations with Vertex AI",
+    "subtitle": "Understand training, evaluation, deployment, and monitoring of ML models.",
+    "category": "AI & Generative AI",
+    "readingTimeMinutes": 10,
+    "difficulty": "Intermediate",
+    "lastUpdated": "October 2026",
+    "relatedProductSlug": "vertex-ai",
+    "summary": "A conceptual route through Vertex AI for learners who already understand data preparation and basic model evaluation. Use official labs to practice with supported services and datasets.",
+    "keyTakeaways": [
+      "Define the prediction target and baseline first.",
+      "Separate training, validation, and test data.",
+      "Track experiments and evaluate model quality.",
+      "Check service availability and cost before deploying endpoints."
+    ],
+    "officialDocUrl": "https://cloud.google.com/vertex-ai/docs"
+  },
+  {
+    "id": "google-cloud-free-learning-resources",
+    "slug": "google-cloud-free-learning-resources",
+    "title": "Find Free Google Cloud Courses, Labs, and Skill Badges",
+    "subtitle": "How to filter official learning resources and verify whether enrollment or lab access costs money.",
+    "category": "Learning & Certifications",
+    "readingTimeMinutes": 7,
+    "difficulty": "Beginner",
+    "lastUpdated": "October 2026",
+    "summary": "Browse Google Skills for courses, labs, and credentials. Some resources may be free while others require credits, a subscription, event access, or other eligibility. Check the individual course page before starting.",
+    "keyTakeaways": [
+      "Start at the official Google Skills catalog.",
+      "Filter by topic such as cloud, data analytics, AI, and security.",
+      "Check whether hands-on labs require credits or a subscription.",
+      "Skill badges and professional certifications are different credentials."
+    ],
+    "officialDocUrl": "https://www.skills.google/"
+  },
+  {
+    "id": "google-cloud-certification-guide",
+    "slug": "google-cloud-certification-guide",
+    "title": "Google Cloud Certifications: Choose the Right Track",
+    "subtitle": "Compare foundational, associate, and professional paths before committing to exam preparation.",
+    "category": "Learning & Certifications",
+    "readingTimeMinutes": 8,
+    "difficulty": "Beginner",
+    "lastUpdated": "October 2026",
+    "summary": "Use Google's official certification pages to understand exam objectives, recommended experience, registration, and current prices. A course completion or skill badge is not the same as passing a certification exam.",
+    "keyTakeaways": [
+      "Choose a role-aligned certification path.",
+      "Read the current exam guide and prerequisites.",
+      "Build hands-on experience alongside study.",
+      "Verify exam fees, languages, delivery options, and validity."
+    ],
+    "officialDocUrl": "https://cloud.google.com/learn/certification"
+  },
+  {
+    "id": "google-data-analytics-certificate-guide",
+    "slug": "google-data-analytics-certificate-guide",
+    "title": "Google Data Analytics Professional Certificate: How to Start",
+    "subtitle": "Understand the beginner-friendly analytics curriculum and where to enroll.",
+    "category": "Learning & Certifications",
+    "readingTimeMinutes": 7,
+    "difficulty": "Beginner",
+    "lastUpdated": "October 2026",
+    "summary": "Google's Data Analytics Professional Certificate is offered through Coursera. Review the current enrollment, trial, financial aid, and subscription terms on Coursera before assuming it is free.",
+    "keyTakeaways": [
+      "The curriculum focuses on analytics foundations, spreadsheets, SQL, visualization, and a case study.",
+      "Course access and certificate completion can depend on Coursera's current payment terms.",
+      "Financial aid availability and eligibility should be checked directly.",
+      "Build a portfolio project to demonstrate skills beyond the certificate."
+    ],
+    "officialDocUrl": "https://www.coursera.org/professional-certificates/google-data-analytics"
+  },
+  {
+    "id": "google-advanced-data-analytics-certificate-guide",
+    "slug": "google-advanced-data-analytics-certificate-guide",
+    "title": "Google Advanced Data Analytics Certificate: Study Guide",
+    "subtitle": "A next step for learners ready for statistics, regression, Python, and machine learning concepts.",
+    "category": "Learning & Certifications",
+    "readingTimeMinutes": 7,
+    "difficulty": "Intermediate",
+    "lastUpdated": "October 2026",
+    "summary": "Review the Google Advanced Data Analytics Professional Certificate on Coursera for its current syllabus and access terms. It is intended as a follow-on for learners with foundational analytics knowledge.",
+    "keyTakeaways": [
+      "Strengthen Python and statistical reasoning before starting.",
+      "Practice regression, hypothesis testing, and model evaluation.",
+      "Use projects to explain assumptions and limitations.",
+      "Check current Coursera subscription and financial-aid terms."
+    ],
+    "officialDocUrl": "https://www.coursera.org/professional-certificates/google-advanced-data-analytics"
+  },
+  {
+    "id": "google-business-intelligence-certificate-guide",
+    "slug": "google-business-intelligence-certificate-guide",
+    "title": "Google Business Intelligence Certificate: Learning Route",
+    "subtitle": "Explore data modeling, pipelines, dashboards, and BI workflows.",
+    "category": "Learning & Certifications",
+    "readingTimeMinutes": 7,
+    "difficulty": "Intermediate",
+    "lastUpdated": "October 2026",
+    "summary": "Google's Business Intelligence Professional Certificate is listed on Coursera. Review its current syllabus and access terms; use Looker Studio and SQL projects to reinforce the concepts.",
+    "keyTakeaways": [
+      "Learn data modeling and the difference between reporting and analysis.",
+      "Practice dashboard design with clear metrics.",
+      "Understand pipelines and data quality.",
+      "Verify current enrollment and certificate costs."
+    ],
+    "officialDocUrl": "https://www.coursera.org/professional-certificates/google-business-intelligence"
+  },
+  {
+    "id": "google-cybersecurity-certificate-guide",
+    "slug": "google-cybersecurity-certificate-guide",
+    "title": "Google Cybersecurity Certificate: Getting Started",
+    "subtitle": "Explore entry-level cybersecurity foundations and practical study expectations.",
+    "category": "Learning & Certifications",
+    "readingTimeMinutes": 6,
+    "difficulty": "Beginner",
+    "lastUpdated": "October 2026",
+    "summary": "Review the Google Cybersecurity Professional Certificate on Coursera and its current enrollment terms. Use the official syllabus to plan security fundamentals, Linux, SQL, Python, and incident-response study.",
+    "keyTakeaways": [
+      "Check the current curriculum and prerequisites.",
+      "Practice in authorized lab environments only.",
+      "Keep notes on security concepts and investigation workflows.",
+      "Check Coursera's current price and financial-aid options."
+    ],
+    "officialDocUrl": "https://www.coursera.org/professional-certificates/google-cybersecurity"
+  },
+  {
+    "id": "google-it-support-certificate-guide",
+    "slug": "google-it-support-certificate-guide",
+    "title": "Google IT Support Certificate: Beginner Roadmap",
+    "subtitle": "Plan a foundational path through troubleshooting, networking, operating systems, and security.",
+    "category": "Learning & Certifications",
+    "readingTimeMinutes": 6,
+    "difficulty": "Beginner",
+    "lastUpdated": "October 2026",
+    "summary": "The Google IT Support Professional Certificate is offered through Coursera. Review current enrollment and certificate terms on the official page before planning your study schedule.",
+    "keyTakeaways": [
+      "Study hardware, operating systems, networking, and system administration.",
+      "Practice troubleshooting with a documented process.",
+      "Learn basic security and customer support workflows.",
+      "Verify enrollment, payment, and financial-aid conditions."
+    ],
+    "officialDocUrl": "https://www.coursera.org/professional-certificates/google-it-support"
+  },
+  {
+    "id": "google-project-management-certificate-guide",
+    "slug": "google-project-management-certificate-guide",
+    "title": "Google Project Management Certificate: Study Overview",
+    "subtitle": "Explore project planning, stakeholder communication, agile methods, and delivery practices.",
+    "category": "Learning & Certifications",
+    "readingTimeMinutes": 6,
+    "difficulty": "Beginner",
+    "lastUpdated": "October 2026",
+    "summary": "Review the Google Project Management Professional Certificate on Coursera for current modules, duration estimates, and access terms.",
+    "keyTakeaways": [
+      "Practice scope, milestones, risks, and stakeholder plans.",
+      "Compare predictive and agile approaches.",
+      "Use a small project to apply the course concepts.",
+      "Check current enrollment and certificate payment terms."
+    ],
+    "officialDocUrl": "https://www.coursera.org/professional-certificates/google-project-management"
+  },
+  {
+    "id": "google-ux-design-certificate-guide",
+    "slug": "google-ux-design-certificate-guide",
+    "title": "Google UX Design Certificate: Portfolio Roadmap",
+    "subtitle": "Plan a learning path through user research, wireframes, prototypes, and usability testing.",
+    "category": "Learning & Certifications",
+    "readingTimeMinutes": 6,
+    "difficulty": "Beginner",
+    "lastUpdated": "October 2026",
+    "summary": "Review the Google UX Design Professional Certificate on Coursera for current modules and enrollment terms. Pair the course with a documented portfolio case study.",
+    "keyTakeaways": [
+      "Learn research and problem framing before designing screens.",
+      "Build wireframes and interactive prototypes.",
+      "Run usability tests and explain iterations.",
+      "Check current Coursera fees and financial-aid eligibility."
+    ],
+    "officialDocUrl": "https://www.coursera.org/professional-certificates/google-ux-design"
+  },
+  {
+    "id": "google-ai-essentials-guide",
+    "slug": "google-ai-essentials-guide",
+    "title": "Google AI Essentials: Practical AI Skills",
+    "subtitle": "Learn prompting and responsible AI use through Google's introductory AI course.",
+    "category": "Learning & Certifications",
+    "readingTimeMinutes": 6,
+    "difficulty": "Beginner",
+    "lastUpdated": "October 2026",
+    "summary": "Review Google's AI Essentials course listing and current enrollment conditions. Course access, promotions, and certificate eligibility can change by region and provider.",
+    "keyTakeaways": [
+      "Practice clear prompts with context and constraints.",
+      "Verify AI-generated claims before relying on them.",
+      "Protect sensitive information when using AI tools.",
+      "Check the course provider's current access and payment terms."
+    ],
+    "officialDocUrl": "https://www.coursera.org/learn/google-ai-essentials"
   }
+
 ];
