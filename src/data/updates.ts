@@ -80,5 +80,85 @@ export const LATEST_UPDATES: UpdateItem[] = [
     summary: 'Workspace pricing and introductory promotions can change by plan, billing commitment and eligibility. This directory links to the official pricing page rather than promising a fixed promotional price without a current offer.',
     impact: 'Visitors can confirm the current price and terms for their account and region before subscribing.',
     officialSourceUrl: 'https://workspace.google.com/pricing'
+  },
+  {
+    id: "litert-play-services-gpu-oct-2026",
+    date: "28 October 2026",
+    title: "LiteRT in Google Play services adds a faster GPU inference path",
+    category: "New Feature",
+    productName: "LiteRT",
+    summary: "Google's Android and AI Edge teams announced a CompiledModel API path using ML Drift for GPU inference in LiteRT in Google Play services. Google reports around 1.4× faster GPU inference than the legacy GPU delegate in its testing and about 8 MB smaller apps when the runtime is supplied through Play services rather than bundled.",
+    impact: "Android developers shipping on-device ML should compare the CompiledModel API and Play services option against their current runtime, while validating device compatibility and their own benchmarks.",
+    officialSourceUrl: "https://developers.googleblog.com/en/smaller-apps-and-faster-gpu-inference-with-litert-in-google-play-services/"
+  },
+  {
+    id: "litertjs-web-jul-2026",
+    date: "9 July 2026",
+    title: "LiteRT.js brings high-performance on-device AI inference to web apps",
+    category: "New Feature",
+    productName: "LiteRT.js",
+    summary: "Google announced LiteRT.js, a JavaScript binding that brings LiteRT model inference into web browsers using WebAssembly, aimed at local execution, low latency and reduced dependence on server inference. Compatibility and model support should be checked in the official documentation.",
+    impact: "Web developers can evaluate local inference for privacy-sensitive or latency-sensitive experiences and compare it with existing TensorFlow.js workflows.",
+    officialSourceUrl: "https://developers.googleblog.com/litertjs-googles-high-performance-web-ai-inference/"
+  },
+  {
+    id: "tensorflow-221-mar-2026",
+    date: "6 March 2026",
+    title: "TensorFlow 2.21 updates the framework and on-device AI ecosystem",
+    category: "New Feature",
+    productName: "TensorFlow",
+    summary: "The TensorFlow 2.21 announcement highlights ecosystem updates including LiteRT's role as the successor to TensorFlow Lite, broader hardware acceleration support and improved maintenance of dependencies and security updates.",
+    impact: "Teams maintaining TensorFlow or TensorFlow Lite projects should review the release notes and migration guidance before changing production runtimes.",
+    officialSourceUrl: "https://developers.googleblog.com/en/search/?query=TensorFlow%202.21"
+  },
+  {
+    id: "developer-knowledge-api-mcp-feb-2026",
+    date: "4 February 2026",
+    title: "Developer Knowledge API and MCP Server offer machine-readable Google documentation",
+    category: "New Feature",
+    productName: "Google Developer Knowledge API",
+    summary: "Google introduced a public-preview API and MCP server to help AI assistants and agent platforms search and retrieve documentation across Firebase, Google Cloud, Android and other Google developer areas.",
+    impact: "Developers building coding assistants can evaluate it as a documentation retrieval source, while checking preview limits and current API access requirements.",
+    officialSourceUrl: "https://developers.googleblog.com/en/introducing-the-developer-knowledge-api-and-mcp-server/"
+  },
+  {
+    id: "gemini-cli-subagents-apr-2026",
+    date: "15 April 2026",
+    title: "Gemini CLI adds subagents for parallel, specialized development work",
+    category: "New Feature",
+    productName: "Gemini CLI",
+    summary: "Google's Gemini CLI update introduces configurable specialized agents that can work in isolated context windows and be delegated tasks through the CLI's agent workflow.",
+    impact: "Developers can split complex work into bounded sub-tasks, but should still review generated changes, tool permissions and test results.",
+    officialSourceUrl: "https://developers.googleblog.com/en/search/?query=subagents%20Gemini%20CLI"
+  },
+  {
+    id: "gemma4-apr-2026",
+    date: "2 April 2026",
+    title: "Gemma 4 expands open models for agentic and on-device AI",
+    category: "AI Launch",
+    productName: "Gemma",
+    summary: "Google DeepMind announced Gemma 4, an open model family focused on stronger reasoning and agentic workflows, with deployment options including Google AI Edge Gallery and LiteRT-LM. Hardware, model-size and license details vary by model.",
+    impact: "Developers can explore local or self-managed model deployment, but should review the specific model card and license before commercial use.",
+    officialSourceUrl: "https://developers.googleblog.com/en/search/?query=Gemma%204"
+  },
+  {
+    id: "embeddinggemma2-oct-2026",
+    date: "6 October 2026",
+    title: "EmbeddingGemma 2 targets multimodal retrieval on edge devices",
+    category: "AI Launch",
+    productName: "EmbeddingGemma 2",
+    summary: "Google announced an open-weight 740M-parameter multimodal embedding model intended to map text, images, video and audio into a shared vector space for retrieval workflows. Deployment options include MediaPipe Tasks and LiteRT.",
+    impact: "Teams building local semantic search can evaluate it for media retrieval and intent routing, subject to model-card, device and license requirements.",
+    officialSourceUrl: "https://developers.googleblog.com/en/search/?query=EmbeddingGemma%202"
+  },
+  {
+    id: "functiongemma-edge-feb-2026",
+    date: "26 February 2026",
+    title: "FunctionGemma brings lightweight function calling to on-device AI",
+    category: "AI Launch",
+    productName: "FunctionGemma",
+    summary: "Google introduced FunctionGemma, a 270M-parameter model tuned for action-oriented function calling on devices, with examples in Google AI Edge Gallery and LiteRT-LM.",
+    impact: "Useful for developers exploring small, local assistants that trigger defined app actions; tool execution must still be permissioned and validated by the host application.",
+    officialSourceUrl: "https://developers.googleblog.com/en/search/?query=FunctionGemma"
   }
 ];
