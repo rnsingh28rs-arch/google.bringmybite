@@ -160,5 +160,35 @@ export const LATEST_UPDATES: UpdateItem[] = [
     summary: "Google introduced FunctionGemma, a 270M-parameter model tuned for action-oriented function calling on devices, with examples in Google AI Edge Gallery and LiteRT-LM.",
     impact: "Useful for developers exploring small, local assistants that trigger defined app actions; tool execution must still be permissioned and validated by the host application.",
     officialSourceUrl: "https://developers.googleblog.com/en/search/?query=FunctionGemma"
+  },
+  {
+    id: "litert-tensor-api-oct-2026",
+    date: "19 October 2026",
+    title: "LiteRT Tensor API adds native C++ model-graph authoring for edge AI",
+    category: "New Feature",
+    productName: "LiteRT Tensor API",
+    summary: "Google AI Edge introduced the LiteRT Tensor API to give developers native C++ control over model graphs and help unify machine-learning computations across heterogeneous edge hardware.",
+    impact: "Edge developers can review the API for custom compute pipelines and verify hardware, operator and runtime support before adopting it.",
+    officialSourceUrl: "https://developers.googleblog.com/en/search/?query=LiteRT%20Tensor%20API"
+  },
+  {
+    id: "antigravity-local-models-sep-2026",
+    date: "23 September 2026",
+    title: "Antigravity SDK adds support for local AI models",
+    category: "New Feature",
+    productName: "Google Antigravity SDK",
+    summary: "Google described support for running local models, including Gemma 4 variants through LiteRT, to enable hybrid workflows where cloud agents coordinate with local inference.",
+    impact: "Developers can evaluate privacy-sensitive or offline model execution, while benchmarking device resources and reviewing the SDK's current setup requirements.",
+    officialSourceUrl: "https://developers.googleblog.com/en/search/?query=Antigravity%20SDK"
+  },
+  {
+    id: "antigravity-cli-io-2026",
+    date: "19 May 2026",
+    title: "Google introduces Antigravity CLI for agent-first terminal workflows",
+    category: "AI Launch",
+    productName: "Antigravity CLI",
+    summary: "At Google I/O, Google presented Antigravity CLI as a terminal-oriented surface for creating and orchestrating agents as part of its agent-first developer platform. Product availability and migration guidance should be checked in current official documentation.",
+    impact: "Teams using older Gemini CLI workflows should review Google's current transition guidance before starting a new setup.",
+    officialSourceUrl: "https://developers.googleblog.com/en/search/?query=Antigravity%20CLI"
   }
 ];
