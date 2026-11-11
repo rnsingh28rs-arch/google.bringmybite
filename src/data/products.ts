@@ -89,13 +89,17 @@ export const PRODUCTS: Product[] = [
     name: 'Google AI Studio',
     category: 'Developer Tools',
     tagline: 'The fastest, web-based prototyping environment for developer access to Gemini API',
-    summary: 'Google AI Studio is a developer workbench to prototype prompts, experiment with multimodal capabilities, configure system instructions, and generate production code snippets in Python, TypeScript/JavaScript, cURL, and Swift.',
+    summary: 'Google AI Studio is the developer workbench for prototyping Gemini API apps, testing multimodal models, exporting code, and building Maps-powered applications. Gemini 4 Carbon is now available to paying API developers; free-tier access remains model-specific.',
     description: [
       'AI Studio provides direct access to Google’s latest Gemini Flash and Gemini Pro models with up to a 2-million-token context window.',
-      'Developers can test temperature, Top-P, Safety settings, structured JSON outputs, function calling, and system instructions before getting an API key and exporting to production code.'
+      'Developers can test temperature, Top-P, safety settings, structured JSON outputs, function calling, and system instructions before exporting production code.',
+      'Gemini 4 Carbon (gemini-4-carbon) is available through the paid Gemini API tier in AI Studio. Introductory pricing is $2 per million input tokens and $10 per million output tokens through 30 November 2026; Google lists $4/$20 from 1 December 2026. The free tier does not include Carbon.',
+      'AI Studio can configure Maps, Places and Routes for prompt-built prototypes using a demo key with 100 calls/day per API; a linked Cloud billing account is required for production quotas.'
     ],
     keyFeatures: [
-      'Free tier for developers with generous rate limits per minute',
+      'Model-specific free tier with published RPM, TPM and RPD limits',
+      'Paid Gemini 4 Carbon model access with published token pricing',
+      'Prompt-built Maps, Places and Routes prototypes with 100 demo calls/day per API',
       'Massive multimodal context: upload hours of audio, video, PDFs, or whole codebases',
       'Structured JSON schema enforcement and Function Calling testing UI',
       'Instant code export into @google/genai SDK for Python, Node.js, and REST',
@@ -112,11 +116,11 @@ export const PRODUCTS: Product[] = [
     pricingStatus: 'free_tier',
     pricingOverview: 'Free tier available with rate limits; Pay-As-You-Go billing via Google Cloud project.',
     verifiedPricingInINR: 'Free tier with rate limits (RPM/TPM). Pay-as-you-go billing billed in INR via Google Cloud Platform billing accounts.',
-    verifiedPricingInUSD: 'Free tier available (prompts used to improve Google products on free tier); Paid tier billed per 1M tokens (Flash ~$0.075 / 1M input tokens).',
-    pricingNotes: 'Developers can use the free tier without adding credit card in countries where free quota is enabled.',
+    verifiedPricingInUSD: 'Free tier available for eligible models. Gemini 4 Carbon paid API introductory pricing: $2/1M input and $10/1M output tokens through 30 Nov 2026; $4/$20 from 1 Dec 2026.',
+    pricingNotes: 'Free quotas are model-specific and shown in AI Studio Rate Limits. Free-tier prompts may be used to improve Google products; paid-tier content is not. Gemini 4 Carbon is paid-tier only. Maps demo key is limited to 100 calls/day per API and is not a production key.',
     officialUrl: 'https://aistudio.google.com',
-    officialPricingUrl: 'https://ai.google.dev/pricing',
-    lastVerifiedDate: 'October 2026',
+    officialPricingUrl: 'https://ai.google.dev/gemini-api/docs/pricing',
+    lastVerifiedDate: '11 November 2026',
     isPopular: true,
     isFeaturedAI: true,
     iconName: 'Code',
@@ -129,7 +133,7 @@ export const PRODUCTS: Product[] = [
     name: 'Google Antigravity',
     category: 'Developer Tools',
     tagline: 'Advanced agentic AI development environment and autonomous coding workflows',
-    summary: 'Google Antigravity is Google’s agentic framework and developer workspace designed for autonomous multi-step reasoning, tool execution, and end-to-end full-stack software development workflows.',
+    summary: 'Google Antigravity is Google’s agentic developer workspace for autonomous multi-step reasoning, tool execution and full-stack software development. Google is previewing /swarm, a coordinated multi-agent workflow, and Gemini 4 Carbon is available to eligible AI Ultra subscribers and paid API developers.'
     description: [
       'Antigravity represents Google’s forward-looking agentic developer platform, combining multimodal Gemini intelligence with persistent execution sandboxes, tool integration, and verified code delivery.',
       'It empowers developers to delegate multi-file architectural refactoring, automated testing, and cloud infrastructure deployment.'
@@ -138,7 +142,9 @@ export const PRODUCTS: Product[] = [
       'Autonomous agent execution with chain-of-thought verification',
       'Deep integration with developer tools and cloud deployment environments',
       'Native tool orchestration (compiler, linter, bash runtime, git)',
-      'Secure sandboxed workspace execution for safe code evaluation'
+      'Secure sandboxed workspace execution for safe code evaluation',
+      'Preview /swarm feature coordinates multiple agents with roles for architecture, implementation and auditing',
+      'Gemini 4 Carbon is rolling out to Google AI Ultra subscribers; developer API access is paid-tier'
     ],
     typicalUseCases: [
       'Automated bug triage, regression debugging, and unit test generation',
@@ -154,7 +160,7 @@ export const PRODUCTS: Product[] = [
     pricingNotes: 'Access rules and rollout availability vary by developer region.',
     officialUrl: 'https://deepmind.google/technologies/gemini',
     officialPricingUrl: 'https://ai.google.dev',
-    lastVerifiedDate: 'October 2026',
+    lastVerifiedDate: '11 November 2026',
     isPopular: false,
     isFeaturedAI: true,
     iconName: 'Cpu',
