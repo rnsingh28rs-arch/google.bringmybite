@@ -69,6 +69,23 @@ export async function saveGmailConnection(accountEmail: string, refreshToken: st
 }
 
 export async function disconnectGmail(): Promise<void> {
+  const row = await getStoredConnection();
+  if (row) {
+    try {
+      const clientId = process.env.GMAIL_OAUTH_CLIENT_ID || process.env.GOOGLE_CLIENT_ID || '';
+      const clientSecret = process.env.GMAIL_OAUTH_CLIENT_SECRET || '';
+      const refreshToken = decryptGmailSecret(row.encrypted_refresh_token);
+      if (clientId && clientSecret) {
+        await fetch('https://oauth2.googleapis.com/revoke', {
+          method:'POST',
+          headers:{'Content-Type':'application/x-www-form-urlencoded'},
+          body:new URLSearchParams({token:refreshToken}).toString()
+        });
+      }
+    } catch (error) {
+      console.warn('[Gmail revoke notice]', error);
+    }
+  }
   const supabase = requireServiceRoleClient();
   const { error } = await supabase.from('gtf_integrations').delete().eq('key', 'gmail_oauth');
   if (error) throw new Error('GMAIL_STORAGE_ERROR: ' + error.message);
