@@ -122,6 +122,10 @@
   <url><loc>https://google.bringmybite.com/products/openrouter</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://google.bringmybite.com/products/groqcloud</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
 
+  <!-- Developer AI APIs -->
+  <url><loc>https://google.bringmybite.com/products/openai-api</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://google.bringmybite.com/products/anthropic-api</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+
   <!-- Tutorial Detail Pages (7 Guides) -->
   <url><loc>https://google.bringmybite.com/tutorials/getting-started-with-gemini</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
   <url><loc>https://google.bringmybite.com/tutorials/using-notebooklm</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
