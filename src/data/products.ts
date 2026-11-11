@@ -853,16 +853,16 @@ export const PRODUCTS: Product[] = [
     id: 'bigquery',
     slug: 'bigquery',
     name: 'BigQuery',
-    category: 'Cloud Computing',
+    category: 'Databases',
     tagline: 'Serverless, cost-effective enterprise data warehouse with built-in ML and SQL analytics',
     summary: 'Google BigQuery is a serverless, multi-cloud enterprise data warehouse designed for lightning-fast SQL queries across petabytes of data.',
     description: [
       'BigQuery separates storage from compute, allowing queries to scale dynamically without database administration or indexing overhead.',
-      'Its BigQuery Sandbox provides 1 TB of free query data processing and 10 GB of free storage every month without requiring a credit card.'
+      'The free usage tier includes 10 GiB of storage and 1 TiB of on-demand query processing per month. The no-billing Sandbox has a lifetime 10 GiB storage allowance, and sandbox tables expire after 60 days.'
     ],
     keyFeatures: [
       'Serverless architecture: query terabytes in seconds without provisioning clusters',
-      'BigQuery Sandbox: 10 GB storage and 1 TB query analysis free every month',
+      'Free usage tier: 10 GiB storage and 1 TiB query processing per month; Sandbox has a lifetime 10 GiB storage allowance',
       'BigQuery ML: train and execute machine learning models directly using standard SQL syntax',
       'Native connectors for Looker Studio, Google Sheets, and Python data science'
     ],
