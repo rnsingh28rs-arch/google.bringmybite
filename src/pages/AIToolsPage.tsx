@@ -28,15 +28,15 @@ export const AIToolsPage: React.FC<AIToolsPageProps> = ({ onSelectProduct, onNav
             <div className="w-5 h-5 rounded-md glass-icon-violet flex items-center justify-center text-violet-300">
               <Sparkles className="w-3.5 h-3.5" />
             </div>
-            <span>Gemini Intelligence Ecosystem</span>
+            <span>AI Models & Provider Ecosystem</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
-            Google AI & Machine Learning Tools
+            AI Tools & Model Platforms
           </h1>
 
           <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
-            From consumer conversational reasoning in Gemini to source-grounded research in NotebookLM and developer APIs in Google AI Studio. Compare models, free tier limits, and enterprise capabilities.
+            Compare leading AI assistants, model APIs, open-model hubs and research tools. Review free-tier quotas, token limits, specifications and official pricing across Google and third-party providers.
           </p>
 
           <div className="pt-2 flex flex-wrap gap-2 text-xs">
