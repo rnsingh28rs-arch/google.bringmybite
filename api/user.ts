@@ -117,7 +117,7 @@ export default async function handler(req: IncomingMessage & { body?: any }, res
       if (verified.displayName) finalDisplayName = verified.displayName;
       if (verified.photoURL) finalPhotoUrl = verified.photoURL;
       provider = 'accounts.google.com';
-
+    }
 
     if (!finalUid || finalUid.length < 3) {
       return sendJson(res, 400, { success: false, error: 'MISSING_UID', message: 'Valid authentication UID is required.' });
@@ -195,7 +195,7 @@ export default async function handler(req: IncomingMessage & { body?: any }, res
         });
       }
       targetUid = verified.uid;
-
+    }
 
     try {
       const result = await toggleSavedTool(targetUid, toolSlug);
