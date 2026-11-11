@@ -309,7 +309,7 @@ async function runTests() {
     const { req, res, getResponse } = createMockReqRes({
       method: 'POST',
       url: '/api/admin/auth',
-      body: { password: 'anypassword' }
+      body: { email: '28r.n.singh@gmail.com', password: 'anypassword' }
     });
     await adminAuthHandler(req, res);
     const result = getResponse();
@@ -322,7 +322,7 @@ async function runTests() {
     const { req: wrongReq, res: wrongRes, getResponse: getWrongRes } = createMockReqRes({
       method: 'POST',
       url: '/api/admin/auth',
-      body: { password: 'wrong_password' }
+      body: { email: '28r.n.singh@gmail.com', password: 'wrong_password' }
     });
     await adminAuthHandler(wrongReq, wrongRes);
     assert(getWrongRes().statusCode === 401 && getWrongRes().body.error === 'INVALID_CREDENTIALS', 'Rejects wrong password with 401 INVALID_CREDENTIALS');
@@ -331,7 +331,7 @@ async function runTests() {
     const { req: okReq, res: okRes, getResponse: getOkRes } = createMockReqRes({
       method: 'POST',
       url: '/api/admin/auth',
-      body: { password: 'super_secure_test_password_123' }
+      body: { email: '28r.n.singh@gmail.com', password: 'super_secure_test_password_123' }
     });
     await adminAuthHandler(okReq, okRes);
     const okResult = getOkRes();
@@ -371,7 +371,7 @@ async function runTests() {
     const { req: hashOkReq, res: hashOkRes, getResponse: getHashOkRes } = createMockReqRes({
       method: 'POST',
       url: '/api/admin/auth',
-      body: { password: testSecret }
+      body: { email: '28r.n.singh@gmail.com', password: testSecret }
     });
     await adminAuthHandler(hashOkReq, hashOkRes);
     const hashOkResult = getHashOkRes();
@@ -380,7 +380,7 @@ async function runTests() {
     const { req: hashBadReq, res: hashBadRes, getResponse: getHashBadRes } = createMockReqRes({
       method: 'POST',
       url: '/api/admin/auth',
-      body: { password: 'incorrect_password' }
+      body: { email: '28r.n.singh@gmail.com', password: 'incorrect_password' }
     });
     await adminAuthHandler(hashBadReq, hashBadRes);
     assert(getHashBadRes().statusCode === 401 && getHashBadRes().body.error === 'INVALID_CREDENTIALS', 'Rejects wrong password with 401 when ADMIN_PASSWORD_HASH is set');
@@ -1015,7 +1015,7 @@ async function runTests() {
         method: 'POST',
         url: '/api/admin/auth',
         headers: { 'x-forwarded-for': attackerIp },
-        body: { password: `wrong_pass_${i}` }
+        body: { email: '28r.n.singh@gmail.com', password: `wrong_pass_${i}` }
       });
       await adminAuthHandler(req, res);
       const resp = getResponse();
@@ -1030,7 +1030,7 @@ async function runTests() {
       method: 'POST',
       url: '/api/admin/auth',
       headers: { 'x-forwarded-for': attackerIp },
-      body: { password: 'wrong_pass_6' }
+      body: { email: '28r.n.singh@gmail.com', password: 'wrong_pass_6' }
     });
     await adminAuthHandler(req6, res6);
     const resp6 = getResp6();
@@ -1041,7 +1041,7 @@ async function runTests() {
       method: 'POST',
       url: '/api/admin/auth',
       headers: { 'x-forwarded-for': '198.51.100.88' },
-      body: { password: 'wrong_password_benign' }
+      body: { email: '28r.n.singh@gmail.com', password: 'wrong_password_benign' }
     });
     await adminAuthHandler(benignReq, benignRes);
     const benignResp = getBenignResp();
