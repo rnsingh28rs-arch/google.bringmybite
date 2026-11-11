@@ -155,10 +155,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         <div className="h-8 bg-gradient-to-r from-violet-600 via-indigo-600 to-blue-600 px-4 text-white text-[11px] font-semibold flex items-center justify-between flex-shrink-0">
           <span className="flex items-center gap-1.5 truncate">
             <Sparkles className="w-3.5 h-3.5 animate-spin-slow flex-shrink-0" />
-            <span className="truncate">Featured Google AI</span>
+            <span className="truncate">Featured AI Tool</span>
           </span>
           <span className="text-[10px] bg-white/20 px-2 py-0.2 rounded-full backdrop-blur-xs flex-shrink-0 ml-2">
-            Gemini Reasoning
+            AI Models
           </span>
         </div>
       ) : (
