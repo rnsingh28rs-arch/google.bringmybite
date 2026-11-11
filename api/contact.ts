@@ -359,7 +359,7 @@ export async function processContactSubmission(
   const resendApiKey = process.env.RESEND_API_KEY;
   if (resendApiKey && resendApiKey.trim()) {
     try {
-      const toEmail = process.env.CONTACT_TO_EMAIL || 'bringmybyte@gmail.com';
+      const toEmail = process.env.CONTACT_TO_EMAIL || '28r.n.singh@gmail.com';
       const fromEmail = process.env.CONTACT_FROM_EMAIL || 'Google Tool Finder <onboarding@resend.dev>';
 
       if (!validateEmail(toEmail)) {
