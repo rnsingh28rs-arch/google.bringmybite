@@ -206,7 +206,11 @@ export default async function handler(req: IncomingMessage & { body?: any }, res
         savedTools: result.savedTools
       });
     } catch (err: any) {
-      return sendJson(res, 404, { success: false, error: 'USER_NOT_FOUND', message: 'User not registered. Please sign in first.' });
+      const errorMessage = String(err?.message || '');
+      if (errorMessage.includes('DURABLE_STORAGE_UNCONFIGURED')) return sendJson(res, 503, { success:false, error:'DURABLE_STORAGE_UNCONFIGURED', message:'Persistent database storage is not configured. Please contact the site administrator.' });
+      if (errorMessage.includes('DATABASE_ERROR') || errorMessage.includes('DATABASE_WRITE_FAILED')) return sendJson(res, 503, { success:false, error:'DATABASE_UNAVAILABLE', message:'User bookmark storage is temporarily unavailable.' });
+      if (errorMessage.includes('USER_NOT_FOUND')) return sendJson(res, 404, { success:false, error:'USER_NOT_FOUND', message:'User not registered. Please sign in first.' });
+      return sendJson(res, 500, { success:false, error:'STORAGE_ERROR', message:'Unable to update saved tools.' });
     }
   }
 
