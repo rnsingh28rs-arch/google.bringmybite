@@ -1,7 +1,7 @@
 import type { IncomingMessage, ServerResponse } from 'http';
 import { createHmac, randomBytes, timingSafeEqual } from 'crypto';
 import { OAuth2Client } from 'google-auth-library';
-import { parseJsonBody, sendJson } from '../_utils.js';
+import { sendJson } from '../_utils.js';
 import { getAdminSecret, verifySessionToken } from '../admin-auth.js';
 import { getGmailConnectionStatus, saveGmailConnection, disconnectGmail } from '../_gmail.js';
 
