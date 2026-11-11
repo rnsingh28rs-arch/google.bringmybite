@@ -77,6 +77,8 @@ export async function disconnectGmail(): Promise<void> {
 export async function sendGmailMessage(input: { to: string; subject: string; text: string; replyTo?: string }): Promise<boolean> {
   const row = await getStoredConnection();
   if (!row) return false;
+  const expectedAdminEmail = (process.env.ADMIN_EMAIL || '28r.n.singh@gmail.com').trim().toLowerCase();
+  if (row.account_email.toLowerCase() !== expectedAdminEmail) throw new Error('GMAIL_ACCOUNT_MISMATCH: Connected Gmail account does not match ADMIN_EMAIL. Reconnect the intended account.');
   const clientId = process.env.GMAIL_OAUTH_CLIENT_ID || process.env.GOOGLE_CLIENT_ID || '';
   const clientSecret = process.env.GMAIL_OAUTH_CLIENT_SECRET || '';
   if (!clientId || !clientSecret) throw new Error('GMAIL_OAUTH_CONFIG_UNSET: Gmail OAuth client credentials are missing.');
