@@ -18,7 +18,8 @@ import {
   ExternalLink,
   Briefcase,
   Bookmark,
-  LogOut
+  LogOut,
+  Rocket
 } from 'lucide-react';
 import { WaterLightGlass } from './WaterLightGlass';
 import { useAuth } from '../context/AuthContext';
