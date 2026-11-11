@@ -401,7 +401,7 @@ export async function processContactSubmission(
 
 
   // Option B: Resend transactional email fallback
-  // Option A: Resend API (Recommended for Vercel)
+  // Option B: Resend API fallback (Recommended when Gmail is not connected)
   const resendApiKey = process.env.RESEND_API_KEY;
   if (resendApiKey && resendApiKey.trim()) {
     try {
