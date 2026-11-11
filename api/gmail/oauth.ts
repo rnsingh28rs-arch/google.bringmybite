@@ -45,7 +45,8 @@ function config() {
   return { clientId, clientSecret, redirectUri };
 }
 function htmlResult(title: string, message: string) {
-  return '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>' + title + '</title></head><body style="font-family:system-ui,sans-serif;max-width:560px;margin:12vh auto;padding:24px;color:#0f172a"><h1>' + title + '</h1><p>' + message + '</p><p>You can close this tab and return to the Google Tool Finder Admin Console.</p></body></html>';
+  const escapeHtml = (value: string) => value.replace(/[&<>\"']/g, char => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '\"':'&quot;', "'":'&#39;' }[char] || char));
+  return '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>' + escapeHtml(title) + '</title></head><body style="font-family:system-ui,sans-serif;max-width:560px;margin:12vh auto;padding:24px;color:#0f172a"><h1>' + escapeHtml(title) + '</h1><p>' + escapeHtml(message) + '</p><p>You can close this tab and return to the Google Tool Finder Admin Console.</p></body></html>';
 }
 export default async function handler(req: IncomingMessage & { body?: any }, res: ServerResponse) {
   const url = new URL(req.url || '/', 'http://localhost');
