@@ -58,6 +58,15 @@ export default async function handler(req: IncomingMessage & { body?: any }, res
   const clientId = process.env.GOOGLE_CLIENT_ID;
   const isProduction = process.env.VERCEL_ENV === 'production' || process.env.NODE_ENV === 'production';
 
+  // Production must never accept client-supplied identity without an audience to verify Google ID tokens against.
+  if (isProduction && (!clientId || !clientId.trim())) {
+    return sendJson(res, 503, {
+      success: false,
+      error: 'GOOGLE_AUTH_UNCONFIGURED',
+      message: 'Google OAuth configuration is missing on the server. Please configure GOOGLE_CLIENT_ID.'
+    });
+  }
+
   // POST /api/user/sync - Store or update authenticated user profile
   if (req.method === 'POST' && (urlPath === '/api/user/sync' || urlPath === '/api/user')) {
     let body: any;
@@ -108,14 +117,7 @@ export default async function handler(req: IncomingMessage & { body?: any }, res
       if (verified.displayName) finalDisplayName = verified.displayName;
       if (verified.photoURL) finalPhotoUrl = verified.photoURL;
       provider = 'accounts.google.com';
-    } else if (isProduction && !token) {
-      // Fail safely in production if Google OAuth is unconfigured
-      return sendJson(res, 503, {
-        success: false,
-        error: 'GOOGLE_AUTH_UNCONFIGURED',
-        message: 'Google OAuth configuration is missing on the server. Please configure GOOGLE_CLIENT_ID.'
-      });
-    }
+
 
     if (!finalUid || finalUid.length < 3) {
       return sendJson(res, 400, { success: false, error: 'MISSING_UID', message: 'Valid authentication UID is required.' });
@@ -193,13 +195,7 @@ export default async function handler(req: IncomingMessage & { body?: any }, res
         });
       }
       targetUid = verified.uid;
-    } else if (isProduction && !token) {
-      return sendJson(res, 503, {
-        success: false,
-        error: 'GOOGLE_AUTH_UNCONFIGURED',
-        message: 'Google OAuth configuration is missing on the server. Please configure GOOGLE_CLIENT_ID.'
-      });
-    }
+
 
     try {
       const result = await toggleSavedTool(targetUid, toolSlug);
@@ -223,9 +219,15 @@ export default async function handler(req: IncomingMessage & { body?: any }, res
     }
 
     const token = extractAuthToken(req);
-    if (clientId && clientId.trim() && token) {
+    if (clientId && clientId.trim()) {
+      if (!token) {
+        return sendJson(res, 401, { success: false, error: 'AUTHENTICATION_REQUIRED', message: 'A valid Google sign-in token is required.' });
+      }
       const verified = await verifyGoogleIdToken(token);
-      if (verified && requestedUid !== verified.uid) {
+      if (!verified) {
+        return sendJson(res, 401, { success: false, error: 'INVALID_TOKEN', message: 'Google authentication token is invalid or expired.' });
+      }
+      if (requestedUid !== verified.uid) {
         return sendJson(res, 403, { success: false, error: 'FORBIDDEN', message: 'Access to other user profiles is restricted.' });
       }
     }
