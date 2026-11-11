@@ -15,7 +15,7 @@ export const THIRD_PARTY_AI_PRODUCTS: Product[] = [
     platforms:['Web','Android','iOS','Windows','macOS'],
     pricingStatus:'free_tier',pricingOverview:'Free plan available with unlimited text chats subject to abuse guardrails; uploads, image creation, voice, deep research and advanced tools have limited access.',
     pricingNotes:'Free consumer usage is model- and feature-limited. OpenAI API usage is billed separately; there is no assumption of free API tokens.',
-    officialUrl:'https://chatgpt.com/',officialPricingUrl:'https://chatgpt.com/pricing/',
+    officialUrl:'https://chatgpt.com/?utm_source=googletoolfinder&utm_medium=directory&utm_campaign=ai_tools',officialPricingUrl:'https://chatgpt.com/pricing/?utm_source=googletoolfinder&utm_medium=directory&utm_campaign=ai_tools',
     lastVerifiedDate:'11 November 2026',isFeaturedAI:true,iconName:'Bot',relatedProductSlugs:[],relatedTutorialSlugs:[]
   },
   {
@@ -29,7 +29,7 @@ export const THIRD_PARTY_AI_PRODUCTS: Product[] = [
     platforms:['Web','Android','iOS','Windows','macOS','API'],
     pricingStatus:'free_tier',pricingOverview:'Free consumer plan with limited usage; the provider does not publish one fixed token allowance for all free accounts.',
     pricingNotes:'Usage varies with model, message length, demand and feature. Claude API is billed separately.',
-    officialUrl:'https://claude.ai/',officialPricingUrl:'https://www.anthropic.com/pricing',
+    officialUrl:'https://claude.ai/?utm_source=googletoolfinder&utm_medium=directory&utm_campaign=ai_tools',officialPricingUrl:'https://www.anthropic.com/pricing?utm_source=googletoolfinder&utm_medium=directory&utm_campaign=ai_tools',
     lastVerifiedDate:'11 November 2026',isFeaturedAI:true,iconName:'Brain',relatedProductSlugs:[],relatedTutorialSlugs:[]
   },
   {
@@ -43,7 +43,7 @@ export const THIRD_PARTY_AI_PRODUCTS: Product[] = [
     platforms:['Web','Android','iOS'],
     pricingStatus:'free_tier',pricingOverview:'Standard Free plan: practically unlimited basic searches, 3 Pro Searches/day and 1 Research query/month.',
     pricingNotes:'Limits and available models may change; confirm the live plan page before relying on quotas.',
-    officialUrl:'https://www.perplexity.ai/',officialPricingUrl:'https://www.perplexity.ai/enterprise/pricing',
+    officialUrl:'https://www.perplexity.ai/?utm_source=googletoolfinder&utm_medium=directory&utm_campaign=ai_tools',officialPricingUrl:'https://www.perplexity.ai/enterprise/pricing?utm_source=googletoolfinder&utm_medium=directory&utm_campaign=ai_tools',
     lastVerifiedDate:'11 November 2026',isFeaturedAI:true,iconName:'Search',relatedProductSlugs:[],relatedTutorialSlugs:[]
   },
   {
@@ -57,7 +57,7 @@ export const THIRD_PARTY_AI_PRODUCTS: Product[] = [
     platforms:['Web','API'],
     pricingStatus:'free_tier',pricingOverview:'Free users receive $0.10/month in Inference Provider credits, subject to change.',
     pricingNotes:'Credits are dollar-denominated, not a fixed token quota. Model/provider prices and rate limits differ.',
-    officialUrl:'https://huggingface.co/',officialPricingUrl:'https://huggingface.co/docs/inference-providers/pricing',
+    officialUrl:'https://huggingface.co/?utm_source=googletoolfinder&utm_medium=directory&utm_campaign=ai_tools',officialPricingUrl:'https://huggingface.co/docs/inference-providers/pricing?utm_source=googletoolfinder&utm_medium=directory&utm_campaign=ai_tools',
     lastVerifiedDate:'11 November 2026',isFeaturedAI:true,iconName:'Cpu',relatedProductSlugs:[],relatedTutorialSlugs:[]
   },
   {
@@ -71,7 +71,7 @@ export const THIRD_PARTY_AI_PRODUCTS: Product[] = [
     platforms:['Web','Android','iOS','API'],
     pricingStatus:'free_tier',pricingOverview:'Free plan with limited access to Le Chat and Mistral Studio; no single public fixed token allowance.',
     pricingNotes:'Consumer free usage and API token pricing are separate. API prices vary by model and modality.',
-    officialUrl:'https://chat.mistral.ai/',officialPricingUrl:'https://mistral.ai/pricing/',
+    officialUrl:'https://chat.mistral.ai/?utm_source=googletoolfinder&utm_medium=directory&utm_campaign=ai_tools',officialPricingUrl:'https://mistral.ai/pricing/?utm_source=googletoolfinder&utm_medium=directory&utm_campaign=ai_tools',
     lastVerifiedDate:'11 November 2026',isFeaturedAI:true,iconName:'MessageSquare',relatedProductSlugs:[],relatedTutorialSlugs:[]
   },
   {
@@ -85,7 +85,7 @@ export const THIRD_PARTY_AI_PRODUCTS: Product[] = [
     platforms:['Web','API'],
     pricingStatus:'free_tier',pricingOverview:'Free plan: free model variants are limited to 20 requests/minute and 50 requests/day; daily cap rises to 1,000 after buying at least $10 of credits.',
     pricingNotes:'Only models marked free are included. Paid model usage is provider-priced; per-model limits may also apply.',
-    officialUrl:'https://openrouter.ai/',officialPricingUrl:'https://openrouter.ai/pricing',
+    officialUrl:'https://openrouter.ai/?utm_source=googletoolfinder&utm_medium=directory&utm_campaign=ai_tools',officialPricingUrl:'https://openrouter.ai/pricing?utm_source=googletoolfinder&utm_medium=directory&utm_campaign=ai_tools',
     lastVerifiedDate:'11 November 2026',isFeaturedAI:true,iconName:'Network',relatedProductSlugs:[],relatedTutorialSlugs:[]
   },
   {
@@ -99,7 +99,7 @@ export const THIRD_PARTY_AI_PRODUCTS: Product[] = [
     platforms:['Web','API'],
     pricingStatus:'free_tier',pricingOverview:'Free developer access is available for eligible models; exact request and token caps vary by model and organization.',
     pricingNotes:'Check the live account Limits page; do not assume one fixed token quota applies to all models.',
-    officialUrl:'https://console.groq.com/',officialPricingUrl:'https://console.groq.com/docs/rate-limits',
+    officialUrl:'https://console.groq.com/?utm_source=googletoolfinder&utm_medium=directory&utm_campaign=ai_tools',officialPricingUrl:'https://console.groq.com/docs/rate-limits?utm_source=googletoolfinder&utm_medium=directory&utm_campaign=ai_tools',
     lastVerifiedDate:'11 November 2026',isFeaturedAI:true,iconName:'Zap',relatedProductSlugs:[],relatedTutorialSlugs:[]
   }
 ];
