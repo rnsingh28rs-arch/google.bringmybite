@@ -541,7 +541,7 @@ async function runBrowserVerification() {
                            contactResponseText.includes('Message Delivered') || 
                            contactResponseText.includes('Enquiry Accepted') || 
                            contactResponseText.includes('Reference:') || 
-                           contactResponseText.includes('bringmybite@gmail.com');
+                           contactResponseText.includes('28r.n.singh@gmail.com');
     assert(contactHandled, 'Contact form handles submission with honest backend response');
 
     // Verify safe outbound link tracking
