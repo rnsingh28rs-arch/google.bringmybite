@@ -125,7 +125,7 @@ export const AIToolsPage: React.FC<AIToolsPageProps> = ({ onSelectProduct, onNav
           <span>Understanding Hallucination & Source Grounding</span>
         </div>
         <p className="leading-relaxed">
-          While general-purpose chatbots like Gemini synthesize broad web data, NotebookLM guarantees strict source grounding with clickable citations on your uploaded documents. Choose your tool based on whether you need creative open-ended ideation (Gemini) or verifiable research analysis (NotebookLM).
+          General-purpose assistants such as ChatGPT, Claude and Gemini support broad reasoning and creative work. NotebookLM is designed for source-grounded analysis with citations to the materials you provide. Choose based on whether you need open-ended assistance or answers anchored to a selected source library.
         </p>
       </div>
 
