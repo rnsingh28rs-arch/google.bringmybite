@@ -12,6 +12,7 @@ export const PRODUCTS: Product[] = [
     summary: 'Gemini is Google’s primary AI assistant designed for multimodal reasoning across text, code, audio, image, and video understanding. It is available in a free tier (powered by Gemini Flash models) and a paid Gemini Advanced tier (via Google One AI Premium).',
     description: [
       'Gemini helps users brainstorm, draft complex emails, write and debug software code, analyze uploaded documents, and generate creative imagery.',
+      'Gemini 4 Carbon is rolling out to Google AI Ultra subscribers in the Gemini app and Search AI Mode; API access for developers is separate and paid-tier only.'
       'Through Google One AI Premium, Gemini Advanced unlocks Google’s largest reasoning models with a larger context window, priority access to new multimodal features, and deep integration into Gmail, Google Docs, Slides, and Sheets.'
     ],
     keyFeatures: [
@@ -33,10 +34,10 @@ export const PRODUCTS: Product[] = [
     pricingOverview: 'Free standard version; Gemini Advanced available via Google One AI Premium plan.',
     verifiedPricingInINR: 'Free tier available; Gemini Advanced is included with Google One AI Premium at ₹1,950/month (with frequent 1-month free trial promotions for new users in India).',
     verifiedPricingInUSD: 'Free tier available; Gemini Advanced at $19.99/month via Google One AI Premium.',
-    pricingNotes: 'Subject to regional taxes and Google One promotional trials. Free tier has generous daily rate limits.',
+    pricingNotes: 'Subject to regional taxes and Google One promotional trials. Consumer free-tier limits vary by model and demand. Gemini 4 Carbon access in the Gemini app is for Google AI Ultra subscribers during rollout.'
     officialUrl: 'https://gemini.google.com',
     officialPricingUrl: 'https://one.google.com/about/plans',
-    lastVerifiedDate: 'October 2026',
+    lastVerifiedDate: '11 November 2026',
     isPopular: true,
     isFeaturedAI: true,
     iconName: 'Sparkles',
@@ -697,7 +698,7 @@ export const PRODUCTS: Product[] = [
     pricingNotes: 'Developer API usage requires billing account setup to prevent accidental service interruption.',
     officialUrl: 'https://maps.google.com',
     officialPricingUrl: 'https://mapsplatform.google.com/pricing',
-    lastVerifiedDate: 'October 2026',
+    lastVerifiedDate: '11 November 2026',
     isPopular: true,
     isFeaturedAI: false,
     iconName: 'MapPin',
