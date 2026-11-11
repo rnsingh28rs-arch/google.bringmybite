@@ -171,11 +171,17 @@ export default async function handler(req: IncomingMessage & { body?: any }, res
       });
     }
 
-    let body: { password?: string };
+    let body: { email?: string; password?: string };
     try {
-      body = await parseJsonBody<{ password?: string }>(req);
+      body = await parseJsonBody<{ email?: string; password?: string }>(req);
     } catch {
       return sendJson(res, 400, { success: false, error: 'INVALID_JSON', message: 'Malformed JSON payload.' });
+    }
+
+    const adminEmail = (process.env.ADMIN_EMAIL || '28r.n.singh@gmail.com').trim().toLowerCase();
+    const submittedEmail = (body.email || '').trim().toLowerCase();
+    if (!submittedEmail || submittedEmail !== adminEmail) {
+      return sendJson(res, 401, { success: false, error: 'INVALID_CREDENTIALS', message: 'Invalid administrative credentials.' });
     }
 
     const password = (body.password || '').trim();
