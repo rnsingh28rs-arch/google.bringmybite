@@ -7,7 +7,7 @@ export const GOOGLE_CLOUD_PRODUCTS: Product[] = entries.map(([slug, name, catego
   id: slug,
   slug,
   name,
-  category: (['cloud-sql','alloydb','cloud-spanner','bigtable','firestore','memorystore'].includes(slug) ? 'Databases' : ['cloud-run','google-kubernetes-engine','app-engine','cloud-functions','firebase-app-hosting','cloud-deploy'].includes(slug) ? 'Deployment Platforms' : category) as Product['category'],
+  category: (['cloud-sql','alloydb','cloud-spanner','bigtable','firestore','memorystore','bigquery-data-warehouse'].includes(slug) ? 'Databases' : ['cloud-run','google-kubernetes-engine','app-engine','cloud-functions','firebase-app-hosting','cloud-deploy'].includes(slug) ? 'Deployment Platforms' : category) as Product['category'],
   tagline: summary,
   summary,
   description: [summary, 'Use the official Google product page linked below to review current features, regional availability, setup documentation, and terms.'],
