@@ -183,7 +183,7 @@ export default function App() {
       }
     } else if (currentView === 'ai-tools') {
       title = 'Google AI Tools & Models (Gemini, NotebookLM, AI Studio) | Google Tool Finder';
-      description = 'Explore Google generative AI tools, free trials, developer API rate limits, and enterprise pricing.';
+      description = 'Compare Google and third-party AI assistants, model APIs, free-tier tokens, usage limits, specifications and official pricing.';
       canonicalPath = '/ai-tools';
     } else if (currentView === 'databases') {
       title = 'Database Directory: Free Tiers, Storage & Specifications | Google Tool Finder';
