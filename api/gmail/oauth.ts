@@ -49,6 +49,7 @@ function htmlResult(title: string, message: string) {
   return '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>' + escapeHtml(title) + '</title></head><body style="font-family:system-ui,sans-serif;max-width:560px;margin:12vh auto;padding:24px;color:#0f172a"><h1>' + escapeHtml(title) + '</h1><p>' + escapeHtml(message) + '</p><p>You can close this tab and return to the Google Tool Finder Admin Console.</p></body></html>';
 }
 export default async function handler(req: IncomingMessage & { body?: any }, res: ServerResponse) {
+  res.setHeader('Cache-Control', 'no-store, max-age=0');
   const url = new URL(req.url || '/', 'http://localhost');
   if (req.method === 'OPTIONS') {
     res.statusCode = 204; res.setHeader('Allow','GET, POST, DELETE, OPTIONS'); res.end(); return;
@@ -58,8 +59,9 @@ export default async function handler(req: IncomingMessage & { body?: any }, res
     if (!isAdmin(req)) return sendJson(res, 401, { success:false, error:'UNAUTHORIZED', message:'Admin session required.' });
     try {
       const { clientId, redirectUri } = config();
-      if (!process.env.GMAIL_TOKEN_ENCRYPTION_KEY || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
-        return sendJson(res, 503, { success:false, error:'GMAIL_STORAGE_UNCONFIGURED', message:'Encrypted Gmail storage is not configured. Set GMAIL_TOKEN_ENCRYPTION_KEY and SUPABASE_SERVICE_ROLE_KEY.' });
+      const encryptionKey = Buffer.from(process.env.GMAIL_TOKEN_ENCRYPTION_KEY || '', 'base64');
+      if (encryptionKey.length !== 32 || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+        return sendJson(res, 503, { success:false, error:'GMAIL_STORAGE_UNCONFIGURED', message:'Encrypted Gmail storage is not configured. Set a base64-encoded 32-byte GMAIL_TOKEN_ENCRYPTION_KEY and SUPABASE_SERVICE_ROLE_KEY.' });
       }
       const adminEmail = (process.env.ADMIN_EMAIL || '28r.n.singh@gmail.com').trim().toLowerCase();
       const state = createState(adminEmail);
@@ -77,6 +79,10 @@ export default async function handler(req: IncomingMessage & { body?: any }, res
     } catch (error: any) {
       return sendJson(res, 503, { success:false, error:'GMAIL_OAUTH_UNCONFIGURED', message:error.message || 'Gmail OAuth is not configured.' });
     }
+  }
+
+  if (req.method === 'GET' && url.searchParams.has('error')) {
+    res.statusCode = 400; res.setHeader('Content-Type','text/html; charset=utf-8'); res.end(htmlResult('Gmail connection cancelled', 'Google authorization was cancelled or denied. You can start again from Admin Console → Gmail API.')); return;
   }
 
   if (req.method === 'GET' && url.searchParams.has('code')) {
