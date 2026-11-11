@@ -235,6 +235,7 @@ export async function saveUser(user: GTFUser): Promise<GTFUser> {
       if (error && isProduction()) {
         throw new Error(`DATABASE_ERROR: ${error.message}`);
       }
+      if (!data && isProduction()) throw new Error('DATABASE_WRITE_FAILED: Supabase did not confirm the user profile write.');
     } catch (e: any) {
       if (isProduction()) throw e;
       console.warn('[Supabase saveUser Notice, falling back to disk]', e.message);
