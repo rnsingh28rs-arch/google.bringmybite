@@ -147,6 +147,7 @@ export default async function handler(req: IncomingMessage & { body?: any }, res
       });
     } catch (err: any) {
       console.error('[User Sync Error]', err);
+      if (String(err?.message || '').includes('DURABLE_STORAGE_UNCONFIGURED')) return sendJson(res, 503, { success:false, error:'DURABLE_STORAGE_UNCONFIGURED', message:'Persistent database storage is not configured. Please contact the site administrator.' });
       return sendJson(res, 500, { success: false, error: 'STORAGE_ERROR', message: 'Failed to synchronize user profile.' });
     }
   }
@@ -232,7 +233,13 @@ export default async function handler(req: IncomingMessage & { body?: any }, res
       }
     }
 
-    const user = await getUserById(requestedUid);
+    let user: GTFUser | null;
+    try {
+      user = await getUserById(requestedUid);
+    } catch (err:any) {
+      if (String(err?.message || '').includes('DURABLE_STORAGE_UNCONFIGURED')) return sendJson(res, 503, { success:false, error:'DURABLE_STORAGE_UNCONFIGURED', message:'Persistent database storage is not configured. Please contact the site administrator.' });
+      return sendJson(res, 503, { success:false, error:'DATABASE_UNAVAILABLE', message:'User profile storage is temporarily unavailable.' });
+    }
     if (!user) {
       return sendJson(res, 404, { success: false, error: 'NOT_FOUND', message: 'User record not found.' });
     }
