@@ -1,5 +1,6 @@
 import type { IncomingMessage, ServerResponse } from 'http';
 import { recordContactEnquiry, getContactEnquiries } from './_storage.js';
+import { sendGmailMessage } from './_gmail.js';
 
 export const VALID_SUBJECTS = {
   project_enquiry: 'Custom Software & Development Project Enquiry',
