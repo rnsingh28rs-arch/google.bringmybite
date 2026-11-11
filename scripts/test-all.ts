@@ -338,6 +338,15 @@ async function runTests() {
     assert(okResult.statusCode === 200 && Boolean(okResult.body.token), 'Accepts correct password, issues HMAC-SHA256 session token');
     const validToken = okResult.body.token;
 
+    // Correct password with the wrong administrator email must not authenticate.
+    const { req: wrongEmailReq, res: wrongEmailRes, getResponse: getWrongEmail } = createMockReqRes({
+      method: 'POST',
+      url: '/api/admin/auth',
+      body: { email: 'attacker@example.com', password: 'super_secure_test_password_123' }
+    });
+    await adminAuthHandler(wrongEmailReq, wrongEmailRes);
+    assert(getWrongEmail().statusCode === 401 && getWrongEmail().body.error === 'INVALID_CREDENTIALS', 'Rejects correct password when administrator email does not match');
+
     // GET with valid token -> 200
     const { req: verifyReq, res: verifyRes, getResponse: getVerifyRes } = createMockReqRes({
       method: 'GET',
@@ -833,6 +842,12 @@ async function runTests() {
     assert(homeContent.includes('QUANTUM ENGINE'), 'HomePage contains QUANTUM ENGINE section');
     assert(homeContent.includes('TOTAL COGNITIVE NEXUS'), 'HomePage contains TOTAL COGNITIVE NEXUS section');
     assert(homeContent.includes('Why Google Tool Finder Exists'), 'HomePage explains why Google Tool Finder exists');
+    const techNewsContent = fs.readFileSync(path.join(process.cwd(), 'src', 'components', 'TechNewsSection.tsx'), 'utf-8');
+    assert(techNewsContent.includes('TECH NEWS') && techNewsContent.includes('news.google.com'), 'Homepage Tech News section includes Google News source link');
+    const directoryContent = fs.readFileSync(path.join(process.cwd(), 'src', 'pages', 'CategoryDirectoryPage.tsx'), 'utf-8');
+    assert(directoryContent.includes('DATABASE DIRECTORY') && directoryContent.includes('DEPLOYMENT DIRECTORY'), 'Dedicated database and deployment directories are implemented');
+    const thirdPartyAIContent = fs.readFileSync(path.join(process.cwd(), 'src', 'data', 'thirdPartyAIProducts.ts'), 'utf-8');
+    assert(thirdPartyAIContent.includes('OpenRouter') && thirdPartyAIContent.includes('Hugging Face'), 'Third-party AI provider catalogue is included');
 
     // Check Disclaimer, Terms & Conditions source preservation
     const legalContent = fs.readFileSync(path.join(process.cwd(), 'src', 'pages', 'LegalPages.tsx'), 'utf-8');
@@ -918,6 +933,21 @@ async function runTests() {
     });
     await userHandler(r6, s6);
     assert(g6().statusCode === 404, 'POST /api/user/save-tool rejects non-existent UID with 404');
+
+    // 8.7 Production must fail closed if Google token audience configuration is missing.
+    const originalVercelEnv = process.env.VERCEL_ENV;
+    const originalGoogleClientId = process.env.GOOGLE_CLIENT_ID;
+    process.env.VERCEL_ENV = 'production';
+    delete process.env.GOOGLE_CLIENT_ID;
+    const { req: r7, res: s7, getResponse: g7 } = createMockReqRes({
+      method: 'POST',
+      url: '/api/user/sync',
+      body: { uid: 'forged-user-uid', email: 'forged@example.com', idToken: 'not-a-real-token' }
+    });
+    await userHandler(r7, s7);
+    assert(g7().statusCode === 503 && g7().body.error === 'GOOGLE_AUTH_UNCONFIGURED', 'Production refuses unverified identity when GOOGLE_CLIENT_ID is missing');
+    if (originalVercelEnv) process.env.VERCEL_ENV = originalVercelEnv; else delete process.env.VERCEL_ENV;
+    if (originalGoogleClientId) process.env.GOOGLE_CLIENT_ID = originalGoogleClientId; else delete process.env.GOOGLE_CLIENT_ID;
   }
 
   // TEST SUITE 9: ADMIN ANALYTICS AUTHORIZATION & PERSISTENCE (/api/admin/analytics)
