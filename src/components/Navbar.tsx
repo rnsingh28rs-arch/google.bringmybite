@@ -408,6 +408,15 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
                       Resources & Tools
                     </div>
 
+                    <button role="menuitem" onClick={() => { setMoreDropdownOpen(false); onNavigate('databases'); }} className={`w-full flex items-center gap-3 px-3 py-2 text-left text-xs transition-colors cursor-pointer ${currentView === 'databases' ? 'bg-blue-50 text-blue-700 font-semibold' : 'text-slate-700 hover:bg-slate-50'}`}>
+                      <div className="w-8 h-8 rounded-xl glass-icon-blue flex items-center justify-center text-blue-600 flex-shrink-0"><Layers className="w-4 h-4" /></div>
+                      <div><div className="font-semibold">Database Directory</div><div className="text-[10px] text-slate-400">Free tiers, storage & specs</div></div>
+                    </button>
+                    <button role="menuitem" onClick={() => { setMoreDropdownOpen(false); onNavigate('deployment'); }} className={`w-full flex items-center gap-3 px-3 py-2 text-left text-xs transition-colors cursor-pointer ${currentView === 'deployment' ? 'bg-blue-50 text-blue-700 font-semibold' : 'text-slate-700 hover:bg-slate-50'}`}>
+                      <div className="w-8 h-8 rounded-xl glass-icon-emerald flex items-center justify-center text-emerald-600 flex-shrink-0"><Rocket className="w-4 h-4" /></div>
+                      <div><div className="font-semibold">Deployment Platforms</div><div className="text-[10px] text-slate-400">Hosting, runtime & free usage</div></div>
+                    </button>
+
                     <button
                       role="menuitem"
                       onClick={() => {
@@ -764,6 +773,13 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
                   <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2 pt-1 pb-0.5">
                     Resources & Tools
                   </div>
+
+                  <button onClick={() => { setMobileMenuOpen(false); onNavigate('databases'); }} className={`w-full min-h-[44px] flex items-center gap-3 p-2.5 rounded-xl text-left text-xs transition-colors cursor-pointer ${currentView === 'databases' ? 'bg-blue-50 text-blue-700 font-semibold border border-blue-200' : 'text-slate-700 hover:bg-slate-50 bg-white border border-slate-100'}`}>
+                    <div className="w-8 h-8 rounded-xl glass-icon-blue flex items-center justify-center text-blue-600"><Layers className="w-4 h-4"/></div><div><div className="font-semibold text-slate-900">Database Directory</div><div className="text-[10px] text-slate-500">Free tiers, storage & specs</div></div>
+                  </button>
+                  <button onClick={() => { setMobileMenuOpen(false); onNavigate('deployment'); }} className={`w-full min-h-[44px] flex items-center gap-3 p-2.5 rounded-xl text-left text-xs transition-colors cursor-pointer ${currentView === 'deployment' ? 'bg-blue-50 text-blue-700 font-semibold border border-blue-200' : 'text-slate-700 hover:bg-slate-50 bg-white border border-slate-100'}`}>
+                    <div className="w-8 h-8 rounded-xl glass-icon-emerald flex items-center justify-center text-emerald-600"><Rocket className="w-4 h-4"/></div><div><div className="font-semibold text-slate-900">Deployment Platforms</div><div className="text-[10px] text-slate-500">Hosting, runtime & free usage</div></div>
+                  </button>
 
                   <button
                     onClick={() => handleNavClick('tutorials', 'tutorials-section')}
