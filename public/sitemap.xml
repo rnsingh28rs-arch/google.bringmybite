@@ -17,6 +17,16 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://google.bringmybite.com/databases</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://google.bringmybite.com/deployment</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://google.bringmybite.com/free-tools</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
