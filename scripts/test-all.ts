@@ -848,6 +848,12 @@ async function runTests() {
     assert(directoryContent.includes('DATABASE DIRECTORY') && directoryContent.includes('DEPLOYMENT DIRECTORY'), 'Dedicated database and deployment directories are implemented');
     const thirdPartyAIContent = fs.readFileSync(path.join(process.cwd(), 'src', 'data', 'thirdPartyAIProducts.ts'), 'utf-8');
     assert(thirdPartyAIContent.includes('OpenRouter') && thirdPartyAIContent.includes('Hugging Face'), 'Third-party AI provider catalogue is included');
+    const gmailOAuthContent = fs.readFileSync(path.join(process.cwd(), 'api', 'gmail', 'oauth.ts'), 'utf-8');
+    const gmailHelperContent = fs.readFileSync(path.join(process.cwd(), 'api', '_gmail.ts'), 'utf-8');
+    assert(gmailOAuthContent.includes('gmail.send') && gmailOAuthContent.includes('verifyIdToken'), 'Gmail OAuth validates Google identity and requests send-only scope');
+    assert(gmailHelperContent.includes('aes-256-gcm') && gmailHelperContent.includes('gmail.googleapis.com/gmail/v1/users/me/messages/send'), 'Gmail refresh tokens are encrypted and server-side Gmail API sending is implemented');
+    const enquiryApiContent = fs.readFileSync(path.join(process.cwd(), 'api', 'contact.ts'), 'utf-8');
+    assert(enquiryApiContent.includes('sendGmailMessage') && enquiryApiContent.includes('28r.n.singh@gmail.com'), 'Contact and project enquiries have the configured admin recipient and Gmail fallback');
 
     // Check Disclaimer, Terms & Conditions source preservation
     const legalContent = fs.readFileSync(path.join(process.cwd(), 'src', 'pages', 'LegalPages.tsx'), 'utf-8');
