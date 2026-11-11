@@ -846,6 +846,10 @@ async function runTests() {
     assert(techNewsContent.includes('TECH NEWS') && techNewsContent.includes('news.google.com'), 'Homepage Tech News section includes Google News source link');
     const directoryContent = fs.readFileSync(path.join(process.cwd(), 'src', 'pages', 'CategoryDirectoryPage.tsx'), 'utf-8');
     assert(directoryContent.includes('DATABASE DIRECTORY') && directoryContent.includes('DEPLOYMENT DIRECTORY'), 'Dedicated database and deployment directories are implemented');
+    assert(directoryContent.includes('database_directory') && directoryContent.includes('deployment_directory'), 'Database and deployment outbound links use separate campaign tags');
+    assert(thirdPartyAIContent.includes('Runway') && thirdPartyAIContent.includes('ElevenLabs') && thirdPartyAIContent.includes('Leonardo AI') && thirdPartyAIContent.includes('Suno'), 'AI directory includes video, voice, image and music tools');
+    const productCatalogueContent = fs.readFileSync(path.join(process.cwd(), 'src', 'data', 'products.ts'), 'utf-8');
+    assert(productCatalogueContent.includes('Gemini 4 Carbon') && productCatalogueContent.includes('Databases') && productCatalogueContent.includes('Deployment Platforms'), 'Existing Google tools and new product category tags are refreshed');
     const thirdPartyAIContent = fs.readFileSync(path.join(process.cwd(), 'src', 'data', 'thirdPartyAIProducts.ts'), 'utf-8');
     assert(thirdPartyAIContent.includes('OpenRouter') && thirdPartyAIContent.includes('Hugging Face'), 'Third-party AI provider catalogue is included');
     const gmailOAuthContent = fs.readFileSync(path.join(process.cwd(), 'api', 'gmail', 'oauth.ts'), 'utf-8');
