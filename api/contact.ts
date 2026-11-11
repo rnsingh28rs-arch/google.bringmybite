@@ -482,7 +482,50 @@ export async function processContactSubmission(
     }
   }
 
-  // Option B: Webhook Dispatch (e.g. Discord, Slack, Zapier) with SSRF Guard
+  // Option B: Universal Gmail API delivery (enabled only after secure OAuth autoconnect)
+  const gmailConfigured = Boolean(
+    process.env.SUPABASE_SERVICE_ROLE_KEY &&
+    process.env.GMAIL_TOKEN_ENCRYPTION_KEY &&
+    process.env.GMAIL_OAUTH_CLIENT_SECRET &&
+    (process.env.GMAIL_OAUTH_CLIENT_ID || process.env.GOOGLE_CLIENT_ID)
+  );
+  if (gmailConfigured) {
+    try {
+      const toEmail = (process.env.CONTACT_TO_EMAIL || process.env.ADMIN_EMAIL || '28r.n.singh@gmail.com').trim().toLowerCase();
+      if (!validateEmail(toEmail)) {
+        return { statusCode: 500, response: { success:false, status:'delivery_failed', error:'Server configuration error: invalid destination email address.' } };
+      }
+      const subject = '[Google Tool Finder] ' + subjectLabel + ': ' + name;
+      const messageBody = 'New enquiry (' + confirmationId + ')\n' +
+        'Date: ' + timestamp + '\n' +
+        'Name: ' + name + '\n' +
+        'Email: ' + email + '\n' +
+        'Topic: ' + subjectLabel + '\n' +
+        'IP: ' + clientIp + '\n' +
+        'User Agent: ' + userAgent + '\n\n' +
+        'Message:\n' + message;
+      const sent = await sendGmailMessage({ to: toEmail, subject, text: messageBody, replyTo: email });
+      if (sent) {
+        try {
+          await sendGmailMessage({
+            to: email,
+            subject: '[Google Tool Finder] We received your message: ' + subjectLabel + ' (' + confirmationId + ')',
+            text: 'Hi ' + name + ',\n\nThank you for contacting Google Tool Finder by Bring My Bite. Your enquiry has been received and routed to our admin inbox.\nReference: ' + confirmationId + '\n\nBest regards,\nGoogle Tool Finder Team',
+            replyTo: toEmail
+          });
+        } catch (ackError) {
+          console.warn('[Gmail Acknowledgement Notice]', ackError);
+        }
+        await recordContactEnquiry({ confirmationId, name, email, subject: subjectLabel, message, status:'delivered_gmail', timestamp, clientIp }).catch(() => {});
+        return { statusCode:200, response:{ success:true, status:'delivered', message:'Your enquiry was delivered through the connected Gmail account.', confirmationId, timestamp } };
+      }
+    } catch (err:any) {
+      console.error('[Gmail Dispatch Error]', err);
+      return { statusCode:502, response:{ success:false, status:'delivery_failed', error:'Gmail API delivery failed. Please retry or contact the site administrator.' } };
+    }
+  }
+
+  // Option C: Webhook Dispatch (e.g. Discord, Slack, Zapier) with SSRF Guard
   const webhookUrl = process.env.CONTACT_WEBHOOK_URL;
   if (webhookUrl && webhookUrl.trim()) {
     const safetyCheck = isSafeWebhookUrl(webhookUrl.trim());
@@ -558,7 +601,7 @@ export async function processContactSubmission(
     }
   }
 
-  // Option C: Safe Test Mode (Strictly restricted to non-production environments)
+  // Option D: Safe Test Mode (Strictly restricted to non-production environments)
   const isProduction = process.env.VERCEL_ENV === 'production' || process.env.NODE_ENV === 'production';
   if (process.env.CONTACT_TEST_MODE === 'true') {
     if (isProduction) {
@@ -597,7 +640,7 @@ export async function processContactSubmission(
     };
   }
 
-  // Option D: Database Queue Mode (if live delivery credentials are intentionally deferred)
+  // Option E: Database Queue Mode (if live delivery credentials are intentionally deferred)
   if (process.env.CONTACT_ALLOW_DB_STORAGE === 'true') {
     await recordContactEnquiry({
       confirmationId,
@@ -622,7 +665,7 @@ export async function processContactSubmission(
     };
   }
 
-  // Option E: Service Unconfigured Fallback
+  // Option F: Service Unconfigured Fallback
   // Neither RESEND_API_KEY, CONTACT_WEBHOOK_URL, nor CONTACT_TEST_MODE is configured.
   // We do NOT pretend the email was sent (Policy: Do not claim delivery unless confirmed).
   return {
