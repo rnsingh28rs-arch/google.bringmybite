@@ -2,6 +2,7 @@ import React from 'react';
 import { Database, Rocket, ExternalLink, ShieldCheck, HardDrive, Gauge, Layers3 } from 'lucide-react';
 import { PRODUCTS } from '../data/products';
 import { ProductCard } from '../components/ProductCard';
+import { trackOutboundClick } from '../utils/analyticsBroker';
 
 type DirectoryKind = 'databases' | 'deployment';
 type Listing = { name:string; summary:string; freeTier:string; storage:string; specs:string[]; url:string; category:string };
@@ -24,6 +25,7 @@ const DEPLOYMENTS: Listing[] = [
  {name:'Firebase App Hosting',summary:'Managed deployment for modern full-stack web apps with Firebase integrations.',freeTier:'No blanket free-tier guarantee; billing depends on linked Cloud resources and current terms.',storage:'Persistent data belongs in Firebase/Google Cloud storage services.',specs:['Framework-aware builds','GitHub integration','Firebase backend integration'],url:'https://firebase.google.com/pricing',category:'Full-stack hosting'}
 ];
 const tagUrl=(raw:string)=>{try{const u=new URL(raw);u.searchParams.set('utm_source','googletoolfinder');u.searchParams.set('utm_medium','directory');u.searchParams.set('utm_campaign','tool_listing');return u.toString()}catch{return raw}};
+const listingSlug=(name:string)=>name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 export const CategoryDirectoryPage:React.FC<{kind:DirectoryKind;onSelectProduct:(slug:string)=>void}> = ({kind,onSelectProduct})=>{
  const isDb=kind==='databases'; const rows=isDb?DATABASES:DEPLOYMENTS;
  const googleProducts=PRODUCTS.filter(p=>isDb?/database|bigquery|firestore|cloud sql|alloydb|spanner|bigtable/i.test(p.name+' '+p.category+' '+p.summary):/cloud run|app hosting|firebase app hosting|cloud deploy|compute engine|kubernetes|app engine/i.test(p.name+' '+p.summary));
@@ -40,7 +42,7 @@ export const CategoryDirectoryPage:React.FC<{kind:DirectoryKind;onSelectProduct:
     <h2 className="text-lg font-extrabold text-slate-900">{item.name}</h2><p className="text-sm text-slate-600 leading-relaxed">{item.summary}</p>
     <div className="grid grid-cols-1 gap-2 text-xs"><div className="rounded-xl bg-emerald-50 p-3"><b className="flex items-center gap-1 text-emerald-800"><ShieldCheck className="w-3.5 h-3.5"/> Free tier</b><p className="mt-1 text-emerald-900">{item.freeTier}</p></div><div className="rounded-xl bg-blue-50 p-3"><b className="flex items-center gap-1 text-blue-800"><HardDrive className="w-3.5 h-3.5"/> Storage / usage</b><p className="mt-1 text-blue-900">{item.storage}</p></div></div>
     <ul className="space-y-1 text-xs text-slate-600">{item.specs.map(s=><li key={s} className="flex gap-2"><Layers3 className="w-3.5 h-3.5 text-slate-400 shrink-0"/>{s}</li>)}</ul>
-    <a href={tagUrl(item.url)} target="_blank" rel="noopener noreferrer" className="mt-auto inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-2.5 text-xs font-bold text-white hover:bg-blue-700">Visit official pricing / platform <ExternalLink className="w-3.5 h-3.5"/></a>
+    <a href={tagUrl(item.url)} target="_blank" rel="noopener noreferrer" onClick={() => trackOutboundClick(tagUrl(item.url), { productSlug:kind + '-' + listingSlug(item.name), sourcePage:kind, isAffiliate:false })} className="mt-auto inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-2.5 text-xs font-bold text-white hover:bg-blue-700">Visit official pricing / platform <ExternalLink className="w-3.5 h-3.5"/></a>
    </article>)}
   </section>
   <section className="space-y-4"><div><h2 className="text-2xl font-extrabold text-slate-900">Google ecosystem listings</h2><p className="text-sm text-slate-500">Relevant Google products already present in the main catalogue.</p></div><div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">{googleProducts.map(p=><ProductCard key={p.id} product={p} onSelect={onSelectProduct}/>)}</div></section>
