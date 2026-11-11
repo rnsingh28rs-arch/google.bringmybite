@@ -34,7 +34,7 @@ const tagUrl=(raw:string)=>{try{const u=new URL(raw);u.searchParams.set('utm_sou
 const listingSlug=(name:string)=>name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 export const CategoryDirectoryPage:React.FC<{kind:DirectoryKind;onSelectProduct:(slug:string)=>void}> = ({kind,onSelectProduct})=>{
  const isDb=kind==='databases'; const rows=isDb?DATABASES:DEPLOYMENTS;
- const googleProducts=PRODUCTS.filter(p=>isDb?/database|bigquery|firestore|cloud sql|alloydb|spanner|bigtable/i.test(p.name+' '+p.category+' '+p.summary):/cloud run|app hosting|firebase app hosting|cloud deploy|compute engine|kubernetes|app engine/i.test(p.name+' '+p.summary));
+ const googleProducts=PRODUCTS.filter(p=>isDb?/database|bigquery|firestore|cloud sql|alloydb|spanner|bigtable/i.test(p.name+' '+p.category+' '+p.summary):/cloud run|app hosting|firebase app hosting|cloud deploy|cloud functions|compute engine|kubernetes|app engine/i.test(p.name+' '+p.summary));
  return <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-9">
   <header className="rounded-3xl bg-gradient-to-br from-slate-950 via-indigo-950 to-blue-950 p-8 sm:p-12 text-white">
    <div className="flex items-center gap-2 text-sm font-bold text-cyan-300"><span>{isDb?<Database className="w-5 h-5"/>:<Rocket className="w-5 h-5"/>}</span> GOOGLE TOOL FINDER • {isDb?'DATABASE DIRECTORY':'DEPLOYMENT DIRECTORY'}</div>
