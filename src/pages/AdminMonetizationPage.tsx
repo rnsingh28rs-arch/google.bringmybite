@@ -1428,8 +1428,8 @@ const AdminMonetizationContent: React.FC<AdminMonetizationContentProps> = ({
             <div className="rounded-2xl bg-slate-50 border border-slate-200 p-4 space-y-2 text-xs text-slate-600">
               <b className="text-slate-800">One-time server setup required</b>
               <ol className="list-decimal pl-5 space-y-1">
-                <li>Enable Gmail API in the Google Cloud project.</li>
-                <li>Create a Google OAuth Web application and add the exact <code>/api/gmail/oauth</code> redirect URI.</li>
+                <li>Enable Gmail API in the Google Cloud project and configure the OAuth consent screen. If the app is in Testing mode, add 28r.n.singh@gmail.com as a test user.</li>
+                <li>Create a Google OAuth Web application and add the exact <code>/api/gmail/oauth</code> redirect URI. Request only the Gmail send scope.</li>
                 <li>Set GMAIL_OAUTH_CLIENT_ID, GMAIL_OAUTH_CLIENT_SECRET, GMAIL_REDIRECT_URI, GMAIL_OAUTH_STATE_SECRET and GMAIL_TOKEN_ENCRYPTION_KEY in Vercel.</li>
                 <li>Apply the <code>gtf_integrations</code> table from <code>data/schema.sql</code> and set SUPABASE_SERVICE_ROLE_KEY.</li>
                 <li>Connect the account 28r.n.singh@gmail.com and approve Gmail send permission.</li>
