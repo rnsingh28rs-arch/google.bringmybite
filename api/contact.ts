@@ -645,27 +645,38 @@ export async function processContactSubmission(
 
   // Option E: Database Queue Mode (if live delivery credentials are intentionally deferred)
   if (process.env.CONTACT_ALLOW_DB_STORAGE === 'true') {
-    await recordContactEnquiry({
-      confirmationId,
-      name,
-      email,
-      subject: subjectLabel,
-      message,
-      status: 'recorded_in_database',
-      timestamp,
-      clientIp
-    }).catch(() => {});
-
-    return {
-      statusCode: 200,
-      response: {
-        success: true,
-        status: 'test_accepted',
-        message: 'Your enquiry was validated and securely recorded for our editorial team in the database.',
+    try {
+      await recordContactEnquiry({
         confirmationId,
-        timestamp
-      }
-    };
+        name,
+        email,
+        subject: subjectLabel,
+        message,
+        status: 'recorded_in_database',
+        timestamp,
+        clientIp
+      });
+      return {
+        statusCode: 200,
+        response: {
+          success: true,
+          status: 'test_accepted',
+          message: 'Your enquiry was validated and securely recorded for our editorial team in the database.',
+          confirmationId,
+          timestamp
+        }
+      };
+    } catch (error) {
+      console.error('[Contact Database Queue Error]', error);
+      return {
+        statusCode: 503,
+        response: {
+          success: false,
+          status: 'delivery_failed',
+          error: 'The enquiry could not be saved because persistent storage is unavailable. Please retry or contact the site administrator.'
+        }
+      };
+    }
   }
 
   // Option F: Service Unconfigured Fallback
