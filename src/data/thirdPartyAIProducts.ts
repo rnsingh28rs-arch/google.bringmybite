@@ -88,6 +88,35 @@ export const THIRD_PARTY_AI_PRODUCTS: Product[] = [
     officialUrl:'https://openrouter.ai/?utm_source=googletoolfinder&utm_medium=directory&utm_campaign=ai_tools',officialPricingUrl:'https://openrouter.ai/pricing?utm_source=googletoolfinder&utm_medium=directory&utm_campaign=ai_tools',
     lastVerifiedDate:'11 November 2026',isFeaturedAI:true,iconName:'Network',relatedProductSlugs:[],relatedTutorialSlugs:[]
   },
+
+  {
+    id:'openai-api',slug:'openai-api',name:'OpenAI API',category:'AI & Generative AI',
+    tagline:'Developer API for OpenAI models, tools and agent workflows.',
+    summary:'Build applications with OpenAI models using text, vision, audio, image generation, structured outputs and tool calling.',
+    description:['The OpenAI API is a separate developer platform from ChatGPT consumer subscriptions. API usage is billed by model and token or modality, with account-specific rate limits.','There is no general free token allowance assumed for new API projects; confirm any promotional credits in the billing dashboard.'],
+    keyFeatures:['Text and multimodal model APIs','Structured outputs and tool calling','Image, audio and realtime APIs','Usage tiers and spend controls'],
+    typicalUseCases:['AI application development','Agent and workflow automation','Voice, image and multimodal apps'],
+    intendedAudience:['Developers','Professionals','Small Businesses','Enterprises'],
+    platforms:['API','Web'],
+    pricingStatus:'paid',pricingOverview:'Pay-as-you-go; token and modality pricing varies by model. No general free API token tier.',
+    pricingNotes:'ChatGPT Free/Plus/Pro subscriptions do not include API credits. RPM, TPM and daily limits vary by model and account usage tier.',
+    officialUrl:'https://platform.openai.com/',officialPricingUrl:'https://openai.com/api/pricing/?utm_source=googletoolfinder&utm_medium=directory&utm_campaign=ai_tools',
+    lastVerifiedDate:'11 November 2026',isFeaturedAI:true,iconName:'Code',relatedProductSlugs:['chatgpt'],relatedTutorialSlugs:[]
+  },
+  {
+    id:'anthropic-api',slug:'anthropic-api',name:'Anthropic API',category:'AI & Generative AI',
+    tagline:'Developer API for Claude models and tool-using applications.',
+    summary:'Integrate Claude models into applications for reasoning, coding, document analysis and agentic tool use.',
+    description:['The Anthropic API is separate from the Claude consumer app and its subscription plans. Developer usage is billed per model and token, with rate limits based on usage tier.','No general free token allowance is assumed; any trial credits or account promotions must be verified in the Anthropic Console.'],
+    keyFeatures:['Claude model API access','Tool use and structured workflows','Prompt caching and batch processing','Model-specific rate limits'],
+    typicalUseCases:['LLM application development','Coding and document analysis','Agentic workflows'],
+    intendedAudience:['Developers','Professionals','Small Businesses','Enterprises'],
+    platforms:['API','Web'],
+    pricingStatus:'paid',pricingOverview:'Pay-as-you-go token pricing by Claude model. No general free API token tier.',
+    pricingNotes:'Claude consumer Free/Pro plans do not include API credits. Rate limits vary by model and usage tier.',
+    officialUrl:'https://console.anthropic.com/',officialPricingUrl:'https://www.anthropic.com/pricing?utm_source=googletoolfinder&utm_medium=directory&utm_campaign=ai_tools',
+    lastVerifiedDate:'11 November 2026',isFeaturedAI:true,iconName:'BrainCircuit',relatedProductSlugs:['claude'],relatedTutorialSlugs:[]
+  },
   {
     id:'groqcloud',slug:'groqcloud',name:'GroqCloud',category:'AI & Generative AI',
     tagline:'Fast inference API for open and hosted language models.',
