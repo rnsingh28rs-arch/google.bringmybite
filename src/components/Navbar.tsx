@@ -133,7 +133,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
     onNavigate(viewId);
   };
 
-  const isMoreActive = ['tutorials', 'tutorial-detail', 'comparisons', 'comparison-detail', 'latest-updates', 'about', 'contact', 'affiliate-disclosure'].includes(currentView);
+  const isMoreActive = ['tutorials', 'tutorial-detail', 'comparisons', 'comparison-detail', 'latest-updates', 'databases', 'deployment', 'about', 'contact', 'affiliate-disclosure'].includes(currentView);
 
   const getActiveTab = () => {
     if (currentView === 'home') {
@@ -273,6 +273,9 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenS
                 </div>
                 <span>AI Tools</span>
               </button>
+
+              <button onClick={() => onNavigate('databases')} className={`hidden 2xl:inline-flex px-2 py-2 rounded-xl whitespace-nowrap ${currentView === 'databases' ? 'text-blue-700 font-bold bg-blue-50' : 'hover:bg-slate-100'}`}>Databases</button>
+              <button onClick={() => onNavigate('deployment')} className={`hidden 2xl:inline-flex px-2 py-2 rounded-xl whitespace-nowrap ${currentView === 'deployment' ? 'text-blue-700 font-bold bg-blue-50' : 'hover:bg-slate-100'}`}>Deployment</button>
 
               {/* Free Tools (Dedicated page route) */}
               <button
