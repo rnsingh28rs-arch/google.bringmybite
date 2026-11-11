@@ -110,3 +110,27 @@ Review the diff and test a Vercel Preview deployment. Merge to main only after t
 3. Main-site CSV exports are not full accounting exports; the current export function outputs subscription rows only and does not include instant-order rows even where the button says "Download Ledger CSV".
 4. No built-in Excel/XLSX import workflow was found in either repository.
 5. No complete live customer journey was run during this read-only review. Mark a feature "tested" only after the actual production test succeeds.
+
+
+## Gmail API autoconnect and enquiry delivery
+
+The Admin Console includes a Gmail API tab. It uses server-side Google OAuth with the `gmail.send` scope. The connected Google account must match `ADMIN_EMAIL` (defaults to `28r.n.singh@gmail.com`). Contact Us and Project Requirement enquiries are delivered to `CONTACT_TO_EMAIL` (defaults to the same address).
+
+Before enabling the connection:
+
+1. Enable the Gmail API in the Google Cloud project.
+2. Create a Google OAuth Web application and add the exact redirect URI `https://YOUR_DEPLOYMENT_HOST/api/gmail/oauth`.
+3. Set `GMAIL_OAUTH_CLIENT_ID`, `GMAIL_OAUTH_CLIENT_SECRET`, `GMAIL_REDIRECT_URI`, `GMAIL_OAUTH_STATE_SECRET` (at least 32 random characters), and `GMAIL_TOKEN_ENCRYPTION_KEY` (base64-encoded 32-byte key).
+4. Set `SUPABASE_SERVICE_ROLE_KEY` on the server only and apply the `gtf_integrations` table in `data/schema.sql`.
+5. Set `ADMIN_EMAIL=28r.n.singh@gmail.com` and `CONTACT_TO_EMAIL=28r.n.singh@gmail.com`.
+6. Open Admin Console → Gmail API → Connect administrator Gmail and approve the requested Gmail send permission.
+
+Refresh tokens are encrypted using AES-256-GCM and stored in the service-role-only `gtf_integrations` table. The frontend never receives the refresh token. Never commit secrets or expose them using `VITE_` variables. Resend remains the preferred delivery provider when `RESEND_API_KEY` is configured; Gmail API is the secure fallback.
+
+## Admin login identity
+
+The admin login requires both the configured email and password. `ADMIN_EMAIL` defaults to `28r.n.singh@gmail.com`; configure `ADMIN_PASSWORD` or `ADMIN_PASSWORD_HASH` server-side. The email address is not a password or substitute for the secret.
+
+## Catalogue and outbound attribution
+
+AI provider, database and deployment directory links use Google Tool Finder UTM campaign tags and the outbound-click analytics endpoint. This is referral attribution, not a claim of affiliate commission. Only approved partner URLs configured in the monetisation console are treated as affiliate links. Provider free tiers and usage limits are subject to change and should be rechecked against the linked official pricing/rate-limit page.
