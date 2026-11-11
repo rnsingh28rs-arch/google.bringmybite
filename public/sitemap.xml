@@ -122,6 +122,11 @@
   <url><loc>https://google.bringmybite.com/products/openrouter</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://google.bringmybite.com/products/groqcloud</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
 
+  <url><loc>https://google.bringmybite.com/products/runway</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://google.bringmybite.com/products/elevenlabs</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://google.bringmybite.com/products/leonardo-ai</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://google.bringmybite.com/products/suno</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://google.bringmybite.com/products/ideogram</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <!-- Developer AI APIs -->
   <url><loc>https://google.bringmybite.com/products/openai-api</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://google.bringmybite.com/products/anthropic-api</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
