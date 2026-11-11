@@ -369,7 +369,7 @@ export async function processContactSubmission(
       if (!validateEmail(toEmail)) {
         return { statusCode: 500, response: { success:false, status:'delivery_failed', error:'Server configuration error: invalid destination email address.' } };
       }
-      const subject = '[Google Tool Finder] ' + subjectLabel + ': ' + name;
+      const subject = '[Google Tool Finder] New enquiry (' + confirmationId + ')';
       const messageBody = 'New enquiry (' + confirmationId + ')\n' +
         'Date: ' + timestamp + '\n' +
         'Name: ' + name + '\n' +
@@ -383,7 +383,7 @@ export async function processContactSubmission(
         try {
           await sendGmailMessage({
             to: email,
-            subject: '[Google Tool Finder] We received your message: ' + subjectLabel + ' (' + confirmationId + ')',
+            subject: '[Google Tool Finder] Enquiry received (' + confirmationId + ')',
             text: 'Hi ' + name + ',\n\nThank you for contacting Google Tool Finder by Bring My Bite. Your enquiry has been received and routed to our admin inbox.\nReference: ' + confirmationId + '\n\nBest regards,\nGoogle Tool Finder Team',
             replyTo: toEmail
           });
