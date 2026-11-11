@@ -72,6 +72,7 @@ export default async function handler(req: IncomingMessage & { body?: any }, res
         scope: 'openid email https://www.googleapis.com/auth/gmail.send',
         access_type: 'offline',
         prompt: 'consent',
+        login_hint: adminEmail,
         include_granted_scopes: 'true',
         state
       });
