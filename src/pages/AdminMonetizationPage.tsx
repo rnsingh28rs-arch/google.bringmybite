@@ -22,7 +22,9 @@ import {
   Check,
   HelpCircle,
   Info,
-  Building2
+  Building2,
+  Mail,
+  RefreshCw
 } from 'lucide-react';
 import {
   getMonetizationSettings,
@@ -93,7 +95,10 @@ const AdminMonetizationContent: React.FC<AdminMonetizationContentProps> = ({
   onLogout,
   onNavigateHome
 }) => {
-  const [activeTab, setActiveTab] = useState<'analytics' | 'settings' | 'promotion'>('analytics');
+  const [activeTab, setActiveTab] = useState<'analytics' | 'settings' | 'promotion' | 'gmail'>('analytics');
+  const [gmailStatus, setGmailStatus] = useState<{ connected: boolean; accountEmail?: string; updatedAt?: string }>({ connected:false });
+  const [gmailBusy, setGmailBusy] = useState(false);
+  const [gmailError, setGmailError] = useState<string | null>(null);
   const [settings, setSettings] = useState<MonetizationSettings>(getMonetizationSettings());
   const [isSaving, setIsSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
@@ -115,6 +120,44 @@ const AdminMonetizationContent: React.FC<AdminMonetizationContentProps> = ({
       })
       .catch(err => console.warn('[Monetization Sync Warning]', err));
   }, []);
+
+  useEffect(() => {
+    let active = true;
+    fetch('/api/gmail/oauth?action=status', { headers: { 'Authorization': 'Bearer ' + token } })
+      .then(async res => {
+        const data = await res.json().catch(() => ({}));
+        if (!active) return;
+        if (res.ok && data.success) {
+          setGmailStatus({ connected:Boolean(data.connected), accountEmail:data.accountEmail, updatedAt:data.updatedAt });
+          setGmailError(null);
+        } else setGmailError(data.message || 'Gmail connection status is unavailable until server configuration is complete.');
+      })
+      .catch(() => { if (active) setGmailError('Could not load Gmail connection status.'); });
+    return () => { active = false; };
+  }, [token]);
+
+  const handleConnectGmail = async () => {
+    setGmailBusy(true); setGmailError(null);
+    try {
+      const res = await fetch('/api/gmail/oauth', { method:'POST', headers:{ 'Authorization':'Bearer ' + token, 'Content-Type':'application/json' }, body:JSON.stringify({ action:'connect' }) });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.success || !data.authUrl) { setGmailError(data.message || 'Unable to start Gmail OAuth connection.'); return; }
+      window.location.assign(data.authUrl);
+    } catch { setGmailError('Network error while starting Gmail connection.'); }
+    finally { setGmailBusy(false); }
+  };
+
+  const handleDisconnectGmail = async () => {
+    if (!window.confirm('Disconnect Gmail API from Google Tool Finder?')) return;
+    setGmailBusy(true); setGmailError(null);
+    try {
+      const res = await fetch('/api/gmail/oauth', { method:'DELETE', headers:{ 'Authorization':'Bearer ' + token } });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.success) throw new Error(data.message || 'Unable to disconnect Gmail.');
+      setGmailStatus({ connected:false });
+    } catch (error:any) { setGmailError(error.message || 'Unable to disconnect Gmail.'); }
+    finally { setGmailBusy(false); }
+  };
 
   const handleCopyAdsTxt = (text: string) => {
     if (navigator?.clipboard?.writeText) {
@@ -258,6 +301,14 @@ const AdminMonetizationContent: React.FC<AdminMonetizationContentProps> = ({
         >
           <Settings className="w-4 h-4" />
           <span>Affiliate & AdSense Settings</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('gmail')}
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${activeTab === 'gmail' ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'}`}
+        >
+          <Mail className="w-4 h-4" />
+          <span>Gmail API</span>
         </button>
 
         <button
@@ -1341,6 +1392,49 @@ const AdminMonetizationContent: React.FC<AdminMonetizationContentProps> = ({
                 <Save className="w-4 h-4" />
                 <span>{isSaving ? 'Saving to Server...' : 'Save Configuration'}</span>
               </button>
+            </div>
+          </div>
+        </div>
+      ) : activeTab === 'gmail' ? (
+        <div className="space-y-6 animate-in fade-in duration-200">
+          <div className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm space-y-5">
+            <div className="flex items-start gap-3">
+              <div className="w-11 h-11 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center"><Mail className="w-5 h-5"/></div>
+              <div className="flex-1">
+                <h2 className="text-xl font-extrabold text-slate-900">Universal Gmail API Autoconnect</h2>
+                <p className="mt-1 text-sm text-slate-600">Connect the administrator Gmail account using Google OAuth. Contact Us and Project Requirement enquiries can then be delivered through Gmail API, with the refresh token encrypted on the server.</p>
+              </div>
+            </div>
+            <div className={gmailStatus.connected ? 'rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-900' : 'rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900'}>
+              <div className="font-bold">{gmailStatus.connected ? 'Gmail connected' : 'Gmail not connected'}</div>
+              <div className="mt-1 text-xs">{gmailStatus.connected ? <>Connected account: {gmailStatus.accountEmail || 'Verified administrator'}</> : 'Complete server-side OAuth configuration, then connect the administrator account.'}</div>
+              {gmailStatus.updatedAt && <div className="mt-1 text-[11px] opacity-75">Connected: {new Date(gmailStatus.updatedAt).toLocaleString()}</div>}
+            </div>
+            {gmailError && <div role="alert" className="rounded-xl bg-rose-50 border border-rose-200 text-rose-800 p-3 text-xs">{gmailError}</div>}
+            <div className="flex flex-wrap gap-3">
+              {!gmailStatus.connected ? (
+                <button onClick={handleConnectGmail} disabled={gmailBusy} className="inline-flex items-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:opacity-50 px-5 py-3 text-xs font-bold text-white">
+                  <Mail className="w-4 h-4"/>{gmailBusy ? 'Connecting…' : 'Connect administrator Gmail'}
+                </button>
+              ) : (
+                <button onClick={handleDisconnectGmail} disabled={gmailBusy} className="inline-flex items-center gap-2 rounded-xl bg-rose-600 hover:bg-rose-700 disabled:opacity-50 px-5 py-3 text-xs font-bold text-white">
+                  <RefreshCw className="w-4 h-4"/>{gmailBusy ? 'Please wait…' : 'Disconnect Gmail'}
+                </button>
+              )}
+              <button onClick={() => window.location.reload()} className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-3 text-xs font-bold text-slate-700 hover:bg-slate-50">
+                <RefreshCw className="w-4 h-4"/> Refresh status
+              </button>
+            </div>
+            <div className="rounded-2xl bg-slate-50 border border-slate-200 p-4 space-y-2 text-xs text-slate-600">
+              <b className="text-slate-800">One-time server setup required</b>
+              <ol className="list-decimal pl-5 space-y-1">
+                <li>Enable Gmail API in the Google Cloud project.</li>
+                <li>Create a Google OAuth Web application and add the exact <code>/api/gmail/oauth</code> redirect URI.</li>
+                <li>Set GMAIL_OAUTH_CLIENT_ID, GMAIL_OAUTH_CLIENT_SECRET, GMAIL_REDIRECT_URI, GMAIL_OAUTH_STATE_SECRET and GMAIL_TOKEN_ENCRYPTION_KEY in Vercel.</li>
+                <li>Apply the <code>gtf_integrations</code> table from <code>data/schema.sql</code> and set SUPABASE_SERVICE_ROLE_KEY.</li>
+                <li>Connect the account 28r.n.singh@gmail.com and approve Gmail send permission.</li>
+              </ol>
+              <p className="text-[11px] text-slate-500">OAuth secrets and refresh tokens are server-only. Never paste them into the browser, repository or chat.</p>
             </div>
           </div>
         </div>
