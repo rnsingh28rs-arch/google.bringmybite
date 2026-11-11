@@ -119,7 +119,7 @@ The Admin Console includes a Gmail API tab. It uses server-side Google OAuth wit
 Before enabling the connection:
 
 1. Enable the Gmail API in the Google Cloud project.
-2. Create a Google OAuth Web application and add the exact redirect URI `https://YOUR_DEPLOYMENT_HOST/api/gmail/oauth`.
+2. Configure the OAuth consent screen, add `28r.n.singh@gmail.com` as a test user if the app is in Testing mode, create a Google OAuth Web application and add the exact redirect URI `https://YOUR_DEPLOYMENT_HOST/api/gmail/oauth`. Note: external apps left in Testing mode can have refresh tokens expire after seven days for Gmail scopes; publish/verify the OAuth app as required for durable production use.
 3. Set `GMAIL_OAUTH_CLIENT_ID`, `GMAIL_OAUTH_CLIENT_SECRET`, `GMAIL_REDIRECT_URI`, `GMAIL_OAUTH_STATE_SECRET` (at least 32 random characters), and `GMAIL_TOKEN_ENCRYPTION_KEY` (base64-encoded 32-byte key).
 4. Set `SUPABASE_SERVICE_ROLE_KEY` on the server only and apply the `gtf_integrations` table in `data/schema.sql`.
 5. Set `ADMIN_EMAIL=28r.n.singh@gmail.com` and `CONTACT_TO_EMAIL=28r.n.singh@gmail.com`.
