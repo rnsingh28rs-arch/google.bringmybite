@@ -129,7 +129,7 @@ Refresh tokens are encrypted using AES-256-GCM and stored in the service-role-on
 
 ## Admin login identity
 
-The admin login requires both the configured email and password. `ADMIN_EMAIL` defaults to `28r.n.singh@gmail.com`; configure `ADMIN_PASSWORD` or `ADMIN_PASSWORD_HASH` server-side. The email address is not a password or substitute for the secret.
+The admin login requires both the configured email and password. `ADMIN_EMAIL` defaults to `28r.n.singh@gmail.com`; configure `ADMIN_PASSWORD` or `ADMIN_PASSWORD_HASH` server-side, and set a strong `ADMIN_SECRET_KEY` (at least 32 characters) for signing admin sessions when needed. The email address is not a password or substitute for the secret.
 
 ## Catalogue and outbound attribution
 
