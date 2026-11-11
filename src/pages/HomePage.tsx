@@ -57,6 +57,7 @@ import { AdPlacement } from '../components/AdPlacement';
 import { FeaturedOwnerPromotion } from '../components/FeaturedOwnerPromotion';
 import { ProductLogo } from '../components/ProductLogo';
 import { WaterLightGlass } from '../components/WaterLightGlass';
+import { TechNewsSection } from '../components/TechNewsSection';
 
 interface HomePageProps {
   onNavigate: (view: string, slug?: string) => void;
@@ -613,6 +614,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
           </div>
         </div>
       </section>
+
+      <TechNewsSection />
 
       {/* 2. POPULAR GOOGLE PRODUCTS (Visual Discovery: Logo-First Cards) */}
       <section id="popular-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
