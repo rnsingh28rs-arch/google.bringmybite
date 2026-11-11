@@ -125,7 +125,7 @@ Before enabling the connection:
 5. Set `ADMIN_EMAIL=28r.n.singh@gmail.com` and `CONTACT_TO_EMAIL=28r.n.singh@gmail.com`.
 6. Open Admin Console → Gmail API → Connect administrator Gmail and approve the requested Gmail send permission.
 
-Refresh tokens are encrypted using AES-256-GCM and stored in the service-role-only `gtf_integrations` table. The frontend never receives the refresh token. Never commit secrets or expose them using `VITE_` variables. Resend remains the preferred delivery provider when `RESEND_API_KEY` is configured; Gmail API is the secure fallback.
+Refresh tokens are encrypted using AES-256-GCM and stored in the service-role-only `gtf_integrations` table. The frontend never receives the refresh token. Never commit secrets or expose them using `VITE_` variables. When Gmail is connected, it is the primary enquiry delivery route. Resend is used as the transactional-email fallback when Gmail is not connected or temporarily unavailable.
 
 ## Admin login identity
 
