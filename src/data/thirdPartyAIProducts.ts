@@ -100,7 +100,7 @@ export const THIRD_PARTY_AI_PRODUCTS: Product[] = [
     platforms:['API','Web'],
     pricingStatus:'paid',pricingOverview:'Pay-as-you-go; token and modality pricing varies by model. No general free API token tier.',
     pricingNotes:'ChatGPT Free/Plus/Pro subscriptions do not include API credits. RPM, TPM and daily limits vary by model and account usage tier.',
-    officialUrl:'https://platform.openai.com/',officialPricingUrl:'https://openai.com/api/pricing/?utm_source=googletoolfinder&utm_medium=directory&utm_campaign=ai_tools',
+    officialUrl:'https://platform.openai.com/?utm_source=googletoolfinder&utm_medium=directory&utm_campaign=ai_tools',officialPricingUrl:'https://openai.com/api/pricing/?utm_source=googletoolfinder&utm_medium=directory&utm_campaign=ai_tools',
     lastVerifiedDate:'11 November 2026',isFeaturedAI:true,iconName:'Code',relatedProductSlugs:['chatgpt'],relatedTutorialSlugs:[]
   },
   {
@@ -114,7 +114,7 @@ export const THIRD_PARTY_AI_PRODUCTS: Product[] = [
     platforms:['API','Web'],
     pricingStatus:'paid',pricingOverview:'Pay-as-you-go token pricing by Claude model. No general free API token tier.',
     pricingNotes:'Claude consumer Free/Pro plans do not include API credits. Rate limits vary by model and usage tier.',
-    officialUrl:'https://console.anthropic.com/',officialPricingUrl:'https://www.anthropic.com/pricing?utm_source=googletoolfinder&utm_medium=directory&utm_campaign=ai_tools',
+    officialUrl:'https://console.anthropic.com/?utm_source=googletoolfinder&utm_medium=directory&utm_campaign=ai_tools',officialPricingUrl:'https://www.anthropic.com/pricing?utm_source=googletoolfinder&utm_medium=directory&utm_campaign=ai_tools',
     lastVerifiedDate:'11 November 2026',isFeaturedAI:true,iconName:'BrainCircuit',relatedProductSlugs:['claude'],relatedTutorialSlugs:[]
   },
   {
