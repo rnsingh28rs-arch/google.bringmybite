@@ -98,10 +98,10 @@ export async function sendGmailMessage(input: { to: string; subject: string; tex
     throw new Error('GMAIL_TOKEN_REFRESH_FAILED: ' + (tokenData.error_description || tokenData.error || tokenResponse.status));
   }
 
-  const safeEmail = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(input.to) ? input.to : '';
+  const safeEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.to) ? input.to : '';
   if (!safeEmail) throw new Error('GMAIL_RECIPIENT_INVALID: A valid recipient email address is required.');
-  if (input.replyTo && !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(input.replyTo)) throw new Error('GMAIL_REPLY_TO_INVALID: A valid reply-to email address is required.');
-  const safeSubject = input.subject.replace(/[\\r\\n]+/g, ' ').slice(0, 200);
+  if (input.replyTo && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.replyTo)) throw new Error('GMAIL_REPLY_TO_INVALID: A valid reply-to email address is required.');
+  const safeSubject = input.subject.replace(/[\r\n]+/g, ' ').slice(0, 200);
   const encodeHeader = (value: string) => '=?UTF-8?B?' + Buffer.from(value, 'utf8').toString('base64') + '?=';
   const headers = [
     'To: ' + safeEmail,
