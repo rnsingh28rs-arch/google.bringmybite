@@ -141,9 +141,11 @@ const isProduction = () => process.env.VERCEL_ENV === 'production' || process.en
 // -------------------------------------------------------------
 export async function getUsers(): Promise<GTFUser[]> {
   const supabase = getSupabaseClient();
+  if (!supabase && isProduction()) throw new Error('DURABLE_STORAGE_UNCONFIGURED: Configure Supabase service credentials before serving user profiles.');
   if (supabase) {
     try {
       const { data, error } = await supabase.from('gtf_users').select('*');
+      if (error && isProduction()) throw new Error('DATABASE_ERROR: ' + error.message);
       if (!error && Array.isArray(data)) {
         return data.map(r => ({
           uid: r.uid,
@@ -158,6 +160,7 @@ export async function getUsers(): Promise<GTFUser[]> {
         }));
       }
     } catch (e) {
+      if (isProduction()) throw e;
       console.warn('[Supabase getUsers Notice]', e);
     }
   }
@@ -169,9 +172,12 @@ export async function getUsers(): Promise<GTFUser[]> {
 
 export async function getUserById(uid: string): Promise<GTFUser | null> {
   const supabase = getSupabaseClient();
+  if (!supabase && isProduction()) throw new Error('DURABLE_STORAGE_UNCONFIGURED: Configure Supabase service credentials before serving user profiles.');
   if (supabase) {
     try {
       const { data, error } = await supabase.from('gtf_users').select('*').eq('uid', uid).maybeSingle();
+      if (error && isProduction()) throw new Error('DATABASE_ERROR: ' + error.message);
+      if (!error && !data) return null;
       if (!error && data) {
         return {
           uid: data.uid,
@@ -186,6 +192,7 @@ export async function getUserById(uid: string): Promise<GTFUser | null> {
         };
       }
     } catch (e) {
+      if (isProduction()) throw e;
       console.warn('[Supabase getUserById Notice]', e);
     }
   }
@@ -196,6 +203,7 @@ export async function getUserById(uid: string): Promise<GTFUser | null> {
 
 export async function saveUser(user: GTFUser): Promise<GTFUser> {
   const supabase = getSupabaseClient();
+  if (!supabase && isProduction()) throw new Error('DURABLE_STORAGE_UNCONFIGURED: Configure Supabase service credentials before saving user profiles.');
   if (supabase) {
     try {
       const dbPayload = {
@@ -227,12 +235,14 @@ export async function saveUser(user: GTFUser): Promise<GTFUser> {
       if (error && isProduction()) {
         throw new Error(`DATABASE_ERROR: ${error.message}`);
       }
+      if (!data && isProduction()) throw new Error('DATABASE_WRITE_FAILED: Supabase did not confirm the user profile write.');
     } catch (e: any) {
       if (isProduction()) throw e;
       console.warn('[Supabase saveUser Notice, falling back to disk]', e.message);
     }
   }
 
+  if (!supabase && isProduction()) throw new Error('DURABLE_STORAGE_UNCONFIGURED: User profile writes require Supabase in production.');
   const users = await getUsers();
   const existingIdx = users.findIndex(u => u.uid === user.uid);
   
@@ -355,6 +365,7 @@ export async function recordOutboundClick(click: OutboundClickRecord): Promise<O
     }
   }
 
+  if (isProduction()) throw new Error('DURABLE_STORAGE_UNAVAILABLE: Outbound click analytics require Supabase in production.');
   const diskClicks = readJsonFile<OutboundClickRecord[]>('outbound-clicks.json', memoryClicks);
   diskClicks.push(click);
   const trimmed = diskClicks.slice(-2000);
@@ -617,6 +628,7 @@ export async function recordContactEnquiry(enquiry: ContactEnquiryRecord): Promi
   enquiry.timestamp = enquiry.timestamp || new Date().toISOString();
   enquiry.status = enquiry.status || 'queued_in_database';
   const supabase = getSupabaseClient();
+  if (!supabase && isProduction()) throw new Error('DURABLE_STORAGE_UNCONFIGURED: Enquiry persistence requires Supabase in production.');
   if (supabase) {
     try {
       const { error } = await supabase.from('gtf_contact_enquiries').insert({
@@ -641,6 +653,7 @@ export async function recordContactEnquiry(enquiry: ContactEnquiryRecord): Promi
     }
   }
 
+  if (isProduction()) throw new Error('DURABLE_STORAGE_UNAVAILABLE: Contact enquiry persistence requires Supabase in production.');
   const list = readJsonFile<ContactEnquiryRecord[]>('enquiries.json', memoryEnquiries);
   list.push(enquiry);
   const trimmed = list.slice(-500);

@@ -12,6 +12,8 @@ export type ProductCategory =
   | 'Search & Research'
   | 'Developer Tools'
   | 'Cloud Computing'
+  | 'Databases'
+  | 'Deployment Platforms'
   | 'Analytics & Marketing'
   | 'Monetisation & Ads'
   | 'Maps & Location'

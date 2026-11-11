@@ -9,6 +9,7 @@ interface AdminGuardProps {
 export const AdminGuard: React.FC<AdminGuardProps> = ({ children, onNavigateHome }) => {
   const [token, setToken] = useState<string | null>(null);
   const [isVerifying, setIsVerifying] = useState(true);
+  const [adminEmail, setAdminEmail] = useState('28r.n.singh@gmail.com');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -53,7 +54,7 @@ export const AdminGuard: React.FC<AdminGuardProps> = ({ children, onNavigateHome
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!password.trim() || isSubmitting) return;
+    if (!adminEmail.trim() || !password.trim() || isSubmitting) return;
 
     setIsSubmitting(true);
     setErrorMessage(null);
@@ -65,7 +66,7 @@ export const AdminGuard: React.FC<AdminGuardProps> = ({ children, onNavigateHome
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ password: password.trim() })
+        body: JSON.stringify({ email: adminEmail.trim().toLowerCase(), password: password.trim() })
       });
 
       const data = await res.json().catch(() => ({}));
@@ -150,6 +151,10 @@ export const AdminGuard: React.FC<AdminGuardProps> = ({ children, onNavigateHome
 
         <form onSubmit={handleLogin} className="space-y-4" aria-label="Administrator sign in form">
           <div className="space-y-1.5">
+            <label htmlFor="admin-email" className="text-xs font-bold text-slate-700 block">Administrator Email</label>
+            <input id="admin-email" type="email" value={adminEmail} onChange={(e) => setAdminEmail(e.target.value)} autoComplete="username" disabled={isSubmitting} required className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all" />
+          </div>
+          <div className="space-y-1.5">
             <label htmlFor="admin-password" className="text-xs font-bold text-slate-700 block">
               Administrator Password
             </label>
@@ -179,7 +184,7 @@ export const AdminGuard: React.FC<AdminGuardProps> = ({ children, onNavigateHome
 
           <button
             type="submit"
-            disabled={!password.trim() || isSubmitting}
+            disabled={!adminEmail.trim() || !password.trim() || isSubmitting}
             className="w-full py-2.5 px-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-xs rounded-xl shadow-md disabled:opacity-50 transition-all cursor-pointer flex items-center justify-center gap-2"
           >
             <KeyRound className="w-4 h-4" />

@@ -1,5 +1,6 @@
 import type { IncomingMessage, ServerResponse } from 'http';
 import { recordContactEnquiry, getContactEnquiries } from './_storage.js';
+import { sendGmailMessage } from './_gmail.js';
 
 export const VALID_SUBJECTS = {
   project_enquiry: 'Custom Software & Development Project Enquiry',
@@ -355,11 +356,56 @@ export async function processContactSubmission(
   }
 
   // 4. Secure Delivery Provider Execution
-  // Option A: Resend API (Recommended for Vercel)
+  // Option A: Prefer connected Gmail API for administrator enquiries
+  const gmailConfigured = Boolean(
+    process.env.SUPABASE_SERVICE_ROLE_KEY &&
+    process.env.GMAIL_TOKEN_ENCRYPTION_KEY &&
+    process.env.GMAIL_OAUTH_CLIENT_SECRET &&
+    (process.env.GMAIL_OAUTH_CLIENT_ID || process.env.GOOGLE_CLIENT_ID)
+  );
+  if (gmailConfigured) {
+    try {
+      const toEmail = (process.env.CONTACT_TO_EMAIL || process.env.ADMIN_EMAIL || '28r.n.singh@gmail.com').trim().toLowerCase();
+      if (!validateEmail(toEmail)) {
+        return { statusCode: 500, response: { success:false, status:'delivery_failed', error:'Server configuration error: invalid destination email address.' } };
+      }
+      const subject = '[Google Tool Finder] New enquiry (' + confirmationId + ')';
+      const messageBody = 'New enquiry (' + confirmationId + ')\n' +
+        'Date: ' + timestamp + '\n' +
+        'Name: ' + name + '\n' +
+        'Email: ' + email + '\n' +
+        'Topic: ' + subjectLabel + '\n' +
+        'IP: ' + clientIp + '\n' +
+        'User Agent: ' + userAgent + '\n\n' +
+        'Message:\n' + message;
+      const sent = await sendGmailMessage({ to: toEmail, subject, text: messageBody, replyTo: email });
+      if (sent) {
+        try {
+          await sendGmailMessage({
+            to: email,
+            subject: '[Google Tool Finder] Enquiry received (' + confirmationId + ')',
+            text: 'Hi ' + name + ',\n\nThank you for contacting Google Tool Finder by Bring My Bite. Your enquiry has been received and routed to our admin inbox.\nReference: ' + confirmationId + '\n\nBest regards,\nGoogle Tool Finder Team',
+            replyTo: toEmail
+          });
+        } catch (ackError) {
+          console.warn('[Gmail Acknowledgement Notice]', ackError);
+        }
+        await recordContactEnquiry({ confirmationId, name, email, subject: subjectLabel, message, status:'delivered_gmail', timestamp, clientIp }).catch(() => {});
+        return { statusCode:200, response:{ success:true, status:'delivered', message:'Your enquiry was delivered through the connected Gmail account.', confirmationId, timestamp } };
+      }
+    } catch (err:any) {
+      // If Gmail is temporarily unavailable, continue to the configured transactional-email fallback.
+      console.error('[Gmail Dispatch Error - falling back to Resend]', err);
+    }
+  }
+
+
+  // Option B: Resend transactional email fallback
+  // Option B: Resend API fallback (Recommended when Gmail is not connected)
   const resendApiKey = process.env.RESEND_API_KEY;
   if (resendApiKey && resendApiKey.trim()) {
     try {
-      const toEmail = process.env.CONTACT_TO_EMAIL || 'bringmybyte@gmail.com';
+      const toEmail = process.env.CONTACT_TO_EMAIL || '28r.n.singh@gmail.com';
       const fromEmail = process.env.CONTACT_FROM_EMAIL || 'Google Tool Finder <onboarding@resend.dev>';
 
       if (!validateEmail(toEmail)) {
@@ -482,7 +528,7 @@ export async function processContactSubmission(
     }
   }
 
-  // Option B: Webhook Dispatch (e.g. Discord, Slack, Zapier) with SSRF Guard
+  // Option C: Webhook Dispatch (e.g. Discord, Slack, Zapier) with SSRF Guard
   const webhookUrl = process.env.CONTACT_WEBHOOK_URL;
   if (webhookUrl && webhookUrl.trim()) {
     const safetyCheck = isSafeWebhookUrl(webhookUrl.trim());
@@ -558,7 +604,7 @@ export async function processContactSubmission(
     }
   }
 
-  // Option C: Safe Test Mode (Strictly restricted to non-production environments)
+  // Option D: Safe Test Mode (Strictly restricted to non-production environments)
   const isProduction = process.env.VERCEL_ENV === 'production' || process.env.NODE_ENV === 'production';
   if (process.env.CONTACT_TEST_MODE === 'true') {
     if (isProduction) {
@@ -597,32 +643,43 @@ export async function processContactSubmission(
     };
   }
 
-  // Option D: Database Queue Mode (if live delivery credentials are intentionally deferred)
+  // Option E: Database Queue Mode (if live delivery credentials are intentionally deferred)
   if (process.env.CONTACT_ALLOW_DB_STORAGE === 'true') {
-    await recordContactEnquiry({
-      confirmationId,
-      name,
-      email,
-      subject: subjectLabel,
-      message,
-      status: 'recorded_in_database',
-      timestamp,
-      clientIp
-    }).catch(() => {});
-
-    return {
-      statusCode: 200,
-      response: {
-        success: true,
-        status: 'test_accepted',
-        message: 'Your enquiry was validated and securely recorded for our editorial team in the database.',
+    try {
+      await recordContactEnquiry({
         confirmationId,
-        timestamp
-      }
-    };
+        name,
+        email,
+        subject: subjectLabel,
+        message,
+        status: 'recorded_in_database',
+        timestamp,
+        clientIp
+      });
+      return {
+        statusCode: 200,
+        response: {
+          success: true,
+          status: 'test_accepted',
+          message: 'Your enquiry was validated and securely recorded for our editorial team in the database.',
+          confirmationId,
+          timestamp
+        }
+      };
+    } catch (error) {
+      console.error('[Contact Database Queue Error]', error);
+      return {
+        statusCode: 503,
+        response: {
+          success: false,
+          status: 'delivery_failed',
+          error: 'The enquiry could not be saved because persistent storage is unavailable. Please retry or contact the site administrator.'
+        }
+      };
+    }
   }
 
-  // Option E: Service Unconfigured Fallback
+  // Option F: Service Unconfigured Fallback
   // Neither RESEND_API_KEY, CONTACT_WEBHOOK_URL, nor CONTACT_TEST_MODE is configured.
   // We do NOT pretend the email was sent (Policy: Do not claim delivery unless confirmed).
   return {

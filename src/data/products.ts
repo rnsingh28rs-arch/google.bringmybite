@@ -1,4 +1,5 @@
 import { GOOGLE_CLOUD_PRODUCTS } from './googleCloudProducts';
+import { THIRD_PARTY_AI_PRODUCTS } from './thirdPartyAIProducts';
 import { Product } from '../types';
 
 export const PRODUCTS: Product[] = [
@@ -11,6 +12,7 @@ export const PRODUCTS: Product[] = [
     summary: 'Gemini is Google’s primary AI assistant designed for multimodal reasoning across text, code, audio, image, and video understanding. It is available in a free tier (powered by Gemini Flash models) and a paid Gemini Advanced tier (via Google One AI Premium).',
     description: [
       'Gemini helps users brainstorm, draft complex emails, write and debug software code, analyze uploaded documents, and generate creative imagery.',
+      'Gemini 4 Carbon is rolling out to Google AI Ultra subscribers in the Gemini app and Search AI Mode; API access for developers is separate and paid-tier only.'
       'Through Google One AI Premium, Gemini Advanced unlocks Google’s largest reasoning models with a larger context window, priority access to new multimodal features, and deep integration into Gmail, Google Docs, Slides, and Sheets.'
     ],
     keyFeatures: [
@@ -32,10 +34,10 @@ export const PRODUCTS: Product[] = [
     pricingOverview: 'Free standard version; Gemini Advanced available via Google One AI Premium plan.',
     verifiedPricingInINR: 'Free tier available; Gemini Advanced is included with Google One AI Premium at ₹1,950/month (with frequent 1-month free trial promotions for new users in India).',
     verifiedPricingInUSD: 'Free tier available; Gemini Advanced at $19.99/month via Google One AI Premium.',
-    pricingNotes: 'Subject to regional taxes and Google One promotional trials. Free tier has generous daily rate limits.',
+    pricingNotes: 'Subject to regional taxes and Google One promotional trials. Consumer free-tier limits vary by model and demand. Gemini 4 Carbon access in the Gemini app is for Google AI Ultra subscribers during rollout.'
     officialUrl: 'https://gemini.google.com',
     officialPricingUrl: 'https://one.google.com/about/plans',
-    lastVerifiedDate: 'October 2026',
+    lastVerifiedDate: '11 November 2026',
     isPopular: true,
     isFeaturedAI: true,
     iconName: 'Sparkles',
@@ -88,13 +90,17 @@ export const PRODUCTS: Product[] = [
     name: 'Google AI Studio',
     category: 'Developer Tools',
     tagline: 'The fastest, web-based prototyping environment for developer access to Gemini API',
-    summary: 'Google AI Studio is a developer workbench to prototype prompts, experiment with multimodal capabilities, configure system instructions, and generate production code snippets in Python, TypeScript/JavaScript, cURL, and Swift.',
+    summary: 'Google AI Studio is the developer workbench for prototyping Gemini API apps, testing multimodal models, exporting code, and building Maps-powered applications. Gemini 4 Carbon is now available to paying API developers; free-tier access remains model-specific.',
     description: [
       'AI Studio provides direct access to Google’s latest Gemini Flash and Gemini Pro models with up to a 2-million-token context window.',
-      'Developers can test temperature, Top-P, Safety settings, structured JSON outputs, function calling, and system instructions before getting an API key and exporting to production code.'
+      'Developers can test temperature, Top-P, safety settings, structured JSON outputs, function calling, and system instructions before exporting production code.',
+      'Gemini 4 Carbon (gemini-4-carbon) is available through the paid Gemini API tier in AI Studio. Introductory pricing is $2 per million input tokens and $10 per million output tokens through 30 November 2026; Google lists $4/$20 from 1 December 2026. The free tier does not include Carbon.',
+      'AI Studio can configure Maps, Places and Routes for prompt-built prototypes using a demo key with 100 calls/day per API; a linked Cloud billing account is required for production quotas.'
     ],
     keyFeatures: [
-      'Free tier for developers with generous rate limits per minute',
+      'Model-specific free tier with published RPM, TPM and RPD limits',
+      'Paid Gemini 4 Carbon model access with published token pricing',
+      'Prompt-built Maps, Places and Routes prototypes with 100 demo calls/day per API',
       'Massive multimodal context: upload hours of audio, video, PDFs, or whole codebases',
       'Structured JSON schema enforcement and Function Calling testing UI',
       'Instant code export into @google/genai SDK for Python, Node.js, and REST',
@@ -111,11 +117,11 @@ export const PRODUCTS: Product[] = [
     pricingStatus: 'free_tier',
     pricingOverview: 'Free tier available with rate limits; Pay-As-You-Go billing via Google Cloud project.',
     verifiedPricingInINR: 'Free tier with rate limits (RPM/TPM). Pay-as-you-go billing billed in INR via Google Cloud Platform billing accounts.',
-    verifiedPricingInUSD: 'Free tier available (prompts used to improve Google products on free tier); Paid tier billed per 1M tokens (Flash ~$0.075 / 1M input tokens).',
-    pricingNotes: 'Developers can use the free tier without adding credit card in countries where free quota is enabled.',
+    verifiedPricingInUSD: 'Free tier available for eligible models. Gemini 4 Carbon paid API introductory pricing: $2/1M input and $10/1M output tokens through 30 Nov 2026; $4/$20 from 1 Dec 2026.',
+    pricingNotes: 'Free quotas are model-specific and shown in AI Studio Rate Limits. Free-tier prompts may be used to improve Google products; paid-tier content is not. Gemini 4 Carbon is paid-tier only. Maps demo key is limited to 100 calls/day per API and is not a production key.',
     officialUrl: 'https://aistudio.google.com',
-    officialPricingUrl: 'https://ai.google.dev/pricing',
-    lastVerifiedDate: 'October 2026',
+    officialPricingUrl: 'https://ai.google.dev/gemini-api/docs/pricing',
+    lastVerifiedDate: '11 November 2026',
     isPopular: true,
     isFeaturedAI: true,
     iconName: 'Code',
@@ -128,7 +134,7 @@ export const PRODUCTS: Product[] = [
     name: 'Google Antigravity',
     category: 'Developer Tools',
     tagline: 'Advanced agentic AI development environment and autonomous coding workflows',
-    summary: 'Google Antigravity is Google’s agentic framework and developer workspace designed for autonomous multi-step reasoning, tool execution, and end-to-end full-stack software development workflows.',
+    summary: 'Google Antigravity is Google’s agentic developer workspace for autonomous multi-step reasoning, tool execution and full-stack software development. Google is previewing /swarm, a coordinated multi-agent workflow, and Gemini 4 Carbon is available to eligible AI Ultra subscribers and paid API developers.'
     description: [
       'Antigravity represents Google’s forward-looking agentic developer platform, combining multimodal Gemini intelligence with persistent execution sandboxes, tool integration, and verified code delivery.',
       'It empowers developers to delegate multi-file architectural refactoring, automated testing, and cloud infrastructure deployment.'
@@ -137,7 +143,9 @@ export const PRODUCTS: Product[] = [
       'Autonomous agent execution with chain-of-thought verification',
       'Deep integration with developer tools and cloud deployment environments',
       'Native tool orchestration (compiler, linter, bash runtime, git)',
-      'Secure sandboxed workspace execution for safe code evaluation'
+      'Secure sandboxed workspace execution for safe code evaluation',
+      'Preview /swarm feature coordinates multiple agents with roles for architecture, implementation and auditing',
+      'Gemini 4 Carbon is rolling out to Google AI Ultra subscribers; developer API access is paid-tier'
     ],
     typicalUseCases: [
       'Automated bug triage, regression debugging, and unit test generation',
@@ -153,7 +161,7 @@ export const PRODUCTS: Product[] = [
     pricingNotes: 'Access rules and rollout availability vary by developer region.',
     officialUrl: 'https://deepmind.google/technologies/gemini',
     officialPricingUrl: 'https://ai.google.dev',
-    lastVerifiedDate: 'October 2026',
+    lastVerifiedDate: '11 November 2026',
     isPopular: false,
     isFeaturedAI: true,
     iconName: 'Cpu',
@@ -690,7 +698,7 @@ export const PRODUCTS: Product[] = [
     pricingNotes: 'Developer API usage requires billing account setup to prevent accidental service interruption.',
     officialUrl: 'https://maps.google.com',
     officialPricingUrl: 'https://mapsplatform.google.com/pricing',
-    lastVerifiedDate: 'October 2026',
+    lastVerifiedDate: '11 November 2026',
     isPopular: true,
     isFeaturedAI: false,
     iconName: 'MapPin',
@@ -853,16 +861,16 @@ export const PRODUCTS: Product[] = [
     id: 'bigquery',
     slug: 'bigquery',
     name: 'BigQuery',
-    category: 'Cloud Computing',
+    category: 'Databases',
     tagline: 'Serverless, cost-effective enterprise data warehouse with built-in ML and SQL analytics',
     summary: 'Google BigQuery is a serverless, multi-cloud enterprise data warehouse designed for lightning-fast SQL queries across petabytes of data.',
     description: [
       'BigQuery separates storage from compute, allowing queries to scale dynamically without database administration or indexing overhead.',
-      'Its BigQuery Sandbox provides 1 TB of free query data processing and 10 GB of free storage every month without requiring a credit card.'
+      'The free usage tier includes 10 GiB of storage and 1 TiB of on-demand query processing per month. The no-billing Sandbox has a lifetime 10 GiB storage allowance, and sandbox tables expire after 60 days.'
     ],
     keyFeatures: [
       'Serverless architecture: query terabytes in seconds without provisioning clusters',
-      'BigQuery Sandbox: 10 GB storage and 1 TB query analysis free every month',
+      'Free usage tier: 10 GiB storage and 1 TiB query processing per month; Sandbox has a lifetime 10 GiB storage allowance',
       'BigQuery ML: train and execute machine learning models directly using standard SQL syntax',
       'Native connectors for Looker Studio, Google Sheets, and Python data science'
     ],
@@ -874,13 +882,13 @@ export const PRODUCTS: Product[] = [
     intendedAudience: ['Developers', 'Enterprises', 'Professionals'],
     platforms: ['Web', 'API'],
     pricingStatus: 'free_tier',
-    pricingOverview: 'BigQuery Sandbox offers 1 TB queries free per month; pay-as-you-go storage and compute thereafter.',
+    pricingOverview: 'Free usage tier: 1 TiB on-demand query processing and 10 GiB storage/month. No-billing Sandbox: 1 TiB queries/month and lifetime 10 GiB storage; sandbox tables expire after 60 days.',
     verifiedPricingInINR: 'Sandbox tier is free. Pay-as-you-go query pricing is ~$6.25 per TB scanned, billed in INR via Google Cloud.',
     verifiedPricingInUSD: '1 TB free query data/mo; $6.25 per TB on on-demand analysis.',
     pricingNotes: 'Active storage is $0.020 per GB; long-term storage drops to $0.010 per GB.',
     officialUrl: 'https://cloud.google.com/bigquery',
     officialPricingUrl: 'https://cloud.google.com/bigquery/pricing',
-    lastVerifiedDate: 'October 2026',
+    lastVerifiedDate: '11 November 2026',
     isPopular: false,
     isFeaturedAI: false,
     iconName: 'Database',
@@ -1110,12 +1118,13 @@ export const PRODUCTS: Product[] = [
     officialPricingUrl: 'https://developer.android.com/studio',
     lastVerifiedDate: 'October 2026',
     isPopular: true,
-    isFeaturedAI: true,
+    isFeaturedAI: false,
     iconName: 'Cpu',
     relatedProductSlugs: ['firebase', 'google-play-billing', 'google-admob'],
     relatedTutorialSlugs: ['getting-started-with-gemini']
   },
   ...GOOGLE_CLOUD_PRODUCTS.filter(product => !['firebase', 'android-studio', 'google-search-console'].includes(product.slug)),
+  ...THIRD_PARTY_AI_PRODUCTS,
 ];
 
 export const CATEGORIES: { name: string; icon: string; count: number; description: string }[] = [
@@ -1125,8 +1134,10 @@ export const CATEGORIES: { name: string; icon: string; count: number; descriptio
   { name: 'Cloud Storage & Files', icon: 'HardDrive', count: 0, description: 'Drive, Cloud Storage and file services' },
   { name: 'Search & Research', icon: 'Search', count: 0, description: 'Google Search, Trends, NotebookLM and research tools' },
   { name: 'Developer Tools', icon: 'Code', count: 0, description: 'Firebase, Android Studio, APIs, SDKs and developer services' },
-  { name: 'Cloud Computing', icon: 'Server', count: 0, description: 'Cloud Console, compute, networking, databases and operations' },
-  { name: 'Analytics & Marketing', icon: 'BarChart2', count: 0, description: 'BigQuery, data pipelines, dashboards, GA4 and measurement' },
+  { name: 'Cloud Computing', icon: 'Server', count: 0, description: 'Cloud Console, compute, networking and operations' },
+  { name: 'Databases', icon: 'Database', count: 0, description: 'Managed SQL, NoSQL, data warehouses and in-memory databases' },
+  { name: 'Deployment Platforms', icon: 'Rocket', count: 0, description: 'App hosting, containers, serverless runtimes and delivery platforms' },
+  { name: 'Analytics & Marketing', icon: 'BarChart2', count: 0, description: 'Data pipelines, dashboards, GA4 and measurement' },
   { name: 'Monetisation & Ads', icon: 'DollarSign', count: 0, description: 'AdMob, AdSense, Ad Manager and advertising services' },
   { name: 'Maps & Location', icon: 'MapPin', count: 0, description: 'Maps Platform and geospatial tools' },
   { name: 'Photos & Media', icon: 'Image', count: 0, description: 'Photos, media and content tools' },

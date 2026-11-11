@@ -58,6 +58,15 @@ export default async function handler(req: IncomingMessage & { body?: any }, res
   const clientId = process.env.GOOGLE_CLIENT_ID;
   const isProduction = process.env.VERCEL_ENV === 'production' || process.env.NODE_ENV === 'production';
 
+  // Production must never accept client-supplied identity without an audience to verify Google ID tokens against.
+  if (isProduction && (!clientId || !clientId.trim())) {
+    return sendJson(res, 503, {
+      success: false,
+      error: 'GOOGLE_AUTH_UNCONFIGURED',
+      message: 'Google OAuth configuration is missing on the server. Please configure GOOGLE_CLIENT_ID.'
+    });
+  }
+
   // POST /api/user/sync - Store or update authenticated user profile
   if (req.method === 'POST' && (urlPath === '/api/user/sync' || urlPath === '/api/user')) {
     let body: any;
@@ -108,13 +117,6 @@ export default async function handler(req: IncomingMessage & { body?: any }, res
       if (verified.displayName) finalDisplayName = verified.displayName;
       if (verified.photoURL) finalPhotoUrl = verified.photoURL;
       provider = 'accounts.google.com';
-    } else if (isProduction && !token) {
-      // Fail safely in production if Google OAuth is unconfigured
-      return sendJson(res, 503, {
-        success: false,
-        error: 'GOOGLE_AUTH_UNCONFIGURED',
-        message: 'Google OAuth configuration is missing on the server. Please configure GOOGLE_CLIENT_ID.'
-      });
     }
 
     if (!finalUid || finalUid.length < 3) {
@@ -145,6 +147,7 @@ export default async function handler(req: IncomingMessage & { body?: any }, res
       });
     } catch (err: any) {
       console.error('[User Sync Error]', err);
+      if (String(err?.message || '').includes('DURABLE_STORAGE_UNCONFIGURED')) return sendJson(res, 503, { success:false, error:'DURABLE_STORAGE_UNCONFIGURED', message:'Persistent database storage is not configured. Please contact the site administrator.' });
       return sendJson(res, 500, { success: false, error: 'STORAGE_ERROR', message: 'Failed to synchronize user profile.' });
     }
   }
@@ -193,12 +196,6 @@ export default async function handler(req: IncomingMessage & { body?: any }, res
         });
       }
       targetUid = verified.uid;
-    } else if (isProduction && !token) {
-      return sendJson(res, 503, {
-        success: false,
-        error: 'GOOGLE_AUTH_UNCONFIGURED',
-        message: 'Google OAuth configuration is missing on the server. Please configure GOOGLE_CLIENT_ID.'
-      });
     }
 
     try {
@@ -209,7 +206,11 @@ export default async function handler(req: IncomingMessage & { body?: any }, res
         savedTools: result.savedTools
       });
     } catch (err: any) {
-      return sendJson(res, 404, { success: false, error: 'USER_NOT_FOUND', message: 'User not registered. Please sign in first.' });
+      const errorMessage = String(err?.message || '');
+      if (errorMessage.includes('DURABLE_STORAGE_UNCONFIGURED')) return sendJson(res, 503, { success:false, error:'DURABLE_STORAGE_UNCONFIGURED', message:'Persistent database storage is not configured. Please contact the site administrator.' });
+      if (errorMessage.includes('DATABASE_ERROR') || errorMessage.includes('DATABASE_WRITE_FAILED')) return sendJson(res, 503, { success:false, error:'DATABASE_UNAVAILABLE', message:'User bookmark storage is temporarily unavailable.' });
+      if (errorMessage.includes('USER_NOT_FOUND')) return sendJson(res, 404, { success:false, error:'USER_NOT_FOUND', message:'User not registered. Please sign in first.' });
+      return sendJson(res, 500, { success:false, error:'STORAGE_ERROR', message:'Unable to update saved tools.' });
     }
   }
 
@@ -223,14 +224,26 @@ export default async function handler(req: IncomingMessage & { body?: any }, res
     }
 
     const token = extractAuthToken(req);
-    if (clientId && clientId.trim() && token) {
+    if (clientId && clientId.trim()) {
+      if (!token) {
+        return sendJson(res, 401, { success: false, error: 'AUTHENTICATION_REQUIRED', message: 'A valid Google sign-in token is required.' });
+      }
       const verified = await verifyGoogleIdToken(token);
-      if (verified && requestedUid !== verified.uid) {
+      if (!verified) {
+        return sendJson(res, 401, { success: false, error: 'INVALID_TOKEN', message: 'Google authentication token is invalid or expired.' });
+      }
+      if (requestedUid !== verified.uid) {
         return sendJson(res, 403, { success: false, error: 'FORBIDDEN', message: 'Access to other user profiles is restricted.' });
       }
     }
 
-    const user = await getUserById(requestedUid);
+    let user: GTFUser | null;
+    try {
+      user = await getUserById(requestedUid);
+    } catch (err:any) {
+      if (String(err?.message || '').includes('DURABLE_STORAGE_UNCONFIGURED')) return sendJson(res, 503, { success:false, error:'DURABLE_STORAGE_UNCONFIGURED', message:'Persistent database storage is not configured. Please contact the site administrator.' });
+      return sendJson(res, 503, { success:false, error:'DATABASE_UNAVAILABLE', message:'User profile storage is temporarily unavailable.' });
+    }
     if (!user) {
       return sendJson(res, 404, { success: false, error: 'NOT_FOUND', message: 'User record not found.' });
     }

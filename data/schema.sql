@@ -124,3 +124,16 @@ CREATE POLICY "Service role full access to assistant telemetry" ON gtf_assistant
   FOR ALL TO service_role USING (true) WITH CHECK (true);
 CREATE POLICY "Allow anon insert assistant telemetry" ON gtf_assistant_queries
   FOR INSERT TO anon WITH CHECK (true);
+
+
+-- 7. Encrypted server-side integrations (OAuth refresh tokens are never exposed to clients)
+CREATE TABLE IF NOT EXISTS gtf_integrations (
+  key VARCHAR(64) PRIMARY KEY,
+  account_email VARCHAR(255) NOT NULL,
+  encrypted_refresh_token TEXT NOT NULL,
+  updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
+
+ALTER TABLE gtf_integrations ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Service role full access to integrations" ON gtf_integrations
+  FOR ALL TO service_role USING (true) WITH CHECK (true);

@@ -30,12 +30,15 @@ const AffiliateDisclosurePage = lazy(() => import('./pages/AffiliateDisclosurePa
 const LegalPage = lazy(() => import('./pages/LegalPages').then(m => ({ default: m.LegalPage })));
 const NotFoundPage = lazy(() => import('./pages/LegalPages').then(m => ({ default: m.NotFoundPage })));
 const AdminMonetizationPage = lazy(() => import('./pages/AdminMonetizationPage').then(m => ({ default: m.AdminMonetizationPage })));
+const CategoryDirectoryPage = lazy(() => import('./pages/CategoryDirectoryPage').then(m => ({ default: m.CategoryDirectoryPage })));
 
 export type AppView =
   | 'home'
   | 'products'
   | 'product-detail'
   | 'ai-tools'
+  | 'databases'
+  | 'deployment'
   | 'free-tools'
   | 'pricing'
   | 'india-offers'
@@ -114,7 +117,7 @@ export default function App() {
       setCurrentView('comparison-detail');
       setCurrentSlug(slug);
     } else if ([
-      'home', 'products', 'product-detail', 'ai-tools', 'free-tools',
+      'home', 'products', 'product-detail', 'ai-tools', 'databases', 'deployment', 'free-tools',
       'pricing', 'india-offers', 'tutorials', 'tutorial-detail',
       'comparisons', 'comparison-detail', 'latest-updates', 'about',
       'contact', 'affiliate-disclosure', 'disclaimer', 'privacy', 'terms', 'admin'
@@ -180,8 +183,16 @@ export default function App() {
       }
     } else if (currentView === 'ai-tools') {
       title = 'Google AI Tools & Models (Gemini, NotebookLM, AI Studio) | Google Tool Finder';
-      description = 'Explore Google generative AI tools, free trials, developer API rate limits, and enterprise pricing.';
+      description = 'Compare Google and third-party AI assistants, model APIs, free-tier tokens, usage limits, specifications and official pricing.';
       canonicalPath = '/ai-tools';
+    } else if (currentView === 'databases') {
+      title = 'Database Directory: Free Tiers, Storage & Specifications | Google Tool Finder';
+      description = 'Compare database platforms, free-tier storage, specifications and official pricing links.';
+      canonicalPath = '/databases';
+    } else if (currentView === 'deployment') {
+      title = 'Deployment Platforms: Free Hosting, Limits & Specifications | Google Tool Finder';
+      description = 'Compare deployment and hosting platforms, free usage, storage models and official pricing.';
+      canonicalPath = '/deployment';
     } else if (currentView === 'free-tools') {
       title = '100% Free Google Tools & Free-Tier Software | Google Tool Finder';
       description = 'Discover free Google tools for students, creators, and developers with zero monthly subscription fees.';
@@ -388,6 +399,13 @@ export default function App() {
               <AIToolsPage
                 onSelectProduct={(slug) => navigate('product-detail', slug)}
                 onNavigateTutorial={(slug) => navigate('tutorial-detail', slug)}
+              />
+            )}
+
+            {(currentView === 'databases' || currentView === 'deployment') && (
+              <CategoryDirectoryPage
+                kind={currentView}
+                onSelectProduct={(slug) => navigate('product-detail', slug)}
               />
             )}
 

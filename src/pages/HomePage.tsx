@@ -57,6 +57,7 @@ import { AdPlacement } from '../components/AdPlacement';
 import { FeaturedOwnerPromotion } from '../components/FeaturedOwnerPromotion';
 import { ProductLogo } from '../components/ProductLogo';
 import { WaterLightGlass } from '../components/WaterLightGlass';
+import { TechNewsSection } from '../components/TechNewsSection';
 
 interface HomePageProps {
   onNavigate: (view: string, slug?: string) => void;
@@ -224,13 +225,13 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
           setEnquiryErrors(data.details);
         }
         setEnquiryServerError(
-          data.error || 'Unable to submit your enquiry at this time. Please contact us directly at bringmybite@gmail.com.'
+          data.error || 'Unable to submit your enquiry at this time. Please contact us directly at 28r.n.singh@gmail.com.'
         );
       }
     } catch (err) {
       console.error('[Client Enquiry Submission Error]', err);
       setEnquiryServerError(
-        'Network error connecting to the submission service. Please check your connection or contact bringmybite@gmail.com directly.'
+        'Network error connecting to the submission service. Please check your connection or contact 28r.n.singh@gmail.com directly.'
       );
     } finally {
       setIsSubmittingEnquiry(false);
@@ -613,6 +614,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
           </div>
         </div>
       </section>
+
+      <TechNewsSection />
 
       {/* 2. POPULAR GOOGLE PRODUCTS (Visual Discovery: Logo-First Cards) */}
       <section id="popular-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
@@ -1114,7 +1117,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
                       <div className="space-y-1">
                         <div className="font-bold">Submission Notice</div>
                         <div className="leading-relaxed">{enquiryServerError}</div>
-                        <div className="pt-1 text-[11px]">Direct Email: <a href="mailto:bringmybite@gmail.com" className="underline font-bold">bringmybite@gmail.com</a></div>
+                        <div className="pt-1 text-[11px]">Direct Email: <a href="mailto:28r.n.singh@gmail.com" className="underline font-bold">28r.n.singh@gmail.com</a></div>
                       </div>
                     </div>
                   )}
@@ -1420,10 +1423,10 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSearch }) 
                     <span>Direct Inquiries</span>
                   </div>
                   <a
-                    href="mailto:bringmybite@gmail.com"
+                    href="mailto:28r.n.singh@gmail.com"
                     className="text-xs font-bold text-blue-600 hover:text-blue-800 break-all block"
                   >
-                    bringmybite@gmail.com
+                    28r.n.singh@gmail.com
                   </a>
                   <p className="text-[10px] text-slate-500 leading-snug">
                     Prefer direct email? Send your project brief directly to our team.

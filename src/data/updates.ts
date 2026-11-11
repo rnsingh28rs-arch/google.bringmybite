@@ -2,6 +2,36 @@ import { UpdateItem } from '../types';
 
 export const LATEST_UPDATES: UpdateItem[] = [
   {
+    id: 'gemini-4-carbon-developer-availability-nov-2026',
+    date: '10 November 2026',
+    title: 'Gemini 4 Carbon becomes available to paying developers',
+    category: 'AI Launch',
+    productName: 'Gemini API / Google AI Studio',
+    summary: 'Google opened Gemini 4 Carbon to developers through the paid tier of the Gemini API in AI Studio and Android Studio. Google lists introductory pricing at $2 per million input tokens and $10 per million output tokens through 30 November 2026; the announced rates rise to $4 and $20 respectively from 1 December. Availability in consumer products is plan-dependent.',
+    impact: 'Developers should update model catalogues and cost estimates, confirm the model identifier and regional access in AI Studio, and budget for the announced December price change.',
+    officialSourceUrl: 'https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-carbon-now-available/'
+  },
+  {
+    id: 'google-ai-edge-offline-speech-nov-2026',
+    date: '10 November 2026',
+    title: 'Google AI Edge Gallery adds offline speech recognition and text-to-speech',
+    category: 'New Feature',
+    productName: 'Google AI Edge Gallery / ML Kit / MediaPipe / LiteRT',
+    summary: 'Google announced on-device automatic speech recognition and text-to-speech for AI Edge Gallery. Android developers can evaluate ML Kit GenAI Speech APIs, while cross-platform projects can use MediaPipe Tasks and LiteRT with open-weight speech models.',
+    impact: 'Voice interfaces can work with lower network dependence. Developers should validate supported devices, languages, memory requirements and accuracy with their own audio samples.',
+    officialSourceUrl: 'https://developers.googleblog.com/on-device-speech-recognition-and-text-to-speech-in-google-ai-edge-gallery/'
+  },
+  {
+    id: 'google-november-2026-core-update',
+    date: '10 November 2026',
+    title: 'Google begins November 2026 Search core update rollout',
+    category: 'New Feature',
+    productName: 'Google Search',
+    summary: 'Google confirmed a global core update on 10 November, with rollout expected to take up to two weeks. The update is intended to improve how Search surfaces relevant and satisfying content; it is not described as a manual penalty.',
+    impact: 'Publishers should annotate the rollout in analytics and compare Search Console performance after the update completes, avoiding conclusions from short-term ranking volatility.',
+    officialSourceUrl: 'https://www.seroundtable.com/google-november-2026-core-update-42504.html'
+  },
+  {
     id: 'google-gemini-small-business-oct-2026',
     date: '21 October 2026',
     title: 'Gemini introduces a dedicated hub for small businesses',

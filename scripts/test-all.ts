@@ -309,7 +309,7 @@ async function runTests() {
     const { req, res, getResponse } = createMockReqRes({
       method: 'POST',
       url: '/api/admin/auth',
-      body: { password: 'anypassword' }
+      body: { email: '28r.n.singh@gmail.com', password: 'anypassword' }
     });
     await adminAuthHandler(req, res);
     const result = getResponse();
@@ -322,7 +322,7 @@ async function runTests() {
     const { req: wrongReq, res: wrongRes, getResponse: getWrongRes } = createMockReqRes({
       method: 'POST',
       url: '/api/admin/auth',
-      body: { password: 'wrong_password' }
+      body: { email: '28r.n.singh@gmail.com', password: 'wrong_password' }
     });
     await adminAuthHandler(wrongReq, wrongRes);
     assert(getWrongRes().statusCode === 401 && getWrongRes().body.error === 'INVALID_CREDENTIALS', 'Rejects wrong password with 401 INVALID_CREDENTIALS');
@@ -331,12 +331,21 @@ async function runTests() {
     const { req: okReq, res: okRes, getResponse: getOkRes } = createMockReqRes({
       method: 'POST',
       url: '/api/admin/auth',
-      body: { password: 'super_secure_test_password_123' }
+      body: { email: '28r.n.singh@gmail.com', password: 'super_secure_test_password_123' }
     });
     await adminAuthHandler(okReq, okRes);
     const okResult = getOkRes();
     assert(okResult.statusCode === 200 && Boolean(okResult.body.token), 'Accepts correct password, issues HMAC-SHA256 session token');
     const validToken = okResult.body.token;
+
+    // Correct password with the wrong administrator email must not authenticate.
+    const { req: wrongEmailReq, res: wrongEmailRes, getResponse: getWrongEmail } = createMockReqRes({
+      method: 'POST',
+      url: '/api/admin/auth',
+      body: { email: 'attacker@example.com', password: 'super_secure_test_password_123' }
+    });
+    await adminAuthHandler(wrongEmailReq, wrongEmailRes);
+    assert(getWrongEmail().statusCode === 401 && getWrongEmail().body.error === 'INVALID_CREDENTIALS', 'Rejects correct password when administrator email does not match');
 
     // GET with valid token -> 200
     const { req: verifyReq, res: verifyRes, getResponse: getVerifyRes } = createMockReqRes({
@@ -371,7 +380,7 @@ async function runTests() {
     const { req: hashOkReq, res: hashOkRes, getResponse: getHashOkRes } = createMockReqRes({
       method: 'POST',
       url: '/api/admin/auth',
-      body: { password: testSecret }
+      body: { email: '28r.n.singh@gmail.com', password: testSecret }
     });
     await adminAuthHandler(hashOkReq, hashOkRes);
     const hashOkResult = getHashOkRes();
@@ -380,7 +389,7 @@ async function runTests() {
     const { req: hashBadReq, res: hashBadRes, getResponse: getHashBadRes } = createMockReqRes({
       method: 'POST',
       url: '/api/admin/auth',
-      body: { password: 'incorrect_password' }
+      body: { email: '28r.n.singh@gmail.com', password: 'incorrect_password' }
     });
     await adminAuthHandler(hashBadReq, hashBadRes);
     assert(getHashBadRes().statusCode === 401 && getHashBadRes().body.error === 'INVALID_CREDENTIALS', 'Rejects wrong password with 401 when ADMIN_PASSWORD_HASH is set');
@@ -833,6 +842,22 @@ async function runTests() {
     assert(homeContent.includes('QUANTUM ENGINE'), 'HomePage contains QUANTUM ENGINE section');
     assert(homeContent.includes('TOTAL COGNITIVE NEXUS'), 'HomePage contains TOTAL COGNITIVE NEXUS section');
     assert(homeContent.includes('Why Google Tool Finder Exists'), 'HomePage explains why Google Tool Finder exists');
+    const techNewsContent = fs.readFileSync(path.join(process.cwd(), 'src', 'components', 'TechNewsSection.tsx'), 'utf-8');
+    assert(techNewsContent.includes('TECH NEWS') && techNewsContent.includes('news.google.com'), 'Homepage Tech News section includes Google News source link');
+    const directoryContent = fs.readFileSync(path.join(process.cwd(), 'src', 'pages', 'CategoryDirectoryPage.tsx'), 'utf-8');
+    assert(directoryContent.includes('DATABASE DIRECTORY') && directoryContent.includes('DEPLOYMENT DIRECTORY'), 'Dedicated database and deployment directories are implemented');
+    assert(directoryContent.includes('database_directory') && directoryContent.includes('deployment_directory'), 'Database and deployment outbound links use separate campaign tags');
+    assert(thirdPartyAIContent.includes('Runway') && thirdPartyAIContent.includes('ElevenLabs') && thirdPartyAIContent.includes('Leonardo AI') && thirdPartyAIContent.includes('Suno'), 'AI directory includes video, voice, image and music tools');
+    const productCatalogueContent = fs.readFileSync(path.join(process.cwd(), 'src', 'data', 'products.ts'), 'utf-8');
+    assert(productCatalogueContent.includes('Gemini 4 Carbon') && productCatalogueContent.includes('Databases') && productCatalogueContent.includes('Deployment Platforms'), 'Existing Google tools and new product category tags are refreshed');
+    const thirdPartyAIContent = fs.readFileSync(path.join(process.cwd(), 'src', 'data', 'thirdPartyAIProducts.ts'), 'utf-8');
+    assert(thirdPartyAIContent.includes('OpenRouter') && thirdPartyAIContent.includes('Hugging Face'), 'Third-party AI provider catalogue is included');
+    const gmailOAuthContent = fs.readFileSync(path.join(process.cwd(), 'api', 'gmail', 'oauth.ts'), 'utf-8');
+    const gmailHelperContent = fs.readFileSync(path.join(process.cwd(), 'api', '_gmail.ts'), 'utf-8');
+    assert(gmailOAuthContent.includes('gmail.send') && gmailOAuthContent.includes('verifyIdToken'), 'Gmail OAuth validates Google identity and requests send-only scope');
+    assert(gmailHelperContent.includes('aes-256-gcm') && gmailHelperContent.includes('gmail.googleapis.com/gmail/v1/users/me/messages/send'), 'Gmail refresh tokens are encrypted and server-side Gmail API sending is implemented');
+    const enquiryApiContent = fs.readFileSync(path.join(process.cwd(), 'api', 'contact.ts'), 'utf-8');
+    assert(enquiryApiContent.includes('sendGmailMessage') && enquiryApiContent.includes('28r.n.singh@gmail.com'), 'Contact and project enquiries have the configured admin recipient and Gmail fallback');
 
     // Check Disclaimer, Terms & Conditions source preservation
     const legalContent = fs.readFileSync(path.join(process.cwd(), 'src', 'pages', 'LegalPages.tsx'), 'utf-8');
@@ -918,6 +943,21 @@ async function runTests() {
     });
     await userHandler(r6, s6);
     assert(g6().statusCode === 404, 'POST /api/user/save-tool rejects non-existent UID with 404');
+
+    // 8.7 Production must fail closed if Google token audience configuration is missing.
+    const originalVercelEnv = process.env.VERCEL_ENV;
+    const originalGoogleClientId = process.env.GOOGLE_CLIENT_ID;
+    process.env.VERCEL_ENV = 'production';
+    delete process.env.GOOGLE_CLIENT_ID;
+    const { req: r7, res: s7, getResponse: g7 } = createMockReqRes({
+      method: 'POST',
+      url: '/api/user/sync',
+      body: { uid: 'forged-user-uid', email: 'forged@example.com', idToken: 'not-a-real-token' }
+    });
+    await userHandler(r7, s7);
+    assert(g7().statusCode === 503 && g7().body.error === 'GOOGLE_AUTH_UNCONFIGURED', 'Production refuses unverified identity when GOOGLE_CLIENT_ID is missing');
+    if (originalVercelEnv) process.env.VERCEL_ENV = originalVercelEnv; else delete process.env.VERCEL_ENV;
+    if (originalGoogleClientId) process.env.GOOGLE_CLIENT_ID = originalGoogleClientId; else delete process.env.GOOGLE_CLIENT_ID;
   }
 
   // TEST SUITE 9: ADMIN ANALYTICS AUTHORIZATION & PERSISTENCE (/api/admin/analytics)
@@ -1015,7 +1055,7 @@ async function runTests() {
         method: 'POST',
         url: '/api/admin/auth',
         headers: { 'x-forwarded-for': attackerIp },
-        body: { password: `wrong_pass_${i}` }
+        body: { email: '28r.n.singh@gmail.com', password: `wrong_pass_${i}` }
       });
       await adminAuthHandler(req, res);
       const resp = getResponse();
@@ -1030,7 +1070,7 @@ async function runTests() {
       method: 'POST',
       url: '/api/admin/auth',
       headers: { 'x-forwarded-for': attackerIp },
-      body: { password: 'wrong_pass_6' }
+      body: { email: '28r.n.singh@gmail.com', password: 'wrong_pass_6' }
     });
     await adminAuthHandler(req6, res6);
     const resp6 = getResp6();
@@ -1041,7 +1081,7 @@ async function runTests() {
       method: 'POST',
       url: '/api/admin/auth',
       headers: { 'x-forwarded-for': '198.51.100.88' },
-      body: { password: 'wrong_password_benign' }
+      body: { email: '28r.n.singh@gmail.com', password: 'wrong_password_benign' }
     });
     await adminAuthHandler(benignReq, benignRes);
     const benignResp = getBenignResp();

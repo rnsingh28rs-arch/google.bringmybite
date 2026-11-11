@@ -17,6 +17,16 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://google.bringmybite.com/databases</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://google.bringmybite.com/deployment</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://google.bringmybite.com/free-tools</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -102,6 +112,24 @@
   <url><loc>https://google.bringmybite.com/products/google-play-billing</loc><changefreq>weekly</changefreq><priority>0.75</priority></url>
   <url><loc>https://google.bringmybite.com/products/google-ima</loc><changefreq>weekly</changefreq><priority>0.75</priority></url>
   <url><loc>https://google.bringmybite.com/products/android-studio</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+
+  <!-- Third-party AI tools (curated, provider links and usage terms verified 11 Nov 2026) -->
+  <url><loc>https://google.bringmybite.com/products/chatgpt</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://google.bringmybite.com/products/claude</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://google.bringmybite.com/products/perplexity</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://google.bringmybite.com/products/hugging-face</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://google.bringmybite.com/products/mistral-le-chat</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://google.bringmybite.com/products/openrouter</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://google.bringmybite.com/products/groqcloud</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+
+  <url><loc>https://google.bringmybite.com/products/runway</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://google.bringmybite.com/products/elevenlabs</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://google.bringmybite.com/products/leonardo-ai</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://google.bringmybite.com/products/suno</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://google.bringmybite.com/products/ideogram</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <!-- Developer AI APIs -->
+  <url><loc>https://google.bringmybite.com/products/openai-api</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://google.bringmybite.com/products/anthropic-api</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
 
   <!-- Tutorial Detail Pages (7 Guides) -->
   <url><loc>https://google.bringmybite.com/tutorials/getting-started-with-gemini</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
